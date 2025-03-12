@@ -59,7 +59,7 @@
         .salad-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 40px;
+            gap: 20px; /* Reduced gap for better fit */
             justify-content: center;
             padding: 20px;
             margin-top: 20px;
@@ -67,7 +67,8 @@
 
         .salad-card {
             background: #2b2b2b;
-            width: 320px;
+            flex: 0 0 calc(50% - 10px); /* 50% width minus half the gap */
+            max-width: calc(50% - 10px); /* Ensure it doesn't exceed 50% */
             border: 2px solid #00ff7f;
             border-radius: 0 20px 0 20px;
             overflow: hidden;
@@ -155,12 +156,12 @@
 
         @media (max-width: 600px) {
             .salad-grid {
-                flex-direction: column;
-                align-items: center;
+                gap: 20px;
             }
 
             .salad-card {
-                width: 90%;
+                flex: 0 0 calc(50% - 10px); /* Ensure 2 cards per row even on mobile */
+                max-width: calc(50% - 10px);
                 transform: rotate(0deg);
             }
 
@@ -170,6 +171,20 @@
 
             header h1 {
                 font-size: 2em;
+            }
+        }
+
+        /* Safari-specific adjustments */
+        @supports (-webkit-touch-callout: none) {
+            .salad-grid {
+                display: -webkit-flex;
+                -webkit-flex-wrap: wrap;
+                -webkit-justify-content: center;
+            }
+
+            .salad-card {
+                -webkit-flex: 0 0 calc(50% - 10px);
+                max-width: calc(50% - 10px);
             }
         }
     </style>
@@ -208,10 +223,21 @@
             <div class="salad-card">
                 <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Garden Green" class="salad-image">
                 <div class="salad-info">
-                    <h2>Future House</h2>
+                    <h2>Futura Casa 1</h2>
                     <p>Leaf mix, avo slice, carrot shred, honey sting</p>
                     <span class="price">$7.99</span>
-                    <button class="order-btn" onclick="generatePurchaseOrder('Future House', 7.99, 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c')">Grab It</button>
+                    <button class="order-btn" onclick="generatePurchaseOrder('Futura Casa 1', 7.99, 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c')">Grab It</button>
+                </div>
+            </div>
+
+            <!-- Salad 4 (New Fruit Salad with Edible Flowers) -->
+            <div class="salad-card">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Bloom Burst" class="salad-image">
+                <div class="salad-info">
+                    <h2>Futura Casa 2</h2>
+                    <p>Berry mix, mango chunks, edible petals, citrus blast</p>
+                    <span class="price">$10.99</span>
+                    <button class="order-btn" onclick="generatePurchaseOrder('Futura Casa 2', 10.99, 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c')">Grab It</button>
                 </div>
             </div>
         </div>
@@ -225,18 +251,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
         function generatePurchaseOrder(saladName, price, imageUrl) {
-            // Generate a unique order ID
             const orderId = 'ORDER-' + Math.floor(Math.random() * 1000000);
-
-            // Initialize jsPDF
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            // Add a header background
-            doc.setFillColor(0, 255, 127); // Neon green
+            doc.setFillColor(0, 255, 127);
             doc.rect(0, 0, 210, 30, 'F');
-
-            // Add logo text
             doc.setFontSize(20);
             doc.setTextColor(255, 255, 255);
             doc.setFont('Helvetica', 'bold');
@@ -244,13 +264,9 @@
             doc.setFontSize(12);
             doc.setFont('Helvetica', 'normal');
             doc.text('Fresh Edge To Go', 10, 26);
-
-            // Add title
             doc.setFontSize(16);
             doc.setTextColor(0, 0, 0);
             doc.text('Purchase Order', 105, 40, { align: 'center' });
-
-            // Add order details
             doc.setFontSize(12);
             doc.text(`Order ID: ${orderId}`, 20, 50);
             doc.text(`Salad: ${saladName}`, 20, 60);
@@ -258,63 +274,38 @@
             doc.text('Instructions: Share this PDF with GREENART to fulfill your order.', 20, 80);
             doc.text('Date: ' + new Date().toLocaleDateString(), 20, 90);
 
-            // Add image
             const img = new Image();
             img.crossOrigin = 'Anonymous';
             img.src = imageUrl + '?not-from-cache-please';
             img.onload = function () {
-                doc.addImage(img, 'JPEG', 150, 40, 40, 40); // Position and size of the image
-
-                // Add footer
+                doc.addImage(img, 'JPEG', 150, 40, 40, 40);
                 doc.setFontSize(10);
                 doc.setTextColor(150);
                 doc.text('Thank you for choosing GREENART!', 105, 270, { align: 'center' });
 
-                // Generate PDF as a Blob for WhatsApp sharing
                 const pdfOutput = doc.output('blob');
                 const pdfFile = new File([pdfOutput], `GREENART_PurchaseOrder_${orderId}.pdf`, { type: 'application/pdf' });
-
-                // Download the PDF
                 doc.save(`GREENART_PurchaseOrder_${orderId}.pdf`);
-
-                // Share to WhatsApp
                 shareToWhatsApp(pdfFile, orderId, saladName);
             };
             img.onerror = function () {
-                // Fallback if image fails to load
                 doc.setFontSize(10);
                 doc.setTextColor(255, 0, 0);
                 doc.text('Image not available', 150, 50);
-
-                // Add footer
                 doc.setFontSize(10);
                 doc.setTextColor(150);
                 doc.text('Thank you for choosing GREENART!', 105, 270, { align: 'center' });
 
-                // Generate PDF as a Blob for WhatsApp sharing
                 const pdfOutput = doc.output('blob');
                 const pdfFile = new File([pdfOutput], `GREENART_PurchaseOrder_${orderId}.pdf`, { type: 'application/pdf' });
-
-                // Download the PDF
                 doc.save(`GREENART_PurchaseOrder_${orderId}.pdf`);
-
-                // Share to WhatsApp
                 shareToWhatsApp(pdfFile, orderId, saladName);
             };
         }
 
         function shareToWhatsApp(pdfFile, orderId, saladName) {
-            // Predefined WhatsApp number (replace with your business number)
-            const phoneNumber = '+524421112522'; // Replace with GREENART's WhatsApp number
+            const phoneNumber = '1234567890'; // Replace with GREENART's WhatsApp number
             const message = `New Order: ${saladName} (Order ID: ${orderId})`;
-
-            // Create a FormData object to handle the file
-            const formData = new FormData();
-            formData.append('file', pdfFile);
-
-            // Unfortunately, WhatsApp API doesn't support direct file sharing via URL in a client-side context.
-            // Instead, we can open WhatsApp with a pre-filled message and instruct the user to attach the downloaded PDF.
-
             const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message + '\nPlease attach the downloaded PDF to confirm your order.')}`;
             window.open(whatsappUrl, '_blank');
         }
