@@ -352,7 +352,7 @@
                 const message = `New Order: ${saladName} (Order ID: ${orderId})\nPlease attach the downloaded PDF to confirm your order.`;
                 alert('Download complete! Print the PDF or share it manually. Suggested contacts: GREENART Staff (+524421112522).');
                 if (confirm('Open WhatsApp to share with GREENART?')) {
-                    window.open(`https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`, '_blank');
+                    window.open(`https://api.whatsapp.com/send?phone=${524421112522}&text=${encodeURIComponent(message)}`, '_blank');
                 }
             };
         }
