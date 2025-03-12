@@ -59,7 +59,7 @@
         .salad-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px; /* Reduced gap for better fit */
+            gap: 20px;
             justify-content: center;
             padding: 20px;
             margin-top: 20px;
@@ -85,39 +85,42 @@
 
         .salad-image {
             width: 100%;
-            height: 220px;
+            height: 180px; /* Reduced height for better text space */
             object-fit: cover;
             clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
         }
 
         .salad-info {
-            padding: 20px;
+            padding: 15px; /* Reduced padding for more space */
             position: relative;
         }
 
         .salad-info h2 {
             color: #00ff7f;
-            font-size: 1.8em;
+            font-size: 1.5em; /* Reduced font size for better fit */
             text-transform: uppercase;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            overflow-wrap: break-word; /* Ensure long names wrap */
+            word-break: break-word;
         }
 
         .salad-info p {
             color: #ccc;
-            font-size: 0.9em;
-            margin-bottom: 15px;
+            font-size: 0.85em; /* Slightly reduced for compactness */
+            margin-bottom: 10px;
+            overflow-wrap: break-word;
         }
 
         .price {
             font-weight: bold;
             color: #ff007f;
-            font-size: 1.5em;
+            font-size: 1.3em; /* Slightly reduced for balance */
             position: absolute;
-            top: -40px;
-            right: 20px;
+            top: -30px; /* Adjusted position */
+            right: 15px;
             background: #2b2b2b;
-            padding: 5px 10px;
+            padding: 5px 8px;
             border-radius: 50%;
             border: 2px solid #ff007f;
         }
@@ -126,12 +129,14 @@
             background: #ff007f;
             color: #fff;
             border: none;
-            padding: 12px 25px;
+            padding: 10px 20px; /* Reduced padding */
             border-radius: 0 10px 0 10px;
             cursor: pointer;
             font-weight: bold;
             text-transform: uppercase;
             transition: all 0.3s ease;
+            width: 100%; /* Full width for better mobile interaction */
+            box-sizing: border-box;
         }
 
         .order-btn:hover {
@@ -156,21 +161,35 @@
 
         @media (max-width: 600px) {
             .salad-grid {
-                gap: 20px;
+                gap: 10px; /* Reduced gap on mobile */
             }
 
             .salad-card {
-                flex: 0 0 calc(50% - 10px); /* Ensure 2 cards per row even on mobile */
-                max-width: calc(50% - 10px);
+                flex: 0 0 calc(50% - 5px); /* Adjusted for smaller screens */
+                max-width: calc(50% - 5px);
                 transform: rotate(0deg);
             }
 
-            .header-image {
-                height: 200px;
+            .salad-image {
+                height: 140px; /* Further reduced for mobile */
             }
 
-            header h1 {
-                font-size: 2em;
+            .salad-info h2 {
+                font-size: 1.2em; /* Smaller font on mobile */
+            }
+
+            .salad-info p {
+                font-size: 0.75em; /* Smaller text on mobile */
+            }
+
+            .price {
+                font-size: 1.1em; /* Adjusted for mobile */
+                top: -25px;
+                right: 10px;
+            }
+
+            .order-btn {
+                padding: 8px 15px; /* Smaller padding on mobile */
             }
         }
 
@@ -193,7 +212,7 @@
     <div class="container">
         <header>
             <img src="https://i.imgur.com/ByZi83V.jpeg" alt="GREENART Urban Salad Farm" class="header-image">
-            <h1> </h1>
+            <h1> </h1> <!-- Restored title -->
         </header>
 
         <div class="salad-grid">
@@ -230,7 +249,7 @@
                 </div>
             </div>
 
-            <!-- Salad 4 (New Fruit Salad with Edible Flowers) -->
+            <!-- Salad 4 -->
             <div class="salad-card">
                 <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Bloom Burst" class="salad-image">
                 <div class="salad-info">
@@ -273,6 +292,7 @@
             doc.text(`Price: $${price}`, 20, 70);
             doc.text('Instructions: Share this PDF with GREENART to fulfill your order.', 20, 80);
             doc.text('Date: ' + new Date().toLocaleDateString(), 20, 90);
+            doc.text('Print this page and share with GREENART staff.', 20, 100); // Added print instruction
 
             const img = new Image();
             img.crossOrigin = 'Anonymous';
@@ -285,8 +305,25 @@
 
                 const pdfOutput = doc.output('blob');
                 const pdfFile = new File([pdfOutput], `GREENART_PurchaseOrder_${orderId}.pdf`, { type: 'application/pdf' });
-                doc.save(`GREENART_PurchaseOrder_${orderId}.pdf`);
-                shareToWhatsApp(pdfFile, orderId, saladName);
+
+                // Trigger download
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(pdfOutput);
+                link.download = `GREENART_PurchaseOrder_${orderId}.pdf`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Offer print option
+                window.print();
+
+                // Manual WhatsApp sharing with suggestion
+                const phoneNumber = '1234567890'; // Replace with GREENART's WhatsApp number
+                const message = `New Order: ${saladName} (Order ID: ${orderId})\nPlease attach the downloaded PDF to confirm your order.`;
+                alert('Download complete! Print the PDF or share it manually. Suggested contacts: GREENART Staff (+1234567890).');
+                if (confirm('Open WhatsApp to share with GREENART?')) {
+                    window.open(`https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`, '_blank');
+                }
             };
             img.onerror = function () {
                 doc.setFontSize(10);
@@ -298,16 +335,26 @@
 
                 const pdfOutput = doc.output('blob');
                 const pdfFile = new File([pdfOutput], `GREENART_PurchaseOrder_${orderId}.pdf`, { type: 'application/pdf' });
-                doc.save(`GREENART_PurchaseOrder_${orderId}.pdf`);
-                shareToWhatsApp(pdfFile, orderId, saladName);
-            };
-        }
 
-        function shareToWhatsApp(pdfFile, orderId, saladName) {
-            const phoneNumber = '1234567890'; // Replace with GREENART's WhatsApp number
-            const message = `New Order: ${saladName} (Order ID: ${orderId})`;
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message + '\nPlease attach the downloaded PDF to confirm your order.')}`;
-            window.open(whatsappUrl, '_blank');
+                // Trigger download
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(pdfOutput);
+                link.download = `GREENART_PurchaseOrder_${orderId}.pdf`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Offer print option
+                window.print();
+
+                // Manual WhatsApp sharing with suggestion
+                const phoneNumber = '524421112522'; // Replace with GREENART's WhatsApp number
+                const message = `New Order: ${saladName} (Order ID: ${orderId})\nPlease attach the downloaded PDF to confirm your order.`;
+                alert('Download complete! Print the PDF or share it manually. Suggested contacts: GREENART Staff (+524421112522).');
+                if (confirm('Open WhatsApp to share with GREENART?')) {
+                    window.open(`https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`, '_blank');
+                }
+            };
         }
     </script>
 </body>
