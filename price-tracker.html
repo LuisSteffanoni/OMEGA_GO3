@@ -31,13 +31,58 @@
         }
         .content {
             padding: 2rem;
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         .content h1 {
             color: #4CAF50;
             font-size: 2.5rem;
             margin-bottom: 1rem;
+        }
+        .content p {
+            margin-bottom: 1rem;
+        }
+        .chart-section {
+            margin: 2rem 0;
+            background-color: #2c2c2c;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        .chart-section h2 {
+            color: #4CAF50;
+            margin-bottom: 1rem;
+        }
+        canvas {
+            max-width: 100%;
+        }
+        .platform-section {
+            margin: 2rem 0;
+        }
+        .platform-section h2 {
+            color: #4CAF50;
+            margin-bottom: 1rem;
+        }
+        .platform-section .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .platform-section .cta-button:hover {
+            transform: scale(1.1);
+            background-color: #388E3C;
+        }
+        @media (max-width: 768px) {
+            .content {
+                padding: 1rem;
+            }
+            .content h1 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
@@ -47,7 +92,98 @@
     </header>
     <div class="content">
         <h1>Price Tracker</h1>
-        <p>Nos comprometemos con el comercio justo, actualizando nuestros precios semanalmente para reflejar los costos más equitativos del mercado.</p>
+        <p>Nos comprometemos con el comercio justo, actualizando nuestros precios diariamente para reflejar los costos más equitativos del mercado. Explora las estadísticas de precios en tiempo real y conecta con productores y compradores.</p>
+
+        <!-- Dynamic Chart Section -->
+        <div class="chart-section">
+            <h2>Precios Diarios de Productos Agrícolas (MXN/kg)</h2>
+            <canvas id="priceChart"></canvas>
+        </div>
+
+        <!-- Platform for Producers and Buyers -->
+        <div class="platform-section">
+            <h2>Plataforma para Productores y Compradores</h2>
+            <p>Conecta directamente con productores y compradores en nuestra plataforma. Si eres productor, registra tus productos para vender. Si eres comprador, encuentra los mejores precios y proveedores confiables.</p>
+            <a href="#register-producer" class="cta-button">Soy Productor</a>
+            <a href="#register-buyer" class="cta-button">Soy Comprador</a>
+        </div>
     </div>
+
+    <!-- Include Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Placeholder data for the chart (replace with your daily prices)
+        const priceData = {
+            labels: ['01/03', '02/03', '03/03', '04/03', '05/03', '06/03', '07/03'], // Last 7 days
+            datasets: [
+                {
+                    label: 'Aguacate',
+                    data: [55, 53, 57, 60, 58, 56, 59], // Prices in MXN/kg
+                    borderColor: '#4CAF50',
+                    backgroundColor: 'rgba(76, 175, 80, 0.2)',
+                    fill: true,
+                },
+                {
+                    label: 'Tomate',
+                    data: [22, 23, 21, 24, 23, 22, 25],
+                    borderColor: '#FF6347',
+                    backgroundColor: 'rgba(255, 99, 71, 0.2)',
+                    fill: true,
+                },
+                {
+                    label: 'Maíz',
+                    data: [8, 8.5, 8.2, 8.7, 8.3, 8.4, 8.6],
+                    borderColor: '#FFD700',
+                    backgroundColor: 'rgba(255, 215, 0, 0.2)',
+                    fill: true,
+                }
+            ]
+        };
+
+        // Create the chart
+        const ctx = document.getElementById('priceChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: priceData,
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Fecha (Marzo 2025)',
+                            color: '#e0e0e0'
+                        },
+                        ticks: {
+                            color: '#e0e0e0'
+                        },
+                        grid: {
+                            color: '#666'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Precio (MXN/kg)',
+                            color: '#e0e0e0'
+                        },
+                        ticks: {
+                            color: '#e0e0e0'
+                        },
+                        grid: {
+                            color: '#666'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#e0e0e0'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
