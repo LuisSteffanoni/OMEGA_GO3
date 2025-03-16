@@ -136,6 +136,54 @@
         .card p {
             color: #e0e0e0;
         }
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .card .hover-content {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #388E3C;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .card:hover .hover-content {
+            opacity: 1;
+        }
+        .card .expand-content {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #2c2c2c;
+            padding: 2rem;
+            text-align: left;
+            z-index: 1;
+        }
+        .card .expand-content p {
+            margin-bottom: 1rem;
+        }
+        .card .collapse-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .card .collapse-btn:hover {
+            background-color: #388E3C;
+        }
         .footer {
             background-color: #388E3C;
             color: white;
@@ -212,7 +260,7 @@
         <div class="dots">
             <span class="dot active"></span>
             <span class="dot"></span>
-            <span class="dot"></span> <!-- Added third dot -->
+            <span class="dot"></span>
         </div>
     </div>
 
@@ -220,26 +268,61 @@
     <div class="about">
         <h2>Sobre Nosotros</h2>
         <div class="about-cards">
-            <div class="card">
-                <h3>Frescura</h3>
-                <p>Garantizamos productos frescos en cada entrega.</p>
-            </div>
-            <div class="card">
-                <h3>Personalización</h3>
-                <p>Soluciones a medida para tus necesidades.</p>
-            </div>
-            <div class="card">
-                <h3>Sostenibilidad</h3>
-                <p>Comprometidos con prácticas ecológicas.</p>
-            </div>
-            <div class="card">
-                <h3>Price Tracker</h3>
-                <p>Comprometidos con el comercio justo.</p>
-            </div>
-            <div class="card">
-                <h3>Socios y Productores</h3>
-                <p>Trabajo en equipo desde la siembra de cada producto.</p>
-            </div>
+            <a href="frescura.html" class="card-link" data-index="0">
+                <div class="card">
+                    <h3>Frescura</h3>
+                    <p>Garantizamos productos frescos en cada entrega.</p>
+                    <div class="hover-content">Entregas en 24 horas.</div>
+                    <div class="expand-content" style="display: none;">
+                        <p>Nuestra red de proveedores asegura que cada producto llegue fresco, con un promedio de 12 horas desde la cosecha.</p>
+                        <button class="collapse-btn">Cerrar</button>
+                    </div>
+                </div>
+            </a>
+            <a href="personalizacion.html" class="card-link" data-index="1">
+                <div class="card">
+                    <h3>Personalización</h3>
+                    <p>Soluciones a medida para tus necesidades.</p>
+                    <div class="hover-content">Notas personalizadas disponibles.</div>
+                    <div class="expand-content" style="display: none;">
+                        <p>Personaliza tu pedido con notas específicas, como cantidades o instrucciones, directamente en nuestro catálogo.</p>
+                        <button class="collapse-btn">Cerrar</button>
+                    </div>
+                </div>
+            </a>
+            <a href="sostenibilidad.html" class="card-link" data-index="2">
+                <div class="card">
+                    <h3>Sostenibilidad</h3>
+                    <p>Comprometidos con prácticas ecológicas.</p>
+                    <div class="hover-content">Reducción de 15% en emisiones.</div>
+                    <div class="expand-content" style="display: none;">
+                        <p>Usamos logística optimizada para reducir nuestra huella de carbono en un 15%, apoyando prácticas sostenibles.</p>
+                        <button class="collapse-btn">Cerrar</button>
+                    </div>
+                </div>
+            </a>
+            <a href="price-tracker.html" class="card-link" data-index="3">
+                <div class="card">
+                    <h3>Price Tracker</h3>
+                    <p>Comprometidos con el comercio justo.</p>
+                    <div class="hover-content">Precios actualizados semanalmente.</div>
+                    <div class="expand-content" style="display: none;">
+                        <p>Seguimos el mercado para ofrecer precios justos, actualizando nuestro catálogo semanalmente para reflejar los costos más equitativos.</p>
+                        <button class="collapse-btn">Cerrar</button>
+                    </div>
+                </div>
+            </a>
+            <a href="socios-productores.html" class="card-link" data-index="4">
+                <div class="card">
+                    <h3>Socios y Productores</h3>
+                    <p>Trabajo en equipo desde la siembra de cada producto.</p>
+                    <div class="hover-content">Colaboramos con 50+ productores.</div>
+                    <div class="expand-content" style="display: none;">
+                        <p>Trabajamos con más de 50 productores locales para garantizar calidad y frescura desde la siembra hasta tu mesa.</p>
+                        <button class="collapse-btn">Cerrar</button>
+                    </div>
+                </div>
+            </a>
         </div>
     </div>
 
@@ -276,17 +359,39 @@
             });
         });
 
-        setInterval(nextSlide, 5000); // Auto-slide every 5 seconds
+        setInterval(nextSlide, 5000);
 
         // Preload images for older devices
         const images = [
-            'https://i.imgur.com/0R2tBOV.jpeg',
-            'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1350&q=80',
-            'https://images.unsplash.com/photo-1498579397066-306ae51a5158?auto=format&fit=crop&w=1350&q=80' // Added third image
+            'https://i.imgur.com/yP4RNYU.jpeg',
+            'https://i.imgur.com/s8AjuO9.jpeg',
+            'https://i.imgur.com/5KOa6VD.jpeg'
         ];
         images.forEach(src => {
             const img = new Image();
             img.src = src;
+        });
+
+        // Card click-to-expand functionality
+        const cards = document.querySelectorAll('.card-link');
+
+        cards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                const expandContent = card.querySelector('.expand-content');
+                const isExpanded = expandContent.style.display === 'block';
+                if (!isExpanded) {
+                    e.preventDefault(); // Prevent redirection if expanding
+                    cards.forEach(c => c.querySelector('.expand-content').style.display = 'none');
+                    expandContent.style.display = 'block';
+                }
+            });
+        });
+
+        document.querySelectorAll('.collapse-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                btn.parentElement.style.display = 'none';
+            });
         });
     </script>
 </body>
