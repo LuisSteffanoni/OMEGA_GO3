@@ -38,6 +38,62 @@
             color: #4CAF50;
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        .content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        .content img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 10px;
+            margin: 1rem 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .content img:hover {
+            transform: scale(1.05);
+        }
+        .fun-fact {
+            background-color: #2c2c2c;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #4CAF50;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            font-weight: bold;
+        }
+        .cta-button:hover {
+            transform: scale(1.1);
+            background-color: #388E3C;
+            box-shadow: 0 0 10px #4CAF50;
+        }
+        @media (max-width: 768px) {
+            .content {
+                padding: 1rem;
+            }
+            .content h1 {
+                font-size: 2rem;
+            }
+            .content img {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
@@ -46,8 +102,12 @@
         <a href="index.html">Volver a Fresh Prime</a>
     </header>
     <div class="content">
-        <h1>Sostenibilidad</h1>
-        <p>Estamos comprometidos con prácticas ecológicas, reduciendo nuestra huella de carbono en un 15% mediante logística optimizada.</p>
+        <h1>Sostenibilidad 🎉</h1>
+        <p>¡En Fresh Prime, estamos locos por el planeta! Reducimos nuestra huella de carbono en un increíble 15% gracias a nuestra logística optimizada. ¡Ayudamos a la Tierra a respirar más fácil con cada entrega!</p>
+        <img src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=1350&q=80" alt="Sustainable farming with solar panels">
+        <div class="fun-fact">🤓 ¡Dato curioso! Usamos energía solar para empacar tus productos frescos. ¡Es como darle un abrazo al sol!</div>
+        <p>Únete a nuestra misión verde y descubre cómo puedes contribuir. ¡Juntos, hagamos del mundo un lugar más fresco y sostenible!</p>
+        <a href="#join-us" class="cta-button">¡Únete a la Revolución Verde!</a>
     </div>
 </body>
 </html>
