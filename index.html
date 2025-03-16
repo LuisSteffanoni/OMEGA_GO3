@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GREENART - Order Your Edge</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Fresh Prime Group – Gestión de Frescura, Soluciones a Medida</title>
     <style>
         * {
             margin: 0;
@@ -11,319 +11,275 @@
             box-sizing: border-box;
             font-family: 'Arial', sans-serif;
         }
-
         body {
-            background: #1a1a1a;
-            color: #fff;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
             line-height: 1.6;
-            padding: 20px;
             overflow-x: hidden;
         }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
+        .hero {
             position: relative;
-        }
-
-        header {
-            position: relative;
+            height: 100vh;
             overflow: hidden;
         }
-
-        .header-image {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            filter: brightness(0.8) contrast(1.2);
-            transform: skewY(-5deg);
-            transition: transform 0.3s ease;
-        }
-
-        .header-image:hover {
-            transform: skewY(-5deg) scale(1.02);
-        }
-
-        header h1 {
+        .slide {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) skewY(5deg);
-            font-size: 3em;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
-            color: #00ff7f;
-        }
-
-        .salad-grid {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+            align-items: center;
             justify-content: center;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        .salad-card {
-            background: #2b2b2b;
-            flex: 0 0 calc(50% - 10px);
-            max-width: calc(50% - 10px);
-            border: 2px solid #00ff7f;
-            border-radius: 0 20px 0 20px;
-            overflow: hidden;
-            position: relative;
-            transition: all 0.4s ease;
-            transform: rotate(-2deg);
-        }
-
-        .salad-card:hover {
-            transform: rotate(0deg) scale(1.05);
-            box-shadow: 0 0 30px rgba(0, 255, 127, 0.5);
-            z-index: 10;
-        }
-
-        .salad-image {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
-        }
-
-        .salad-info {
-            padding: 15px;
-            position: relative;
-        }
-
-        .salad-info h2 {
-            color: #00ff7f;
-            font-size: 1.5em;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-            overflow-wrap: break-word;
-            word-break: break-word;
-        }
-
-        .salad-info p {
-            color: #ccc;
-            font-size: 0.85em;
-            margin-bottom: 10px;
-            overflow-wrap: break-word;
-        }
-
-        .price {
-            font-weight: bold;
-            color: #ff007f;
-            font-size: 1.3em;
-            position: absolute;
-            top: -30px;
-            right: 15px;
-            background: #2b2b2b;
-            padding: 5px 8px;
-            border-radius: 50%;
-            border: 2px solid #ff007f;
-        }
-
-        .order-btn {
-            background: #ff007f;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 0 10px 0 10px;
-            cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .order-btn:hover {
-            background: #00ff7f;
-            color: #1a1a1a;
-            transform: translateX(10px);
-        }
-
-        footer {
             text-align: center;
-            padding: 40px 20px;
-            background: #2b2b2b;
-            margin-top: 60px;
-            transform: skewY(5deg);
+            color: white;
         }
-
-        footer p {
-            transform: skewY(-5deg);
-            color: #00ff7f;
-            font-size: 0.9em;
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
         }
-
-        @media (max-width: 600px) {
-            .salad-grid {
-                gap: 10px;
+        .slide.active {
+            opacity: 1;
+        }
+        .slide-content {
+            position: relative;
+            z-index: 1;
+        }
+        .slide-content h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+        .slide-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: #e0e0e0;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: scale(1.1);
+            background-color: #388E3C;
+        }
+        .dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 1;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: #666;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .dot.active {
+            background-color: #4CAF50;
+        }
+        .about {
+            padding: 4rem 1rem;
+            text-align: center;
+            background-color: #1a1a1a;
+        }
+        .about h2 {
+            color: #4CAF50;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        .about-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background-color: #2c2c2c;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+            border: 1px solid #4CAF50;
+        }
+        .card h3 {
+            color: #4CAF50;
+            margin-bottom: 1rem;
+        }
+        .card p {
+            color: #e0e0e0;
+        }
+        .footer {
+            background-color: #388E3C;
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+        .footer a {
+            color: #e0e0e0;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+        .footer a:hover {
+            color: #4CAF50;
+        }
+        @media (max-width: 768px) {
+            .slide-content h1 {
+                font-size: 2rem;
             }
-
-            .salad-card {
-                flex: 0 0 calc(50% - 5px);
-                max-width: calc(50% - 5px);
-                transform: rotate(0deg);
+            .slide-content p {
+                font-size: 1rem;
             }
-
-            .salad-image {
-                height: 140px;
+            .cta-button {
+                padding: 0.8rem 1.5rem;
             }
-
-            .salad-info h2 {
-                font-size: 1.2em;
+            .about {
+                padding: 2rem 0.5rem;
             }
-
-            .salad-info p {
-                font-size: 0.75em;
-            }
-
-            .price {
-                font-size: 1.1em;
-                top: -25px;
-                right: 10px;
-            }
-
-            .order-btn {
-                padding: 8px 15px;
+            .about-cards {
+                grid-template-columns: 1fr;
             }
         }
-
-        @supports (-webkit-touch-callout: none) {
-            .salad-grid {
-                display: -webkit-flex;
-                -webkit-flex-wrap: wrap;
-                -webkit-justify-content: center;
+        @media (max-width: 480px) {
+            .slide-content h1 {
+                font-size: 1.5rem;
             }
-
-            .salad-card {
-                -webkit-flex: 0 0 calc(50% - 10px);
-                max-width: calc(50% - 10px);
+            .slide-content p {
+                font-size: 0.9rem;
+            }
+            .dots {
+                bottom: 10px;
+            }
+            .dot {
+                width: 8px;
+                height: 8px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <img src="https://i.imgur.com/ByZi83V.jpeg" alt="GREENART Urban Salad Farm" class="header-image">
-            <h1> </h1>
-        </header>
-
-        <div class="salad-grid">
-            <!-- Salad 1 -->
-            <div class="salad-card">
-                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd" alt="Classic Caesar Salad" class="salad-image">
-                <div class="salad-info">
-                    <h2>Mariana Romano</h2>
-                    <p>Romaine blades, parm shards, crunch bombs, Caesar drip</p>
-                    <span class="price">$8.99</span>
-                    <button class="order-btn" onclick="generatePurchaseOrder('Mariana Romano', 8.99, 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd')">Grab It</button>
-                </div>
-            </div>
-
-            <!-- Salad 2 -->
-            <div class="salad-card">
-                <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999" alt="Mediterranean Mix" class="salad-image">
-                <div class="salad-info">
-                    <h2>Luis Esquivel</h2>
-                    <p>Feta chunks, olive pop, tomato burst, lemon zing</p>
-                    <span class="price">$9.99</span>
-                    <button class="order-btn" onclick="generatePurchaseOrder('Luis Esquivel', 9.99, 'https://images.unsplash.com/photo-1540420773420-3366772f4999')">Grab It</button>
-                </div>
-            </div>
-
-            <!-- Salad 3 -->
-            <div class="salad-card">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Garden Green" class="salad-image">
-                <div class="salad-info">
-                    <h2>Futura Casa 1</h2>
-                    <p>Leaf mix, avo slice, carrot shred, honey sting</p>
-                    <span class="price">$7.99</span>
-                    <button class="order-btn" onclick="generatePurchaseOrder('Futura Casa 1', 7.99, 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c')">Grab It</button>
-                </div>
-            </div>
-
-            <!-- Salad 4 -->
-            <div class="salad-card">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Bloom Burst" class="salad-image">
-                <div class="salad-info">
-                    <h2>Futura Casa 2</h2>
-                    <p>Berry mix, mango chunks, edible petals, citrus blast</p>
-                    <span class="price">$10.99</span>
-                    <button class="order-btn" onclick="generatePurchaseOrder('Futura Casa 2', 10.99, 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c')">Grab It</button>
-                </div>
+    <!-- Hero Slider -->
+    <div class="hero">
+        <div class="slide active" style="background-image: url('https://i.imgur.com/yP4RNYU.jpeg');">
+            <div class="slide-content">
+                <h1>Fresh Prime Group</h1>
+                <p>Gestión de Frescura, Soluciones a Medida</p>
+                <a href="https://luissteffanoni.github.io/FreshPrime/" class="cta-button">Explora Nuestro Catálogo</a>
             </div>
         </div>
-
-        <footer>
-            <p>© 2025 GREENART. Edge On The Move!</p>
-        </footer>
+        <div class="slide" style="background-image: url('https://i.imgur.com/s8AjuO9.jpeg');">
+            <div class="slide-content">
+                <h1>Calidad Fresca Garantizada</h1>
+                <p>Pedidos personalizados con facilidad</p>
+                <a href="https://luissteffanoni.github.io/FreshPrime/" class="cta-button">Empieza Ahora</a>
+            </div>
+        </div>
+        <div class="slide" style="background-image: url('https://i.imgur.com/5KOa6VD.jpeg');">
+            <div class="slide-content">
+                <h1>Productos Frescos y Saludables</h1>
+                <p>Todo lo que necesitas, directo a tu puerta</p>
+                <a href="https://luissteffanoni.github.io/FreshPrime/" class="cta-button">Descubre Más</a>
+            </div>
+        </div>
+        <div class="dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span> <!-- Added third dot -->
+        </div>
     </div>
 
-    <!-- Include jsPDF library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- About Section -->
+    <div class="about">
+        <h2>Sobre Nosotros</h2>
+        <div class="about-cards">
+            <div class="card">
+                <h3>Frescura</h3>
+                <p>Garantizamos productos frescos en cada entrega.</p>
+            </div>
+            <div class="card">
+                <h3>Personalización</h3>
+                <p>Soluciones a medida para tus necesidades.</p>
+            </div>
+            <div class="card">
+                <h3>Sostenibilidad</h3>
+                <p>Comprometidos con prácticas ecológicas.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>Contáctanos: <a href="mailto:info@freshprime.com">info@freshprime.com</a> | (55) 1234-5678</p>
+        <p>Síguenos: <a href="https://www.instagram.com/fresh_prime_foods?igsh=MWFyendicGV4bnRxMQ%3D%3D&utm_source=qr" target="_blank">Instagram</a> | <a href="https://www.freshprime.com">Website</a></p>
+        <p>© 2025 Fresh Prime – ¡Frescura que da gusto!</p>
+    </div>
+
     <script>
-        function generatePurchaseOrder(saladName, price, imageUrl) {
-            const orderId = 'ORDER-' + Math.floor(Math.random() * 1000000);
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
 
-            // Create the PDF content
-            doc.setFillColor(0, 255, 127);
-            doc.rect(0, 0, 210, 30, 'F');
-            doc.setFontSize(20);
-            doc.setTextColor(255, 255, 255);
-            doc.setFont('Helvetica', 'bold');
-            doc.text('GREENART', 10, 20);
-            doc.setFontSize(12);
-            doc.setFont('Helvetica', 'normal');
-            doc.text('Fresh Edge To Go', 10, 26);
-            doc.setFontSize(16);
-            doc.setTextColor(0, 0, 0);
-            doc.text('Purchase Order', 105, 40, { align: 'center' });
-            doc.setFontSize(12);
-            doc.text(`Order ID: ${orderId}`, 20, 50);
-            doc.text(`Salad: ${saladName}`, 20, 60);
-            doc.text(`Price: $${price}`, 20, 70);
-            doc.text('Instructions: Share this order with GREENART to fulfill.', 20, 80);
-            doc.text('Date: ' + new Date().toLocaleDateString(), 20, 90);
-
-            // Handle image loading
-            const img = new Image();
-            img.crossOrigin = 'Anonymous';
-            img.src = imageUrl + '?not-from-cache-please';
-
-            const shareOrder = () => {
-                // Share order details via WhatsApp
-                const phoneNumber = '524421112522'; // GREENART's WhatsApp number
-                const message = `New Order: ${saladName}\nOrder ID: ${orderId}\nPrice: $${price}\nDate: ${new Date().toLocaleDateString()}\nPlease confirm this order with GREENART.`;
-                const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
-                window.open(whatsappUrl, '_self'); // Use '_self' to avoid pop-up issues
-            };
-
-            img.onload = function () {
-                doc.addImage(img, 'JPEG', 150, 40, 40, 40);
-                doc.setFontSize(10);
-                doc.setTextColor(150);
-                doc.text('Thank you for choosing GREENART!', 105, 270, { align: 'center' });
-                shareOrder();
-            };
-
-            img.onerror = function () {
-                doc.setFontSize(10);
-                doc.setTextColor(255, 0, 0);
-                doc.text('Image not available', 150, 50);
-                doc.setFontSize(10);
-                doc.setTextColor(150);
-                doc.text('Thank you for choosing GREENART!', 105, 270, { align: 'center' });
-                shareOrder();
-            };
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                dots[i].classList.remove('active');
+            });
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
         }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                showSlide(currentSlide);
+            });
+        });
+
+        setInterval(nextSlide, 5000); // Auto-slide every 5 seconds
+
+        // Preload images for older devices
+        const images = [
+            'https://i.imgur.com/0R2tBOV.jpeg',
+            'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1350&q=80',
+            'https://images.unsplash.com/photo-1498579397066-306ae51a5158?auto=format&fit=crop&w=1350&q=80' // Added third image
+        ];
+        images.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
     </script>
 </body>
 </html>
