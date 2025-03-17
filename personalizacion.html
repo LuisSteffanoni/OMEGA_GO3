@@ -38,6 +38,73 @@
             color: #4CAF50;
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            animation: sparkle 1.5s infinite;
+        }
+        @keyframes sparkle {
+            0% { text-shadow: 0 0 5px #4CAF50; }
+            50% { text-shadow: 0 0 15px #4CAF50, 0 0 20px #388E3C; }
+            100% { text-shadow: 0 0 5px #4CAF50; }
+        }
+        .content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        .content .highlight {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .content img {
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid #4CAF50;
+            margin: 1rem auto;
+            display: block;
+            box-shadow: 0 0 15px #4CAF50;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .content img:hover {
+            transform: rotate(5deg) scale(1.05);
+            box-shadow: 0 0 25px #4CAF50;
+        }
+        .catalog-link {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            margin-top: 1rem;
+        }
+        .catalog-link:hover {
+            transform: scale(1.1);
+            background-color: #388E3C;
+            box-shadow: 0 0 10px #4CAF50;
+        }
+        .catalog-link span {
+            display: inline-block;
+            animation: bounce 1s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-5px); }
+            60% { transform: translateY(-2px); }
+        }
+        @media (max-width: 768px) {
+            .content {
+                padding: 1rem;
+            }
+            .content h1 {
+                font-size: 2rem;
+            }
+            .content img {
+                max-width: 250px;
+                height: 250px;
+            }
         }
     </style>
 </head>
@@ -46,8 +113,11 @@
         <a href="index.html">Volver a Fresh Prime</a>
     </header>
     <div class="content">
-        <h1>Personalización</h1>
-        <p>Ofrecemos soluciones a medida para tus necesidades. Personaliza tu pedido con notas específicas directamente en nuestro catálogo.</p>
+        <h1>Personalización ✨</h1>
+        <p>¡Haz que cada pedido sea <span class="highlight">único</span> con Fresh Prime! Personaliza tus pedidos con notas especiales directamente en nuestro catálogo. ¿Quieres 5 kilos de costilla de cerdo? ¡Añade una nota y listo! 🥳</p>
+        <img src="https://i.imgur.com/0BHzhjs.mp4" alt="Customized produce delivery">
+        <p>Explora nuestro catálogo y comienza a personalizar tus pedidos hoy. ¡Es súper fácil y rápido! 🚀</p>
+        <a href="https://luissteffanoni.github.io/FreshPrime/" class="catalog-link">Abrir Catálogo <span>📖</span></a>
     </div>
 </body>
 </html>
