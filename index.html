@@ -3,225 +3,395 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Fresh Prime Group – Freshness Redefined</title>
+    <title>Fresh Prime Group – Gestión de Frescura, Soluciones a Medida</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Arial', sans-serif;
         }
         body {
-            background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
-            color: #333;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
             line-height: 1.6;
             overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
         .hero {
             position: relative;
-            flex: 1;
+            height: 100vh;
             overflow: hidden;
-            padding: 4rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
         }
-        .hero .background-graphic {
+        .slide {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('images/trendy-produce-scene.png') no-repeat center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
             background-size: cover;
-            filter: blur(8px) brightness(0.7);
-            z-index: 0;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
         }
-        .hero-content {
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .slide.active {
+            opacity: 1;
+        }
+        .slide-content {
             position: relative;
             z-index: 1;
-            max-width: 800px;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            animation: fadeIn 1s ease-in;
         }
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        .hero-content h1 {
-            font-size: 3.5rem;
-            font-weight: 600;
+        .slide-content h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             margin-bottom: 1rem;
-            color: #FFF;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            color: #ffffff;
         }
-        .hero-content p {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            color: #F5F5F5;
+        .slide-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: #e0e0e0;
         }
         .cta-button {
-            display: inline-flex;
-            align-items: center;
-            background: linear-gradient(45deg, #FF8787, #6BE4D7);
-            color: #FFF;
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 25px;
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #4CAF50;
+            color: white;
             text-decoration: none;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 5px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
         }
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transform: scale(1.1);
+            background-color: #388E3C;
         }
-        .features {
-            padding: 4rem 2rem;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(5px);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        .dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 1;
         }
-        .features h2 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            color: #FFF;
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: #666;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .dot.active {
+            background-color: #4CAF50;
+        }
+        .about {
+            padding: 4rem 1rem;
             text-align: center;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            background-color: #1a1a1a;
         }
-        .feature-cards {
+        .about h2 {
+            color: #4CAF50;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        .about-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
-        .feature-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
+        .card {
+            background-color: #2c2c2c;
             padding: 2rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
         }
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+            border: 1px solid #4CAF50;
         }
-        .feature-card h3 {
-            font-size: 1.5rem;
+        .card h3 {
+            color: #4CAF50;
             margin-bottom: 1rem;
-            color: #FFF;
         }
-        .feature-card p {
-            font-size: 0.95rem;
-            color: #E0E0E0;
+        .card p {
+            color: #e0e0e0;
+        }
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .card .hover-content {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #388E3C;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .card:hover .hover-content {
+            opacity: 1;
+        }
+        .card .expand-content {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #2c2c2c;
+            padding: 2rem;
+            text-align: left;
+            z-index: 1;
+        }
+        .card .expand-content p {
+            margin-bottom: 1rem;
+        }
+        .card .collapse-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .card .collapse-btn:hover {
+            background-color: #388E3C;
         }
         .footer {
+            background-color: #388E3C;
+            color: white;
             padding: 2rem 1rem;
             text-align: center;
-            background: rgba(0, 0, 0, 0.2);
-            color: #FFF;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         .footer a {
-            color: #6BE4D7;
+            color: #e0e0e0;
             text-decoration: none;
             margin: 0 1rem;
             transition: color 0.3s ease;
         }
         .footer a:hover {
-            color: #FF8787;
+            color: #4CAF50;
         }
         @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-            .hero-content p {
-                font-size: 1rem;
-            }
-            .hero-content {
-                padding: 1.5rem;
-            }
-            .features h2 {
+            .slide-content h1 {
                 font-size: 2rem;
             }
-            .feature-cards {
-                grid-template-columns: 1fr;
+            .slide-content p {
+                font-size: 1rem;
             }
             .cta-button {
-                padding: 0.6rem 1.2rem;
+                padding: 0.8rem 1.5rem;
+            }
+            .about {
+                padding: 2rem 0.5rem;
+            }
+            .about-cards {
+                grid-template-columns: 1fr;
             }
         }
         @media (max-width: 480px) {
-            .hero-content h1 {
-                font-size: 2rem;
+            .slide-content h1 {
+                font-size: 1.5rem;
             }
-            .hero-content p {
+            .slide-content p {
                 font-size: 0.9rem;
+            }
+            .dots {
+                bottom: 10px;
+            }
+            .dot {
+                width: 8px;
+                height: 8px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="background-graphic"></div>
-        <div class="hero-content">
-            <h1>Fresh Prime Group</h1>
-            <p>Elevate Your Kitchen with Unmatched Freshness</p>
-            <a href="https://luissteffanoni.github.io/FreshPrime/" class="cta-button">Discover Now</a>
+    <!-- Hero Slider -->
+    <div class="hero">
+        <div class="slide active" style="background-image: url('https://i.imgur.com/yP4RNYU.jpeg');">
+            <div class="slide-content">
+                <h1>FRESH PRIME GROUP</h1>
+                <p>Gestión de Frescura, Soluciones a Medida</p>
+                <a href="https://luissteffanoni.github.io/FreshPrime/" class="cta-button">Explora Nuestro Catálogo</a>
+            </div>
         </div>
-    </section>
+        <div class="slide" style="background-image: url('https://i.imgur.com/s8AjuO9.jpeg');">
+            <div class="slide-content">
+                <h1>Calidad Fresca Garantizada</h1>
+                <p>Pedidos personalizados con facilidad</p>
+                <a href="https://luissteffanoni.github.io/FreshPrime/" class="cta-button">Empieza Ahora</a>
+            </div>
+        </div>
+        <div class="slide" style="background-image: url('https://i.imgur.com/5KOa6VD.jpeg');">
+            <div class="slide-content">
+                <h1>Productos Frescos y Saludables</h1>
+                <p>Todo lo que necesitas y mas. . . </p>
+                <a href="https://luissteffanoni.github.io/FreshPrime/" class="cta-button">Descubre Más</a>
+            </div>
+        </div>
+        <div class="dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
 
-    <!-- Features Section -->
-    <section class="features">
-        <h2>Why Choose Fresh Prime</h2>
-        <div class="feature-cards">
-            <div class="feature-card">
-                <h3>Freshness Guaranteed</h3>
-                <p>Produce delivered within hours of harvest for peak quality.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Custom Orders</h3>
-                <p>Tailor your selections to meet your culinary vision.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Sustainable Sourcing</h3>
-                <p>Eco-friendly practices to support your green kitchen.</p>
-            </div>
+    <!-- About Section -->
+    <div class="about">
+        <h2>Sobre Nosotros</h2>
+        <div class="about-cards">
+            <a href="frescura.html" class="card-link" data-index="0">
+                <div class="card">
+                    <h3>Frescura</h3>
+                    <p>Garantizamos productos frescos en cada entrega.</p>
+                    <div class="hover-content">Entregas en 24 horas.</div>
+                    <div class="expand-content" style="display: none;">
+                        <p>Nuestra red de proveedores asegura que cada producto llegue fresco, con un promedio de 12 horas desde la cosecha.</p>
+                        <button class="collapse-btn">Cerrar</button>
+                    </div>
+                </div>
+            </a>
+            <a href="personalizacion.html" class="card-link" data-index="1">
+                <div class="card">
+                    <h3>Personalización</h3>
+                    <p>Soluciones a medida para tus necesidades.</p>
+                    <div class="hover-content">Notas personalizadas disponibles.</div>
+                    <div class="expand-content" style="display: none;">
+                        <p>Personaliza tu pedido con notas específicas, como cantidades o instrucciones, directamente en nuestro catálogo.</p>
+                        <button class="collapse-btn">Cerrar</button>
+                    </div>
+                </div>
+            </a>
+            <a href="sostenibilidad.html" class="card-link" data-index="2">
+                <div class="card">
+                    <h3>Sostenibilidad</h3>
+                    <p>Comprometidos con prácticas ecológicas.</p>
+                    <div class="hover-content">Reducción de 15% en emisiones.</div>
+                    <div class="expand-content" style="display: none;">
+                        <p>Usamos logística optimizada para reducir nuestra huella de carbono en un 15%, apoyando prácticas sostenibles.</p>
+                        <button class="collapse-btn">Cerrar</button>
+                    </div>
+                </div>
+            </a>
+            <a href="price-tracker.html" class="card-link" data-index="3">
+                <div class="card">
+                    <h3>Price Tracker</h3>
+                    <p>Comprometidos con el comercio justo.</p>
+                    <div class="hover-content">Precios actualizados semanalmente.</div>
+                    <div class="expand-content" style="display: none;">
+                        <p>Seguimos el mercado para ofrecer precios justos, actualizando nuestro catálogo semanalmente para reflejar los costos más equitativos.</p>
+                        <button class="collapse-btn">Cerrar</button>
+                    </div>
+                </div>
+            </a>
+            <a href="socios-productores.html" class="card-link" data-index="4">
+                <div class="card">
+                    <h3>Socios y Productores</h3>
+                    <p>Trabajo en equipo desde la siembra de cada producto.</p>
+                    <div class="hover-content">Colaboramos con 50+ productores.</div>
+                    <div class="expand-content" style="display: none;">
+                        <p>Trabajamos con más de 50 productores locales para garantizar calidad y frescura desde la siembra hasta tu mesa.</p>
+                        <button class="collapse-btn">Cerrar</button>
+                    </div>
+                </div>
+            </a>
         </div>
-    </section>
+    </div>
 
     <!-- Footer -->
-    <footer class="footer">
-        <p>Contact Us: <a href="mailto:info@freshprime.com">info@freshprime.com</a> | (55) 1234-5678</p>
-        <p>Follow Us: <a href="https://www.instagram.com/fresh_prime_foods?igsh=MWFyendicGV4bnRxMQ%3D%3D&utm_source=qr" target="_blank">Instagram</a> | <a href="https://www.freshprime.com">Website</a></p>
-        <p>© 2025 Fresh Prime – Freshness Redefined</p>
-    </footer>
+    <div class="footer">
+        <p>Contáctanos: <a href="mailto:info@freshprime.com">info@freshprime.com</a> | (55) 1234-5678</p>
+        <p>Síguenos: <a href="https://www.instagram.com/fresh_prime_foods?igsh=MWFyendicGV4bnRxMQ%3D%3D&utm_source=qr" target="_blank">Instagram</a> | <a href="https://www.freshprime.com">Website</a></p>
+        <p>© 2025 Fresh Prime – ¡Frescura que da gusto!</p>
+    </div>
 
     <script>
-        // Simple fade-in animation for hero content (already handled by CSS)
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                dots[i].classList.remove('active');
+            });
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                showSlide(currentSlide);
+            });
+        });
+
+        setInterval(nextSlide, 5000);
+
         // Preload images for older devices
         const images = [
-            'images/trendy-produce-scene.png'
+            'https://i.imgur.com/yP4RNYU.jpeg',
+            'https://i.imgur.com/s8AjuO9.jpeg',
+            'https://i.imgur.com/5KOa6VD.jpeg'
         ];
         images.forEach(src => {
             const img = new Image();
             img.src = src;
+        });
+
+        // Card click-to-expand functionality
+        const cards = document.querySelectorAll('.card-link');
+
+        cards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                const expandContent = card.querySelector('.expand-content');
+                const isExpanded = expandContent.style.display === 'block';
+                if (!isExpanded) {
+                    e.preventDefault(); // Prevent redirection if expanding
+                    cards.forEach(c => c.querySelector('.expand-content').style.display = 'none');
+                    expandContent.style.display = 'block';
+                }
+            });
+        });
+
+        document.querySelectorAll('.collapse-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                btn.parentElement.style.display = 'none';
+            });
         });
     </script>
 </body>
