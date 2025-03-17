@@ -38,6 +38,86 @@
             color: #4CAF50;
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        .content .highlight {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .content img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border: 5px solid #4CAF50;
+            border-radius: 15px;
+            padding: 10px;
+            background-color: #2c2c2c;
+            margin: 1rem 0;
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .content img:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px rgba(76, 175, 80, 0.8);
+        }
+        .fun-fact {
+            background-color: #2c2c2c;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            color: #4CAF50;
+            font-style: italic;
+        }
+        .producer-link {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .producer-link:hover {
+            transform: scale(1.1);
+            background-color: #388E3C;
+            box-shadow: 0 0 15px #4CAF50;
+        }
+        .producer-link::after {
+            content: "🌱";
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            animation: bounce 1.5s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(-50%); }
+            40% { transform: translateY(-60%); }
+            60% { transform: translateY(-40%); }
+        }
+        @media (max-width: 768px) {
+            .content {
+                padding: 1rem;
+            }
+            .content h1 {
+                font-size: 2rem;
+            }
+            .content img {
+                max-width: 100%;
+                padding: 5px;
+            }
         }
     </style>
 </head>
@@ -46,8 +126,12 @@
         <a href="index.html">Volver a Fresh Prime</a>
     </header>
     <div class="content">
-        <h1>Socios y Productores</h1>
-        <p>Colaboramos con más de 50 productores locales para garantizar calidad y frescura desde la siembra hasta tu mesa.</p>
+        <h1>Socios y Productores 🌾</h1>
+        <p>¡Con más de <span class="highlight">50 productores locales</span>, llevamos la calidad y frescura desde la siembra hasta tu mesa! Trabajamos mano a mano con ellos para traerte lo mejor de la tierra. 🌱</p>
+        <img src="https://i.imgur.com/t3qxMDe.jpeg" alt="Local farmers working together">
+        <div class="fun-fact">🎉 ¡Sabías que uno de nuestros productores cultiva con música clásica para que las plantas crezcan felices?</div>
+        <p>¿Quieres conocer a nuestros socios o unirte como productor? ¡Explora y conecta con nosotros!</p>
+        <a href="#connect-producers" class="producer-link">Conectar con Productores</a>
     </div>
 </body>
 </html>
