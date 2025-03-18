@@ -2,86 +2,226 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Price Tracker - Fresh Prime</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
         body {
-            background-color: #1a1a1a;
-            color: #e0e0e0;
+            background: linear-gradient(135deg, #083645, #032425, #416858, #057BC1); /* Twilight Bliss to Teal Spill with June Ivy and Star of Life */
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            color: #F8F4ED; /* Crystal Cut for text */
             line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
         }
         header {
-            background-color: #388E3C;
+            background: linear-gradient(135deg, rgba(9, 51, 44, 0.2), rgba(65, 104, 88, 0.3)); /* Fence Green to June Ivy */
+            backdrop-filter: blur(15px);
             padding: 1rem;
             text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            margin-bottom: 2rem;
+            width: 100%;
+            max-width: 1200px;
         }
         header a {
-            color: white;
+            color: #4DDBFF; /* Azure Cloud for links */
             text-decoration: none;
             font-size: 1.2rem;
+            transition: color 0.3s ease;
         }
         header a:hover {
-            color: #4CAF50;
+            color: #F1FF58; /* Yellow Ace on hover */
         }
         .content {
-            padding: 2rem;
             max-width: 1200px;
-            margin: 0 auto;
+            width: 100%;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(9, 51, 44, 0.2), rgba(65, 104, 88, 0.3)); /* Fence Green to June Ivy */
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(244, 237, 228, 0.2); /* Angelic White border */
+            animation: fadeIn 1s ease-in;
+            flex: 1;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
         .content h1 {
-            color: #4CAF50;
             font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #F8F4ED; /* Crystal Cut for headings */
+            text-align: center;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
         }
         .content p {
+            margin-bottom: 1.5rem;
+            color: #E5EAE6; /* Distant Cloud for paragraph text */
+            text-align: center;
+        }
+        .controls {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(3, 36, 37, 0.2), rgba(65, 104, 88, 0.3)); /* Teal Spill to June Ivy */
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .controls select, .controls button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #00664D, #8CBA7F); /* Muted Spring Green to muted Lime Jelly */
+            color: #F8F4ED; /* Crystal Cut for readable text */
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Enhance text readability */
+        }
+        .controls select:hover, .controls button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(45deg, #A8A24A, #D4D687); /* Muted Yellow Ace to muted Busy Bee */
+        }
+        .product-selection {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(3, 36, 37, 0.2), rgba(65, 104, 88, 0.3)); /* Teal Spill to June Ivy */
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .product-selection h2 {
+            color: #F8F4ED; /* Crystal Cut for headings */
             margin-bottom: 1rem;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        }
+        .product-selection label {
+            display: block;
+            margin: 0.5rem 0;
+            color: #E5EAE6; /* Distant Cloud for labels */
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .product-selection input[type="checkbox"] {
+            margin-right: 0.5rem;
+            accent-color: #8CBA7F; /* Muted Lime Jelly for checkboxes */
         }
         .chart-section {
             margin: 2rem 0;
-            background-color: #2c2c2c;
             padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, rgba(9, 51, 44, 0.2), rgba(65, 104, 88, 0.3)); /* Fence Green to June Ivy */
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease;
+        }
+        .chart-section:hover {
+            transform: translateY(-5px);
         }
         .chart-section h2 {
-            color: #4CAF50;
+            color: #F8F4ED; /* Crystal Cut for headings */
             margin-bottom: 1rem;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
         }
         canvas {
             max-width: 100%;
         }
         .platform-section {
             margin: 2rem 0;
+            text-align: center;
         }
         .platform-section h2 {
-            color: #4CAF50;
+            color: #F8F4ED; /* Crystal Cut for headings */
             margin-bottom: 1rem;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
         }
         .platform-section .cta-button {
             display: inline-block;
             padding: 1rem 2rem;
-            background-color: #4CAF50;
-            color: white;
+            background: linear-gradient(45deg, #8CBA7F, #00664D); /* Muted Lime Jelly to muted Spring Green */
+            color: #F8F4ED; /* Crystal Cut for readable text */
             text-decoration: none;
-            border-radius: 5px;
-            transition: transform 0.3s ease, background-color 0.3s ease;
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Enhance text readability */
         }
         .platform-section .cta-button:hover {
             transform: scale(1.1);
-            background-color: #388E3C;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(45deg, #A8A24A, #B3CDE0); /* Muted Yellow Ace to muted Azure Cloud */
+        }
+        .footer {
+            padding: 1rem;
+            text-align: center;
+            background: radial-gradient(circle, rgba(3, 36, 37, 0.6), rgba(9, 51, 44, 0.4)); /* Teal Spill to Fence Green */
+            backdrop-filter: blur(15px);
+            color: #F8F4ED; /* Crystal Cut for footer text */
+            border-top: 1px solid rgba(244, 237, 228, 0.2); /* Angelic White border */
+            width: 100%;
+            max-width: 1200px;
+            margin-top: auto;
+        }
+        .footer a {
+            color: #4DDBFF; /* Azure Cloud for links */
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+        .footer a:hover {
+            color: #F1FF58; /* Yellow Ace on hover */
         }
         @media (max-width: 768px) {
             .content {
-                padding: 1rem;
+                padding: 1.5rem;
             }
             .content h1 {
                 font-size: 2rem;
+            }
+            .controls {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .product-selection {
+                padding: 0.8rem;
+            }
+            .chart-section {
+                padding: 1rem;
+            }
+            .platform-section .cta-button {
+                padding: 0.8rem 1.5rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .content h1 {
+                font-size: 1.5rem;
+            }
+            .platform-section .cta-button {
+                padding: 0.6rem 1.2rem;
             }
         }
     </style>
@@ -92,11 +232,32 @@
     </header>
     <div class="content">
         <h1>Price Tracker</h1>
-        <p>Nos comprometemos con el comercio justo, actualizando nuestros precios diariamente para reflejar los costos más equitativos del mercado. Explora las estadísticas de precios en tiempo real y conecta con productores y compradores.</p>
+        <p>Nos comprometemos con el comercio justo, actualizando nuestros precios diariamente para reflejar los costos más equitativos del mercado. Selecciona los productos y el rango de tiempo para ver sus estadísticas.</p>
+
+        <!-- Controls Section -->
+        <div class="controls">
+            <select id="timeRange" onchange="updateChart()">
+                <option value="7">1 Semana</option>
+                <option value="14">2 Semanas</option>
+                <option value="21">3 Semanas</option>
+                <option value="28">4 Semanas</option>
+                <option value="35">5 Semanas</option>
+                <option value="30">1 Mes</option>
+                <option value="60">2 Meses</option>
+                <option value="90">3 Meses</option>
+            </select>
+            <button onclick="updateChart()">Actualizar</button>
+        </div>
+
+        <!-- Product Selection Section -->
+        <div class="product-selection">
+            <h2>Seleccionar Productos</h2>
+            <div id="product-checkboxes"></div>
+        </div>
 
         <!-- Dynamic Chart Section -->
         <div class="chart-section">
-            <h2>Precios Diarios de Productos Agrícolas (MXN/kg)</h2>
+            <h2>Precios de Productos (MXN)</h2>
             <canvas id="priceChart"></canvas>
         </div>
 
@@ -108,81 +269,143 @@
             <a href="#register-buyer" class="cta-button">Soy Comprador</a>
         </div>
     </div>
+    <footer class="footer">
+        <p>Contact Us: <a href="mailto:info@freshprime.com">info@freshprime.com</a> | (55) 1234-5678</p>
+        <p>Follow Us: <a href="https://www.instagram.com/fresh_prime_foods?igsh=MWFyendicGV4bnRxMQ%3D%3D&utm_source=qr" target="_blank">Instagram</a> | <a href="https://www.freshprime.com">Website</a></p>
+        <p>© 2025 Fresh Prime – Freshness Redefined</p>
+    </footer>
 
     <!-- Include Chart.js Library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Placeholder data for the chart (replace with your daily prices)
-        const priceData = {
-            labels: ['01/03', '02/03', '03/03', '04/03', '05/03', '06/03', '07/03'], // Last 7 days
+        // Placeholder for Python-generated price data and product list
+        const initialPriceData = {
+            labels: ['17/03'],
             datasets: [
                 {
                     label: 'Aguacate',
-                    data: [55, 53, 57, 60, 58, 56, 59], // Prices in MXN/kg
-                    borderColor: '#4CAF50',
-                    backgroundColor: 'rgba(76, 175, 80, 0.2)',
-                    fill: true,
+                    data: [70.4],
+                    borderColor: '#F8F4ED', /* Crystal Cut */
+                    backgroundColor: 'rgba(248, 244, 237, 0.2)',
+                    fill: false,
+                    tension: 0.1
                 },
                 {
                     label: 'Tomate',
-                    data: [22, 23, 21, 24, 23, 22, 25],
-                    borderColor: '#FF6347',
-                    backgroundColor: 'rgba(255, 99, 71, 0.2)',
-                    fill: true,
+                    data: [22],
+                    borderColor: '#F4EDE4', /* Angelic White */
+                    backgroundColor: 'rgba(244, 237, 228, 0.2)',
+                    fill: false,
+                    tension: 0.1
                 },
                 {
                     label: 'Maíz',
-                    data: [8, 8.5, 8.2, 8.7, 8.3, 8.4, 8.6],
-                    borderColor: '#FFD700',
-                    backgroundColor: 'rgba(255, 215, 0, 0.2)',
-                    fill: true,
+                    data: [8],
+                    borderColor: '#E3FF00', /* Lime Jelly */
+                    backgroundColor: 'rgba(227, 255, 0, 0.2)',
+                    fill: false,
+                    tension: 0.1
                 }
             ]
         };
+        const products = ['Aguacate', 'Tomate', 'Maíz']; // Will be replaced by Python
 
-        // Create the chart
-        const ctx = document.getElementById('priceChart').getContext('2d');
-        new Chart(ctx, {
+        // Initialize chart as a line chart
+        let priceChart = new Chart(document.getElementById('priceChart').getContext('2d'), {
             type: 'line',
-            data: priceData,
+            data: initialPriceData,
             options: {
                 responsive: true,
                 scales: {
                     x: {
                         title: {
                             display: true,
-                            text: 'Fecha (Marzo 2025)',
-                            color: '#e0e0e0'
+                            text: 'Fecha',
+                            color: '#E7E7E3' /* Cat's Cream */
                         },
                         ticks: {
-                            color: '#e0e0e0'
+                            color: '#E7E7E3' /* Cat's Cream */
                         },
                         grid: {
-                            color: '#666'
+                            color: 'rgba(231, 231, 227, 0.1)' /* Cat's Cream with opacity */
                         }
                     },
                     y: {
                         title: {
                             display: true,
-                            text: 'Precio (MXN/kg)',
-                            color: '#e0e0e0'
+                            text: 'Precio (MXN)',
+                            color: '#E7E7E3' /* Cat's Cream */
                         },
                         ticks: {
-                            color: '#e0e0e0'
+                            color: '#E7E7E3' /* Cat's Cream */
                         },
                         grid: {
-                            color: '#666'
-                        }
+                            color: 'rgba(231, 231, 227, 0.1)' /* Cat's Cream with opacity */
+                        },
+                        beginAtZero: true
                     }
                 },
                 plugins: {
                     legend: {
                         labels: {
-                            color: '#e0e0e0'
+                            color: '#F8F4ED' /* Crystal Cut */
                         }
                     }
                 }
             }
+        });
+
+        // Function to filter data based on time range
+        function filterDataByRange(days) {
+            const endDate = new Date();
+            const startDate = new Date(endDate.getTime() - days * 24 * 60 * 60 * 1000);
+            const filteredLabels = initialPriceData.labels.filter(label => {
+                const [day, month] = label.split('/');
+                const date = new Date(`2025-${month}-${day}`);
+                return date >= startDate && date <= endDate;
+            });
+            const filteredDatasets = initialPriceData.datasets.map(dataset => ({
+                ...dataset,
+                data: dataset.data.filter((_, idx) => filteredLabels.includes(initialPriceData.labels[idx]))
+            }));
+            return { labels: filteredLabels, datasets: filteredDatasets };
+        }
+
+        // Update chart based on selected products and time range
+        function updateChart() {
+            const selectedProducts = [];
+            document.querySelectorAll('#product-checkboxes input[type="checkbox"]:checked').forEach(checkbox => {
+                selectedProducts.push(checkbox.value);
+            });
+
+            const days = parseInt(document.getElementById('timeRange').value);
+            const filteredData = filterDataByRange(days);
+
+            const updatedData = {
+                labels: filteredData.labels,
+                datasets: filteredData.datasets.filter(dataset => selectedProducts.includes(dataset.label))
+            };
+
+            priceChart.data = updatedData;
+            priceChart.update();
+        }
+
+        // Populate checkboxes and add event listeners
+        window.addEventListener('load', () => {
+            const checkboxContainer = document.getElementById('product-checkboxes');
+            products.forEach(product => {
+                const label = document.createElement('label');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.value = product;
+                checkbox.checked = false; // Default to unchecked
+                checkbox.onchange = updateChart;
+                label.appendChild(checkbox);
+                label.appendChild(document.createTextNode(` ${product}`));
+                checkboxContainer.appendChild(label);
+            });
+            // Trigger initial update
+            updateChart();
         });
     </script>
 </body>
