@@ -5,52 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personalización - Fresh Prime</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
         body {
-            background-color: #1a1a1a;
-            color: #e0e0e0;
+            background: linear-gradient(135deg, #083645, #032425, #416858, #057BC1); /* Twilight Bliss to Teal Spill with June Ivy and Star of Life */
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            color: #F8F4ED; /* Crystal Cut for text */
             line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
         }
         header {
-            background-color: #388E3C;
+            background: linear-gradient(135deg, rgba(9, 51, 44, 0.2), rgba(65, 104, 88, 0.3)); /* Fence Green to June Ivy */
+            backdrop-filter: blur(15px);
             padding: 1rem;
             text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            margin-bottom: 2rem;
+            width: 100%;
+            max-width: 1200px;
         }
         header a {
-            color: white;
+            color: #4DDBFF; /* Azure Cloud for links */
             text-decoration: none;
             font-size: 1.2rem;
+            transition: color 0.3s ease;
         }
         header a:hover {
-            color: #4CAF50;
+            color: #F1FF58; /* Yellow Ace on hover */
         }
         .content {
+            max-width: 1200px;
+            width: 100%;
             padding: 2rem;
-            max-width: 800px;
-            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(9, 51, 44, 0.2), rgba(65, 104, 88, 0.3)); /* Fence Green to June Ivy */
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(244, 237, 228, 0.2); /* Angelic White border */
+            animation: fadeIn 1s ease-in;
+            margin-bottom: 2rem;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
         .content h1 {
-            color: #4CAF50;
             font-size: 2.5rem;
-            margin-bottom: 1rem;
-            animation: sparkle 1.5s infinite;
+            font-weight: 600;
+            color: #F8F4ED; /* Crystal Cut for headings */
+            text-align: center;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+            animation: sparkle 1.5s infinite; /* Preserve sparkle animation */
         }
         @keyframes sparkle {
-            0% { text-shadow: 0 0 5px #4CAF50; }
-            50% { text-shadow: 0 0 15px #4CAF50, 0 0 20px #388E3C; }
-            100% { text-shadow: 0 0 5px #4CAF50; }
+            0% { text-shadow: 0 0 5px #8CBA7F; } /* Adjusted to Muted Lime Jelly */
+            50% { text-shadow: 0 0 15px #8CBA7F, 0 0 20px #00664D; } /* Adjusted to Muted Spring Green */
+            100% { text-shadow: 0 0 5px #8CBA7F; }
         }
         .content p {
             margin-bottom: 1.5rem;
-            font-size: 1.1rem;
+            color: #E5EAE6; /* Distant Cloud for paragraph text */
+            text-align: center;
+            font-size: 1.1rem; /* Preserve original font size */
         }
         .content .highlight {
-            color: #4CAF50;
+            color: #8CBA7F; /* Muted Lime Jelly */
             font-weight: bold;
         }
         .content img {
@@ -58,36 +95,43 @@
             max-width: 300px;
             height: 300px;
             object-fit: cover;
-            border-radius: 50%;
-            border: 5px solid #4CAF50;
+            border-radius: 50%; /* Preserve circular shape */
             margin: 1rem auto;
             display: block;
-            box-shadow: 0 0 15px #4CAF50;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4); /* Updated shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Preserve transition */
         }
         .content img:hover {
-            transform: rotate(5deg) scale(1.05);
-            box-shadow: 0 0 25px #4CAF50;
+            transform: rotate(5deg) scale(1.05); /* Preserve rotation and scale effect */
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5); /* Updated shadow on hover */
         }
         .catalog-link {
             display: inline-block;
             padding: 1rem 2rem;
-            background-color: #4CAF50;
-            color: white;
+            background: linear-gradient(45deg, #8CBA7F, #00664D); /* Glassy gradient */
+            color: #F8F4ED; /* Crystal Cut */
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 15px; /* Increased for glassy look */
             font-weight: bold;
-            transition: transform 0.3s ease, background-color 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; /* Updated transition */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); /* Added shadow */
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Added text shadow */
             margin-top: 1rem;
+            display: block;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            overflow: hidden;
         }
         .catalog-link:hover {
-            transform: scale(1.1);
-            background-color: #388E3C;
-            box-shadow: 0 0 10px #4CAF50;
+            transform: scale(1.1); /* Preserve scale effect */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5); /* Updated shadow on hover */
+            background: linear-gradient(45deg, #A8A24A, #B3CDE0); /* Glassy hover gradient */
         }
         .catalog-link span {
             display: inline-block;
-            animation: bounce 1s infinite;
+            animation: bounce 1s infinite; /* Preserve bounce animation */
         }
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
@@ -96,14 +140,14 @@
         }
         @media (max-width: 768px) {
             .content {
-                padding: 1rem;
+                padding: 1rem; /* Preserve padding */
             }
             .content h1 {
-                font-size: 2rem;
+                font-size: 2rem; /* Preserve font size */
             }
             .content img {
                 max-width: 250px;
-                height: 250px;
+                height: 250px; /* Preserve size adjustment */
             }
         }
     </style>
