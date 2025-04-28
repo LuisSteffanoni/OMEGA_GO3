@@ -148,7 +148,9 @@
             text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
         }
         #priceChart {
-            max-width: 100%;
+            width: 100% !important; /* Ensure Plotly chart takes full container width */
+            height: 500px !important; /* Default height, will adjust via JS */
+            min-height: 400px; /* Minimum height for visibility */
         }
         .platform-section {
             margin: 2rem 0;
@@ -166,7 +168,7 @@
             color: #F8F4ED;
             text-decoration: none;
             border-radius: 15px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform TRIMMED FOR BREVITY
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
@@ -212,6 +214,9 @@
             .chart-section {
                 padding: 1rem;
             }
+            #priceChart {
+                height: 400px !important; /* Adjust height for tablets */
+            }
             .platform-section .cta-button {
                 padding: 0.8rem 1.5rem;
             }
@@ -219,6 +224,12 @@
         @media (max-width: 480px) {
             .content h1 {
                 font-size: 1.5rem;
+            }
+            .chart-section {
+                padding: 0.8rem;
+            }
+            #priceChart {
+                height: 300px !important; /* Smaller height for mobile */
             }
             .platform-section .cta-button {
                 padding: 0.6rem 1.2rem;
@@ -281,43 +292,43 @@
         x: ['2025-04-12', '2025-04-15', '2025-04-17'],
         y: [25.0, 27.0, 25.0],
         name: 'Avena',
-        color: '#2ca02c',
+        color: '#00f7ff',
     },
     {
         x: ['2025-03-30', '2025-04-03', '2025-04-05', '2025-04-09', '2025-04-19', '2025-04-26'],
         y: [65.0, 75.0, 75.0, 65.0, 75.0, 65.0],
         name: 'Fresa',
-        color: '#d62728',
+        color: '#ff00ff',
     },
     {
         x: ['2025-03-30', '2025-04-05', '2025-04-10', '2025-04-17', '2025-04-19', '2025-04-24'],
         y: [38.4, 38.4, 38.4, 38.4, 38.4, 53.2],
         name: 'Guayaba',
-        color: '#ff7f0e',
+        color: '#39ff14',
     },
     {
         x: ['2025-03-30', '2025-04-03', '2025-04-05', '2025-04-26'],
         y: [38.55, 38.55, 28.2, 38.55],
         name: 'Papa cambray blanca',
-        color: '#2ca02c',
+        color: '#ff073a',
     },
     {
         x: ['2025-03-30', '2025-04-03', '2025-04-05', '2025-04-10', '2025-04-12', '2025-04-17', '2025-04-19', '2025-04-22', '2025-04-24', '2025-04-26'],
         y: [38.25, 38.25, 38.25, 38.25, 38.25, 38.25, 38.25, 46.8, 52.0, 38.25],
         name: 'Papaya',
-        color: '#e377c2',
+        color: '#ff9100',
     },
     {
         x: ['2025-04-03', '2025-04-05', '2025-04-10', '2025-04-12', '2025-04-24'],
         y: [25.94, 25.94, 25.94, 25.94, 29.5],
         name: 'Pepino',
-        color: '#d62728',
+        color: '#00ff7f',
     },
     {
         x: ['2025-03-30', '2025-04-03', '2025-04-05', '2025-04-10', '2025-04-12', '2025-04-22', '2025-04-26'],
         y: [28.17, 25.46, 25.46, 25.46, 25.46, 27.35, 27.35],
         name: 'Tomate verde limpio',
-        color: '#1f77b4',
+        color: '#ff00aa',
     },
 ];
 
@@ -352,7 +363,7 @@ const products = ['avena', 'fresa', 'guayaba', 'papa cambray blanca', 'papaya', 
             return { dates: filteredDates, data: filteredData };
         }
 
-        // Function to update the Plotly chart with neon styling
+        // Function to update the Plotly chart with responsive adjustments
         function updateChart() {
             const selectedProducts = [];
             document.querySelectorAll('#product-checkboxes input[type="checkbox"]:checked').forEach(checkbox => {
@@ -374,11 +385,11 @@ const products = ['avena', 'fresa', 'guayaba', 'papa cambray blanca', 'papaya', 
                         name: trace.name,
                         line: {
                             color: trace.color,
-                            width: 3,  // Thicker line for vibrancy
-                            shape: 'spline',  // Smooth curves
+                            width: 3,
+                            shape: 'spline',
                         },
                         marker: {
-                            size: 10,  // Larger markers
+                            size: 10,
                             color: trace.color,
                             line: {
                                 color: '#ffffff',
@@ -389,15 +400,15 @@ const products = ['avena', 'fresa', 'guayaba', 'papa cambray blanca', 'papaya', 
                         text: priceLabels,
                         textposition: 'top center',
                         textfont: {
-                            size: 10,
+                            size: window.innerWidth <= 480 ? 8 : 10, // Smaller font on mobile
                             color: trace.color,
                             family: 'Poppins',
-                            shadow: '0 0 5px rgba(0, 0, 0, 0.5)'  // Subtle shadow for readability
+                            shadow: '0 0 5px rgba(0, 0, 0, 0.5)'
                         },
                         hovertemplate: 'Date: %{x|%b %d, %Y}<br>Price: $%{y:.2f}<extra></extra>'
                     });
 
-                    // Add product label at the last point with neon styling
+                    // Add product label at the last point
                     if (trace.x.length > 0) {
                         const lastIdx = trace.x.length - 1;
                         annotations.push({
@@ -406,7 +417,7 @@ const products = ['avena', 'fresa', 'guayaba', 'papa cambray blanca', 'papaya', 
                             text: trace.name,
                             showarrow: false,
                             font: {
-                                size: 10,
+                                size: window.innerWidth <= 480 ? 8 : 10,
                                 color: trace.color,
                                 family: 'Poppins',
                                 weight: 'bold',
@@ -427,28 +438,45 @@ const products = ['avena', 'fresa', 'guayaba', 'papa cambray blanca', 'papaya', 
             const layout = {
                 title: {
                     text: 'Product Price Changes',
-                    font: { size: 14, family: 'Poppins', color: '#F8F4ED', weight: 'bold' },
+                    font: { 
+                        size: window.innerWidth <= 480 ? 12 : 14, 
+                        family: 'Poppins', 
+                        color: '#F8F4ED', 
+                        weight: 'bold' 
+                    },
                     x: 0.5,
                     xanchor: 'center',
                     pad: { b: 10 }
                 },
                 xaxis: {
                     title: 'Date',
-                    titlefont: { size: 12, color: '#E7E7E3' },
-                    tickfont: { size: 10, color: '#E7E7E3' },
+                    titlefont: { 
+                        size: window.innerWidth <= 480 ? 10 : 12, 
+                        color: '#E7E7E3' 
+                    },
+                    tickfont: { 
+                        size: window.innerWidth <= 480 ? 8 : 10, 
+                        color: '#E7E7E3' 
+                    },
                     tickformat: '%b %d',
                     tickangle: 45,
-                    gridcolor: 'rgba(255, 255, 255, 0.1)',  // Lighter grid for contrast
+                    gridcolor: 'rgba(255, 255, 255, 0.1)',
                     gridwidth: 1,
                     griddash: 'dash',
                     ticklen: 6
                 },
                 yaxis: {
                     title: 'Price (MXN)',
-                    titlefont: { size: 12, color: '#E7E7E3' },
-                    tickfont: { size: 10, color: '#E7E7E3' },
+                    titlefont: { 
+                        size: window.innerWidth <= 480 ? 10 : 12, 
+                        color: '#E7E7E3' 
+                    },
+                    tickfont: { 
+                        size: window.innerWidth <= 480 ? 8 : 10, 
+                        color: '#E7E7E3' 
+                    },
                     tickprefix: '$',
-                    gridcolor: 'rgba(255, 255, 255, 0.1)',  // Lighter grid for contrast
+                    gridcolor: 'rgba(255, 255, 255, 0.1)',
                     gridwidth: 1,
                     griddash: 'dash',
                     ticklen: 6
@@ -456,12 +484,14 @@ const products = ['avena', 'fresa', 'guayaba', 'papa cambray blanca', 'papaya', 
                 showlegend: false,
                 hovermode: 'x unified',
                 template: 'plotly_white',
-                width: 900,
-                height: 525,
-                font: { family: 'Poppins', size: 12, color: '#F8F4ED' },
-                plot_bgcolor: '#1a2a3a',  // Darker background to make neon pop
-                paper_bgcolor: 'rgba(0,0,0,0)',  // Transparent to match chart section
-                margin: { l: 60, r: 60, t: 80, b: 100 },
+                plot_bgcolor: '#1a2a3a',
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                margin: { 
+                    l: window.innerWidth <= 480 ? 40 : 60, // Smaller left margin on mobile
+                    r: window.innerWidth <= 480 ? 40 : 60,
+                    t: 80,
+                    b: window.innerWidth <= 480 ? 80 : 100
+                },
                 annotations: [
                     {
                         text: subtitle,
@@ -470,13 +500,17 @@ const products = ['avena', 'fresa', 'guayaba', 'papa cambray blanca', 'papaya', 
                         x: 0.5,
                         y: 1.05,
                         showarrow: false,
-                        font: { size: 12, color: '#E5EAE6', family: 'Poppins' }
+                        font: { 
+                            size: window.innerWidth <= 480 ? 10 : 12, 
+                            color: '#E5EAE6', 
+                            family: 'Poppins' 
+                        }
                     },
                     ...annotations
                 ]
             };
 
-            Plotly.newPlot('priceChart', traces, layout);
+            Plotly.newPlot('priceChart', traces, layout, { responsive: true });
         }
 
         // Populate checkboxes and add event listeners
@@ -495,6 +529,9 @@ const products = ['avena', 'fresa', 'guayaba', 'papa cambray blanca', 'papaya', 
             });
             updateChart();
         });
+
+        // Redraw chart on window resize to ensure responsiveness
+        window.addEventListener('resize', updateChart);
     </script>
 </body>
 </html>
