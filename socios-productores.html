@@ -110,13 +110,14 @@
         .learn-more {
             display: inline-block;
             padding: 1rem 2rem;
-            background: linear-gradient(45deg, #8CBA7F, #00664D); /* Muted Lime Jelly to Muted Spring Green */
+            background: linear-gradient(45deg, rgba(218, 165, 32, 0.75), rgba(184, 134, 11, 0.75)); /* GoldenRod to DarkGoldenRod, 75% transparency */
             color: #F8F4ED; /* Crystal Cut */
             text-decoration: none;
             border-radius: 15px;
             font-weight: bold;
             transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.6); /* Golden glow */
+            animation: glowPulse 2s ease-in-out infinite; /* Pulsating glow */
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
@@ -126,11 +127,11 @@
         }
         .learn-more:hover {
             transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-            background: linear-gradient(45deg, #A8A24A, #B3CDE0); /* Muted Yellow Ace to Muted Azure Cloud */
+            box-shadow: 0 12px 30px rgba(218, 165, 32, 0.8); /* Brighter golden glow */
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.75), rgba(218, 165, 32, 0.75)); /* Brighter gold on hover */
         }
         .learn-more::after {
-            content: "🌍";
+            content: "🌞";
             position: absolute;
             top: 50%;
             right: 10px;
@@ -142,106 +143,93 @@
             40% { transform: translateY(-60%); }
             60% { transform: translateY(-40%); }
         }
-        /* Client Spotlight Carousel */
-        .client-spotlight {
+        @keyframes glowPulse {
+            0% { box-shadow: 0 8px 25px rgba(218, 165, 32, 0.6); }
+            50% { box-shadow: 0 12px 35px rgba(218, 165, 32, 0.9); }
+            100% { box-shadow: 0 8px 25px rgba(218, 165, 32, 0.6); }
+        }
+        /* Stakeholder Section */
+        .stakeholder-section {
             margin: 2rem 0;
             padding: 1.5rem;
-            background: linear-gradient(135deg, rgba(9, 51, 44, 0.2), rgba(65, 104, 88, 0.3)); /* Fence Green to June Ivy */
-            backdrop-filter: blur(15px);
+            background: linear-gradient(135deg, rgba(218, 165, 32, 0.75), rgba(184, 134, 11, 0.75)); /* GoldenRod to DarkGoldenRod, 75% transparency */
+            background-size: 400% 400%;
+            animation: goldenGlow 8s ease infinite; /* Slower for a shimmering effect */
+            border: 1px solid rgba(218, 165, 32, 0.5); /* Subtle golden border */
+            backdrop-filter: blur(10px);
             border-radius: 15px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
             transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden; /* Ensure video doesn't overflow */
         }
-        .client-spotlight:hover {
+        @keyframes goldenGlow {
+            0% { background-position: 0% 0%; opacity: 0.75; }
+            50% { background-position: 100% 100%; opacity: 1; }
+            100% { background-position: 0% 0%; opacity: 0.75; }
+        }
+        .stakeholder-section video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the entire section */
+            z-index: 0;
+        }
+        .stakeholder-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Darker overlay for readability */
+            z-index: 1;
+        }
+        .stakeholder-section:hover {
             transform: translateY(-5px);
         }
-        .client-spotlight h2 {
-            color: #F8F4ED; /* Crystal Cut */
-            margin-bottom: 1rem;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-            text-align: center;
-        }
-        .carousel {
+        .stakeholder-content {
             position: relative;
-            width: 100%;
-            overflow: hidden;
+            z-index: 2; /* Ensure content is above video and overlay */
         }
-        .carousel-slides {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-        .carousel-slide {
-            min-width: 100%;
-            text-align: center;
-        }
-        .carousel-slide img {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            border-radius: 15px;
-            margin-bottom: 1rem;
-        }
-        .carousel-slide h3 {
-            color: #F8F4ED; /* Crystal Cut */
-            margin-bottom: 0.5rem;
-        }
-        .carousel-slide p {
-            color: #E5EAE6; /* Distant Cloud */
-        }
-        .carousel-prev, .carousel-next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: linear-gradient(45deg, #00664D, #8CBA7F); /* Muted Spring Green to Muted Lime Jelly */
-            color: #F8F4ED; /* Crystal Cut */
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.3s ease, background 0.3s ease;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-        }
-        .carousel-prev:hover, .carousel-next:hover {
-            transform: scale(1.05);
-            background: linear-gradient(45deg, #A8A24A, #D4D687); /* Muted Yellow Ace to Muted Busy Bee */
-        }
-        .carousel-prev {
-            left: 10px;
-        }
-        .carousel-next {
-            right: 10px;
-        }
-        /* Certifications Section */
-        .certifications {
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, rgba(3, 36, 37, 0.2), rgba(65, 104, 88, 0.3)); /* Teal Spill to June Ivy */
-            backdrop-filter: blur(15px);
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            text-align: center;
-        }
-        .certifications h2 {
+        .stakeholder-section h2 {
             color: #F8F4ED; /* Crystal Cut */
             margin-bottom: 1rem;
             text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+            text-align: center;
         }
-        .certifications ul {
-            list-style: none;
+        .stakeholder-section p {
+            color: #E5EAE6; /* Distant Cloud */
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .stakeholder-roles {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
             flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
         }
-        .certifications li {
-            background: linear-gradient(45deg, #00664D, #8CBA7F); /* Muted Spring Green to Muted Lime Jelly */
-            padding: 0.8rem 1.5rem;
+        .role-item {
+            background: linear-gradient(45deg, rgba(218, 165, 32, 0.75), rgba(184, 134, 11, 0.75)); /* GoldenRod to DarkGoldenRod, 75% transparency */
+            padding: 1rem;
             border-radius: 10px;
             color: #F8F4ED; /* Crystal Cut */
-            transition: transform 0.3s ease;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            flex: 1;
+            min-width: 200px;
+            max-width: 250px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            box-shadow: 0 4px 15px rgba(218, 165, 32, 0.6); /* Golden glow */
+            animation: glowPulse 2s ease-in-out infinite; /* Pulsating glow */
         }
-        .certifications li:hover {
-            transform: scale(1.1);
+        .role-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(218, 165, 32, 0.8); /* Brighter golden glow */
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.75), rgba(218, 165, 32, 0.75)); /* Brighter gold on hover */
         }
         .footer {
             padding: 1rem;
@@ -273,30 +261,25 @@
             .content img {
                 max-width: 100%;
             }
-            .client-spotlight {
+            .stakeholder-section {
                 padding: 1rem;
             }
-            .carousel-slide img {
-                max-width: 200px;
+            .role-item {
+                min-width: 150px;
             }
-            .certifications ul {
-                flex-direction: column;
-                gap: 1rem;
+            .learn-more {
+                padding: 0.8rem 1.5rem;
             }
         }
         @media (max-width: 480px) {
             .content h1 {
                 font-size: 1.5rem;
             }
+            .role-item {
+                min-width: 100%;
+            }
             .learn-more {
                 padding: 0.8rem 1.5rem;
-            }
-            .carousel-slide img {
-                max-width: 150px;
-            }
-            .certifications li {
-                width: 100%;
-                text-align: center;
             }
         }
     </style>
@@ -311,41 +294,34 @@
         <img src="https://i.imgur.com/t3qxMDe.jpeg" alt="Farmers benefiting from fair trade">
         <div class="fun-fact">🎉 ¡Cada compra tuya ayuda a financiar educación para los hijos de nuestros productores!</div>
         <p>Descubre cómo tu apoyo transforma vidas y explora nuestra misión de impacto social.</p>
-        <!-- Client Spotlight Carousel -->
-        <div class="client-spotlight">
-            <h2>Nuestros Clientes y Socios Certificados</h2>
-            <div class="carousel">
-                <div class="carousel-slides">
-                    <div class="carousel-slide">
-                        <img src="https://i.imgur.com/yP4RNYU.jpeg" alt="Client 1">
-                        <h3>Tienda Verde</h3>
-                        <p>Una cadena ecológica que promueve productos justos.</p>
+        <!-- Stakeholder Section -->
+        <div class="stakeholder-section">
+            <video autoplay loop muted playsinline src="https://i.imgur.com/bk4BtIy.mp4">
+                <!-- Fallback background color if video fails -->
+            </video>
+            <div class="stakeholder-content">
+                <h2>Únete como Stakeholder</h2>
+                <p>Forma parte de nuestra misión de frescura sostenible. Ya seas Productor, Proveedor, Inversor o Repartidor, juntos podemos crecer y hacer una diferencia.</p>
+                <div class="stakeholder-roles">
+                    <div class="role-item">
+                        <h3>Productor</h3>
+                        <p>Accede a mercados amplios y precios justos.</p>
                     </div>
-                    <div class="carousel-slide">
-                        <img src="https://i.imgur.com/s8AjuO9.jpeg" alt="Client 2">
-                        <h3>Comida Sana</h3>
-                        <p>Restaurante que apoya la agricultura sostenible.</p>
+                    <div class="role-item">
+                        <h3>Proveedor</h3>
+                        <p>Conecta con una red de distribución sostenible.</p>
                     </div>
-                    <div class="carousel-slide">
-                        <img src="https://i.imgur.com/5KOa6VD.jpeg" alt="Client 3">
-                        <h3>Mercado Orgánico</h3>
-                        <p>Plataforma que conecta productores y consumidores.</p>
+                    <div class="role-item">
+                        <h3>Inversor</h3>
+                        <p>Apoya un negocio verde con retornos justos.</p>
+                    </div>
+                    <div class="role-item">
+                        <h3>Repartidor</h3>
+                        <p>Horarios flexibles y bonos atractivos.</p>
                     </div>
                 </div>
-                <button class="carousel-prev">◄</button>
-                <button class="carousel-next">►</button>
+                <a href="https://wa.me/525512345678?text=¡Hola!%20Quiero%20ser%20parte%20de%20Fresh%20Prime%20como%20stakeholder." target="_blank" class="learn-more">Contáctanos Ahora</a>
             </div>
-        </div>
-        <a href="#learn-more" class="learn-more">Aprender Más</a>
-        <!-- Certifications Section -->
-        <div class="certifications">
-            <h2>Nuestras Certificaciones</h2>
-            <ul>
-                <li>Fair Trade Certified</li>
-                <li>USDA Organic</li>
-                <li>Rainforest Alliance</li>
-                <li>GlobalGAP</li>
-            </ul>
         </div>
     </div>
     <footer class="footer">
@@ -353,36 +329,5 @@
         <p>Síguenos: <a href="https://www.instagram.com/fresh_prime_foods?igsh=MWFyendicGV4bnRxMQ%3D%3D&utm_source=qr" target="_blank">Instagram</a> | <a href="https://www.freshprime.com">Website</a></p>
         <p>© 2025 Fresh Prime – ¡Frescura que da gusto!</p>
     </footer>
-
-    <script>
-        // Carousel functionality
-        let currentSlide = 0;
-        const slides = document.querySelector('.carousel-slides');
-        const totalSlides = document.querySelectorAll('.carousel-slide').length;
-
-        function showSlide(index) {
-            if (index >= totalSlides) {
-                currentSlide = 0;
-            } else if (index < 0) {
-                currentSlide = totalSlides - 1;
-            } else {
-                currentSlide = index;
-            }
-            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
-        }
-
-        document.querySelector('.carousel-prev').addEventListener('click', () => {
-            showSlide(currentSlide - 1);
-        });
-
-        document.querySelector('.carousel-next').addEventListener('click', () => {
-            showSlide(currentSlide + 1);
-        });
-
-        // Optional: Auto-slide every 5 seconds
-        setInterval(() => {
-            showSlide(currentSlide + 1);
-        }, 5000);
-    </script>
 </body>
 </html>
