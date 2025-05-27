@@ -30,26 +30,6 @@
             50% { background-position: 100% 100%; }
             100% { background-position: 0% 0%; }
         }
-        header {
-            background: linear-gradient(135deg, rgba(9, 51, 44, 0.2), rgba(65, 104, 88, 0.3));
-            backdrop-filter: blur(15px);
-            padding: 1rem;
-            text-align: center;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            margin-bottom: 2rem;
-            width: 100%;
-            max-width: 1200px;
-        }
-        header a {
-            color: #4DDBFF;
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: color 0.3s ease;
-        }
-        header a:hover {
-            color: #F1FF58;
-        }
         .content {
             max-width: 1200px;
             width: 100%;
@@ -238,12 +218,9 @@
     </style>
 </head>
 <body>
-    <header>
-        <a href="index.html">Volver a Fresh Prime</a>
-    </header>
     <div class="content">
         <h1>Price Tracker</h1>
-        <p>Nos comprometemos con el comercio justo, actualizando nuestros precios continuamente para reflejar los costos más equitativos del mercado. Selecciona los productos y el rango de tiempo para ver sus estadísticas.</p>
+        <p>Nos comprometemos con el comercio justo, actualizando nuestros precios continuamente para reflejar los costos más equitativos del mercado. A continuación, un resumen de los productos que sufrieron cambio de precios durante los últimos 30 días. Selecciona los productos y el rango de tiempo para ver sus estadísticas.</p>
 
         <!-- Controls Section -->
         <div class="controls">
@@ -269,12 +246,12 @@
             <div id="priceChart"></div>
         </div>
 
-        <!-- Platform for Producers and Buyers -->
+        <!-- Client-Specific Section -->
         <div class="platform-section">
-            <h2>Plataforma para Productores y Compradores</h2>
-            <p>Conecta directamente con productores y compradores en nuestra plataforma. Si eres productor, registra tus productos para vender. Si eres comprador, encuentra los mejores precios y proveedores confiables.</p>
-            <a href="#register-producer" class="cta-button">Soy Productor</a>
-            <a href="#register-buyer" class="cta-button">Soy Comprador</a>
+            <h2>Gracias por tu confianza, Homewood Suites by Hilton</h2>
+            <p>Estamos aquí para apoyar con información clara sobre precios. Contáctanos si necesitas más detalles o deseas planificar tu próximo pedido.</p>
+            <a href="mailto:FreshPrimeGroup@outlook.com" class="cta-button">Contactar a Fresh Prime</a>
+            <a href="#schedule-call" class="cta-button">Programar una Llamada</a>
         </div>
     </div>
     <footer class="footer">
@@ -289,61 +266,158 @@
         // Data from the previous script
         const plotData = [
     {
-        x: ['2025-05-10', '2025-05-14', '2025-05-20'],
-        y: [75.0, 150.0, 168.896],
-        name: 'Fresa',
-        color: '#2ca02c',
-    },
-    {
         x: ['2025-04-29', '2025-05-13', '2025-05-20'],
         y: [150.0, 103.17, 103.17],
-        name: 'Higo natural',
+        name: 'higo natural',
         color: '#d62728',
+    },
+    {
+        x: ['2025-04-29', '2025-05-27'],
+        y: [72.8, 74.1],
+        name: 'granola',
+        color: '#9467bd',
+    },
+    {
+        x: ['2025-04-29', '2025-05-08', '2025-05-13', '2025-05-20', '2025-05-27'],
+        y: [38.55, 39.0, 39.0, 39.0, 39.0],
+        name: 'coliflor',
+        color: '#9467bd',
+    },
+    {
+        x: ['2025-04-29', '2025-05-06', '2025-05-08', '2025-05-13', '2025-05-15', '2025-05-17', '2025-05-22', '2025-05-24', '2025-05-27'],
+        y: [27.0, 27.01, 27.01, 27.01, 27.01, 27.01, 27.01, 27.01, 27.01],
+        name: 'cebolla blanca',
+        color: '#bcbd22',
+    },
+    {
+        x: ['2025-04-29', '2025-05-08', '2025-05-13', '2025-05-20', '2025-05-24'],
+        y: [25.0, 26.0, 26.0, 26.0, 26.0],
+        name: 'brocoli',
+        color: '#e377c2',
+    },
+    {
+        x: ['2025-04-29', '2025-05-01', '2025-05-06', '2025-05-10', '2025-05-13', '2025-05-17', '2025-05-24'],
+        y: [90.0, 90.0, 90.0, 95.0, 90.0, 90.0, 90.0],
+        name: 'aguacate',
+        color: '#1f77b4',
     },
     {
         x: ['2025-05-01', '2025-05-08', '2025-05-14', '2025-05-20'],
         y: [17.0, 17.0, 24.0, 17.0],
-        name: 'Lechuga italiana',
-        color: '#ff7f0e',
-    },
-    {
-        x: ['2025-05-08', '2025-05-14', '2025-05-20'],
-        y: [17.0, 24.0, 17.0],
-        name: 'Lechuga sangria',
+        name: 'lechuga italiana',
         color: '#17becf',
     },
     {
-        x: ['2025-05-17', '2025-05-20', '2025-05-22', '2025-05-24'],
-        y: [65.0, 65.0, 65.5, 65.5],
-        name: 'Manzana gala',
-        color: '#1f77b4',
+        x: ['2025-05-01', '2025-05-06', '2025-05-08', '2025-05-10', '2025-05-15', '2025-05-17', '2025-05-22', '2025-05-27'],
+        y: [28.75, 28.75, 27.31, 28.75, 28.75, 28.75, 28.75, 28.75],
+        name: 'jitomate saladette 1ra',
+        color: '#e377c2',
+    },
+    {
+        x: ['2025-05-01', '2025-05-06', '2025-05-08', '2025-05-10', '2025-05-15', '2025-05-17', '2025-05-22', '2025-05-24', '2025-05-27'],
+        y: [31.92, 31.92, 28.6, 31.92, 31.92, 31.92, 31.92, 31.92, 31.92],
+        name: 'tomate verde limpio',
+        color: '#2ca02c',
+    },
+    {
+        x: ['2025-05-03', '2025-05-08', '2025-05-14', '2025-05-17', '2025-05-20', '2025-05-24'],
+        y: [33.0, 32.5, 50.0, 32.5, 32.5, 32.5],
+        name: 'cilantro',
+        color: '#7f7f7f',
+    },
+    {
+        x: ['2025-05-03', '2025-05-06', '2025-05-08', '2025-05-10', '2025-05-15', '2025-05-17', '2025-05-22', '2025-05-24', '2025-05-27'],
+        y: [25.08, 25.08, 24.7, 25.08, 25.08, 25.08, 25.08, 25.08, 25.08],
+        name: 'platano tabasco',
+        color: '#7f7f7f',
+    },
+    {
+        x: ['2025-05-03', '2025-05-08', '2025-05-10', '2025-05-17', '2025-05-22', '2025-05-24'],
+        y: [23.45, 22.85, 23.45, 23.45, 23.45, 23.45],
+        name: 'naranja',
+        color: '#bcbd22',
     },
     {
         x: ['2025-05-03', '2025-05-06', '2025-05-08', '2025-05-10', '2025-05-15', '2025-05-17', '2025-05-20', '2025-05-22', '2025-05-24'],
         y: [44.88, 44.88, 70.67, 70.67, 44.88, 65.0, 65.0, 65.5, 65.5],
-        name: 'Manzana golden',
-        color: '#e377c2',
+        name: 'manzana golden',
+        color: '#8c564b',
     },
     {
         x: ['2025-05-03', '2025-05-10', '2025-05-15'],
         y: [66.0, 70.01, 70.01],
-        name: 'Manzana red delicious',
+        name: 'manzana red delicious',
         color: '#1f77b4',
     },
     {
         x: ['2025-05-06', '2025-05-13', '2025-05-17'],
         y: [20.35, 20.35, 23.13],
-        name: 'Sandia',
+        name: 'sandia',
+        color: '#ff7f0e',
+    },
+    {
+        x: ['2025-05-06', '2025-05-08', '2025-05-10', '2025-05-15', '2025-05-17', '2025-05-22', '2025-05-27'],
+        y: [52.0, 42.9, 44.75, 44.75, 44.75, 44.75, 44.75],
+        name: 'papaya',
+        color: '#1f77b4',
+    },
+    {
+        x: ['2025-05-06', '2025-05-17'],
+        y: [126.31, 130.33],
+        name: 'espinaca baby',
         color: '#e377c2',
+    },
+    {
+        x: ['2025-05-08', '2025-05-14', '2025-05-20'],
+        y: [17.0, 24.0, 17.0],
+        name: 'lechuga sangria',
+        color: '#1f77b4',
+    },
+    {
+        x: ['2025-05-10', '2025-05-14', '2025-05-20'],
+        y: [75.0, 150.0, 168.896],
+        name: 'fresa',
+        color: '#2ca02c',
+    },
+    {
+        x: ['2025-05-13', '2025-05-21'],
+        y: [175.0, 214.5],
+        name: 'pechuga de pollo aplanada',
+        color: '#8c564b',
+    },
+    {
+        x: ['2025-05-13', '2025-05-22'],
+        y: [195.0, 165.0],
+        name: 'chicharron seco',
+        color: '#8c564b',
+    },
+    {
+        x: ['2025-05-17', '2025-05-24'],
+        y: [26.0, 25.0],
+        name: 'avena',
+        color: '#bcbd22',
+    },
+    {
+        x: ['2025-05-17', '2025-05-20', '2025-05-22', '2025-05-24', '2025-05-27'],
+        y: [65.0, 65.0, 65.5, 65.5, 65.0],
+        name: 'manzana gala',
+        color: '#17becf',
+    },
+    {
+        x: ['2025-05-20', '2025-05-24'],
+        y: [44.45, 41.75],
+        name: 'cebolla morada',
+        color: '#7f7f7f',
     },
 ];
 
-const allDates = ['2025-04-29', '2025-05-01', '2025-05-03', '2025-05-06', '2025-05-08', '2025-05-10', '2025-05-13', '2025-05-14', '2025-05-15', '2025-05-17', '2025-05-20', '2025-05-22', '2025-05-24'];
-const products = ['fresa', 'higo natural', 'lechuga italiana', 'lechuga sangria', 'manzana gala', 'manzana golden', 'manzana red delicious', 'sandia'];
+const allDates = ['2025-04-29', '2025-05-01', '2025-05-03', '2025-05-06', '2025-05-08', '2025-05-10', '2025-05-13', '2025-05-14', '2025-05-15', '2025-05-17', '2025-05-20', '2025-05-21', '2025-05-22', '2025-05-24', '2025-05-27'];
+
+const products = ['higo natural', 'granola', 'coliflor', 'cebolla blanca', 'brocoli', 'aguacate', 'lechuga italiana', 'jitomate saladette 1ra', 'tomate verde limpio', 'cilantro', 'platano tabasco', 'naranja', 'manzana golden', 'manzana red delicious', 'sandia', 'papaya', 'espinaca baby', 'lechuga sangria', 'fresa', 'pechuga de pollo aplanada', 'chicharron seco', 'avena', 'manzana gala', 'cebolla morada'];
 
         // Function to filter data based on time range
         function filterDataByRange(days) {
-            const endDate = new Date(); // Current date (e.g., May 5, 2025)
+            const endDate = new Date(); // Current date (e.g., May 27, 2025)
             const startDate = new Date(endDate.getTime() - days * 24 * 60 * 60 * 1000);
             const filteredDates = allDates.filter(date => {
                 const d = new Date(date);
