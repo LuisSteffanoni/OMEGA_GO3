@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Fresh Prime – Página Temporalmente Fuera de Servicio</title>
+    <title>Price Tracker - Fresh Prime</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
         * {
@@ -13,141 +13,762 @@
             font-family: 'Poppins', sans-serif;
         }
         body {
-            background: linear-gradient(135deg, #083645, #032425, #416858, #057BC1); /* Twilight Bliss to Teal Spill with June Ivy and Star of Life */
+            background: linear-gradient(135deg, #083645, #032425, #416858, #057BC1);
             background-size: 400% 400%;
             animation: gradientAnimation 15s ease infinite;
-            color: #F8F4ED; /* Crystal Cut for text */
+            color: #F8F4ED;
             line-height: 1.6;
+            overflow-x: hidden;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             padding: 2rem;
-            overflow-x: hidden;
         }
         @keyframes gradientAnimation {
             0% { background-position: 0% 0%; }
             50% { background-position: 100% 100%; }
             100% { background-position: 0% 0%; }
         }
-        .standby-container {
-            position: relative;
-            max-width: 800px;
+        .content {
+            max-width: 1200px;
             width: 100%;
-            background: linear-gradient(135deg, rgba(9, 51, 44, 0.2), rgba(65, 104, 88, 0.3)); /* Fence Green to June Ivy */
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(9, 51, 44, 0.2), rgba(65, 104, 88, 0.3));
             backdrop-filter: blur(15px);
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px #00FFFF, 0 0 40px #00FFFF; /* Neon blue glow */
-            border: 2px solid #00FFFF; /* Neon blue border */
-            padding: 3rem;
-            text-align: center;
-            transform: perspective(1000px) translateZ(20px); /* 3D effect */
-            animation: glowPulse 2s ease-in-out infinite; /* Pulsing glow */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(244, 237, 228, 0.2);
+            animation: fadeIn 1s ease-in;
+            flex: 1;
         }
-        @keyframes glowPulse {
-            0%, 100% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px #00FFFF, 0 0 40px #00FFFF; }
-            50% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 30px #00FFFF, 0 0 60px #00FFFF; }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
-        .standby-container h1 {
-            font-size: 3rem;
+        .content h1 {
+            font-size: 2.5rem;
             font-weight: 600;
-            color: #00FFFF; /* Neon blue for Fresh Prime */
-            text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF, 0 0 30px #00FFFF; /* Exaggerated glow */
-            margin-bottom: 1.5rem;
-            transform: translateZ(30px); /* 3D text effect */
-        }
-        .standby-container p {
-            font-size: 1.2rem;
-            color: #E5EAE6; /* Distant Cloud */
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: linear-gradient(45deg, #00FFFF, #66B2FF); /* Neon blue to lighter blue */
-            color: #F8F4ED; /* Crystal Cut */
-            text-decoration: none;
-            border-radius: 15px;
-            box-shadow: 0 0 15px #00FFFF, 0 0 25px #00FFFF; /* Neon glow */
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-        }
-        .cta-button:hover {
-            transform: scale(1.1) translateZ(10px); /* 3D hover effect */
-            box-shadow: 0 0 20px #00FFFF, 0 0 40px #00FFFF;
-            background: linear-gradient(45deg, #66B2FF, #00FFFF);
-        }
-        .footer {
-            margin-top: 2rem;
-            padding: 1rem;
+            color: #F8F4ED;
             text-align: center;
-            background: radial-gradient(circle, rgba(3, 36, 37, 0.6), rgba(9, 51, 44, 0.4)); /* Teal Spill to Fence Green */
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        }
+        .content p {
+            margin-bottom: 1.5rem;
+            color: #E5EAE6;
+            text-align: center;
+        }
+        .controls {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(3, 36, 37, 0.2), rgba(65, 104, 88, 0.3));
             backdrop-filter: blur(15px);
             border-radius: 15px;
-            border: 1px solid rgba(244, 237, 228, 0.2); /* Angelic White border */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .controls select, .controls button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #00664D, #8CBA7F);
+            color: #F8F4ED;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        .controls select:hover, .controls button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(45deg, #A8A24A, #D4D687);
+        }
+        .product-selection {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(3, 36, 37, 0.2), rgba(65, 104, 88, 0.3));
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .product-selection h2 {
+            color: #F8F4ED;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        }
+        .product-selection label {
+            display: block;
+            margin: 0.5rem 0;
+            color: #E5EAE6;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .product-selection input[type="checkbox"] {
+            margin-right: 0.5rem;
+            accent-color: #8CBA7F;
+        }
+        .chart-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(9, 51, 44, 0.2), rgba(65, 104, 88, 0.3));
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease;
+        }
+        .chart-section:hover {
+            transform: translateY(-5px);
+        }
+        .chart-section h2 {
+            color: #F8F4ED;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        }
+        #priceChart {
+            width: 100% !important;
+            height: 500px !important;
+            min-height: 400px;
+        }
+        .platform-section {
+            margin: 2rem 0;
+            text-align: center;
+        }
+        .platform-section h2 {
+            color: #F8F4ED;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        }
+        .platform-section .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #8CBA7F, #00664D);
+            color: #F8F4ED;
+            text-decoration: none;
+            border-radius: 15px;
+            transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        .platform-section .cta-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(45deg, #A8A24A, #B3CDE0);
+        }
+        .footer {
+            padding: 1rem;
+            text-align: center;
+            background: radial-gradient(circle, rgba(3, 36, 37, 0.6), rgba(9, 51, 44, 0.4));
+            backdrop-filter: blur(15px);
+            color: #F8F4ED;
+            border-top: 1px solid rgba(244, 237, 228, 0.2);
             width: 100%;
-            max-width: 800px;
+            max-width: 1200px;
+            margin-top: auto;
         }
         .footer a {
-            color: #00FFFF; /* Neon blue */
+            color: #4DDBFF;
             text-decoration: none;
             margin: 0 1rem;
             transition: color 0.3s ease;
         }
         .footer a:hover {
-            color: #FF00FF; /* Neon pink for hover (GPO. ROSAN color) */
-            text-shadow: 0 0 10px #FF00FF;
+            color: #F1FF58;
         }
         @media (max-width: 768px) {
-            .standby-container {
-                padding: 2rem;
+            .content {
+                padding: 1.5rem;
             }
-            .standby-container h1 {
+            .content h1 {
                 font-size: 2rem;
             }
-            .standby-container p {
-                font-size: 1rem;
+            .controls {
+                flex-direction: column;
+                gap: 0.5rem;
             }
-            .cta-button {
-                padding: 0.8rem 1.5rem;
+            .product-selection {
+                padding: 0.8rem;
             }
-            .footer {
+            .chart-section {
                 padding: 1rem;
+            }
+            #priceChart {
+                height: 400px !important;
+            }
+            .platform-section .cta-button {
+                padding: 0.8rem 1.5rem;
             }
         }
         @media (max-width: 480px) {
-            .standby-container {
-                padding: 1.5rem;
-            }
-            .standby-container h1 {
+            .content h1 {
                 font-size: 1.5rem;
             }
-            .standby-container p {
-                font-size: 0.9rem;
+            .chart-section {
+                padding: 0.8rem;
             }
-            .cta-button {
-                padding: 0.7rem 1.2rem;
+            #priceChart {
+                height: 300px !important;
             }
-            .footer {
-                font-size: 0.9rem;
+            .platform-section .cta-button {
+                padding: 0.6rem 1.2rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="standby-container">
-        <h1>Fresh Prime – Temporalmente Fuera de Servicio</h1>
-        <p>Actualmente, esta página no está compartiendo información. ¡Estamos trabajando para volver pronto con más frescura! Contáctanos para cualquier consulta.</p>
-        <a href="mailto:FreshPrimeGroup@outlook.com" class="cta-button">Contáctanos</a>
+    <div class="content">
+        <h1>Price Tracker</h1>
+        <p>Nos comprometemos con el comercio justo, actualizando nuestros precios continuamente para reflejar los costos más equitativos del mercado. A continuación, un resumen de los productos que sufrieron cambio de precios durante los últimos 30 días. Selecciona los productos y el rango de tiempo para ver sus estadísticas.</p>
+
+        <!-- Controls Section -->
+        <div class="controls">
+            <select id="timeRange" onchange="updateChart()">
+                <option value="7">1 Semana</option>
+                <option value="14">2 Semanas</option>
+                <option value="21">3 Semanas</option>
+                <option value="28">4 Semanas</option>
+                <option value="30">1 Mes</option>
+            </select>
+            <button onclick="updateChart()">Actualizar</button>
+        </div>
+
+        <!-- Product Selection Section -->
+        <div class="product-selection">
+            <h2>Seleccionar Productos</h2>
+            <div id="product-checkboxes"></div>
+        </div>
+
+        <!-- Dynamic Chart Section -->
+        <div class="chart-section">
+            <h2>Precios de Productos (MXN)</h2>
+            <div id="priceChart"></div>
+        </div>
+
+        <!-- Client-Specific Section -->
+        <div class="platform-section">
+            <h2>Gracias por tu confianza, De La Tierra</h2>
+            <p>Estamos aquí para apoyar con información clara sobre precios. Contáctanos si necesitas más detalles o deseas planificar tu próximo pedido.</p>
+            <a href="mailto:FreshPrimeGroup@outlook.com" class="cta-button">Contactar a Fresh Prime</a>
+            <a href="#schedule-call" class="cta-button">Programar una Llamada</a>
+        </div>
     </div>
-    <div class="footer">
-        <p>Contáctanos: <a href="mailto:FreshPrimeGroup@outlook.com">FreshPrimeGroup@outlook.com</a> </p>
-        <p>Síguenos: <a href="https://www.instagram.com/fresh_prime_foods?igsh=MWFyendicGV4bnRxMQ%3D%3D&utm_source=qr" target="_blank">Instagram</a> | <a href="https://www.freshprime.com">Website</a></p>
-        <p>© 2025 Fresh Prime – ¡Frescura que da gusto!</p>
-    </div>
+    <footer class="footer">
+        <p>Contact Us: <a href="mailto:FreshPrimeGroup@outlook.com">FreshPrimeGroup@outlook.com</a> | (44) 24 22 57 56</p>
+        <p>Follow Us: <a href="https://www.instagram.com/fresh_prime_foods?igsh=MWFyendicGV4bnRxMQ%3D%3D&utm_source=qr" target="_blank">Instagram</a> | <a href="https://luissteffanoni.github.io/OMEGA_GO3/index.html">Website</a></p>
+        <p>© 2025 Fresh Prime – Freshness Redefined</p>
+    </footer>
+
+    <!-- Include Plotly Library -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+        // Data from the previous script
+        
+
+
+
+
+
+
+
+
+
+
+const plotData = [
+    {
+        x: ['2025-08-30', '2025-08-31', '2025-09-04', '2025-09-04', '2025-09-06', '2025-09-11', '2025-09-11', '2025-09-13', '2025-09-14', '2025-09-18', '2025-09-20', '2025-09-20', '2025-09-24', '2025-09-24', '2025-09-27', '2025-09-28'],
+        y: [26.65, 26.65, 26.65, 26.65, 26.65, 26.65, 26.65, 26.65, 26.65, 27.0, 27.0, 27.0, 27.0, 27.0, 27.0, 27.0],
+        name: 'acelga',
+        color: '#ff7f0e',
+    },
+    {
+        x: ['2025-08-30', '2025-08-30', '2025-08-31', '2025-09-06', '2025-09-07', '2025-09-07', '2025-09-13', '2025-09-14', '2025-09-14', '2025-09-20', '2025-09-20', '2025-09-21', '2025-09-27', '2025-09-27', '2025-09-28'],
+        y: [27.0, 27.0, 27.0, 27.0, 27.0, 27.0, 27.0, 27.0, 27.0, 27.0, 27.0, 27.0, 34.0, 34.0, 34.0],
+        name: 'jitomate bola',
+        color: '#ff7f0e',
+    },
+    {
+        x: ['2025-08-30', '2025-08-31', '2025-09-06', '2025-09-07', '2025-09-13', '2025-09-14', '2025-09-20', '2025-09-21', '2025-09-27', '2025-09-28'],
+        y: [58.5, 58.5, 58.5, 58.5, 58.5, 58.5, 58.5, 58.5, 63.75, 63.75],
+        name: 'frambuesa',
+        color: '#17becf',
+    },
+    {
+        x: ['2025-08-30', '2025-09-06', '2025-09-07', '2025-09-13', '2025-09-20', '2025-09-21', '2025-09-27'],
+        y: [65.0, 65.0, 65.0, 65.0, 65.0, 65.0, 68.5],
+        name: 'fresa',
+        color: '#d62728',
+    },
+    {
+        x: ['2025-08-30', '2025-09-06', '2025-09-13', '2025-09-20', '2025-09-27'],
+        y: [48.0, 48.0, 48.0, 52.0, 60.0],
+        name: 'hierbabuena',
+        color: '#bcbd22',
+    },
+    {
+        x: ['2025-08-30', '2025-09-06', '2025-09-13', '2025-09-20', '2025-09-27'],
+        y: [21.0, 21.0, 21.0, 23.0, 23.0],
+        name: 'alfalfa',
+        color: '#bcbd22',
+    },
+    {
+        x: ['2025-08-30', '2025-08-30', '2025-08-31', '2025-08-31', '2025-09-06', '2025-09-06', '2025-09-06', '2025-09-07', '2025-09-11', '2025-09-13', '2025-09-13', '2025-09-14', '2025-09-20', '2025-09-20', '2025-09-20', '2025-09-21', '2025-09-21', '2025-09-27', '2025-09-27', '2025-09-27', '2025-09-28'],
+        y: [90.0, 90.0, 90.0, 90.0, 90.0, 90.0, 90.0, 90.0, 90.0, 90.0, 90.0, 90.0, 90.0, 90.0, 90.0, 90.0, 90.0, 92.4, 92.4, 92.4, 92.4],
+        name: 'flores comestibles',
+        color: '#ff7f0e',
+    },
+    {
+        x: ['2025-08-30', '2025-09-06', '2025-09-07', '2025-09-13', '2025-09-14', '2025-09-20', '2025-09-21', '2025-09-27', '2025-09-28'],
+        y: [17.0, 17.0, 17.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0],
+        name: 'lechuga sangria',
+        color: '#d62728',
+    },
+    {
+        x: ['2025-08-30', '2025-09-06', '2025-09-07', '2025-09-13', '2025-09-14', '2025-09-20', '2025-09-21', '2025-09-27', '2025-09-28'],
+        y: [17.0, 17.0, 17.0, 18.0, 18.0, 18.0, 18.0, 18.0, 18.0],
+        name: 'lechuga italiana',
+        color: '#2ca02c',
+    },
+    {
+        x: ['2025-08-30', '2025-08-31', '2025-09-06', '2025-09-07', '2025-09-13', '2025-09-14', '2025-09-20', '2025-09-21', '2025-09-27', '2025-09-28'],
+        y: [103.17, 103.17, 103.17, 103.17, 103.17, 103.17, 103.17, 103.17, 93.086, 93.086],
+        name: 'higo natural',
+        color: '#1f77b4',
+    },
+    {
+        x: ['2025-08-30', '2025-09-04', '2025-09-06', '2025-09-07', '2025-09-13', '2025-09-14', '2025-09-20', '2025-09-21', '2025-09-24', '2025-09-27'],
+        y: [130.0, 130.0, 130.0, 130.0, 120.0, 120.0, 120.0, 120.0, 120.0, 120.0],
+        name: 'hongo portobello',
+        color: '#d62728',
+    },
+    {
+        x: ['2025-08-30', '2025-08-31', '2025-09-06', '2025-09-07', '2025-09-13', '2025-09-14', '2025-09-20', '2025-09-21', '2025-09-27', '2025-09-28'],
+        y: [53.8, 53.8, 53.8, 53.8, 53.8, 53.8, 53.8, 53.8, 63.75, 63.75],
+        name: 'zarzamora',
+        color: '#e377c2',
+    },
+    {
+        x: ['2025-08-30', '2025-08-31', '2025-09-06', '2025-09-07', '2025-09-13', '2025-09-14', '2025-09-20', '2025-09-21', '2025-09-27', '2025-09-28'],
+        y: [58.5, 58.5, 58.5, 58.5, 58.5, 58.5, 58.5, 58.5, 63.75, 63.75],
+        name: 'blueberry',
+        color: '#8c564b',
+    },
+    {
+        x: ['2025-08-30', '2025-09-06', '2025-09-07', '2025-09-13', '2025-09-20', '2025-09-27'],
+        y: [130.4375, 130.44, 130.44, 130.44, 130.44, 130.44],
+        name: 'arugula',
+        color: '#d62728',
+    },
+    {
+        x: ['2025-08-30', '2025-08-30', '2025-08-31', '2025-08-31', '2025-09-04', '2025-09-06', '2025-09-06', '2025-09-07', '2025-09-11', '2025-09-13', '2025-09-13', '2025-09-20', '2025-09-20', '2025-09-20', '2025-09-27', '2025-09-27'],
+        y: [241.0, 241.0, 241.0, 241.0, 241.0, 241.0, 241.0, 241.0, 221.0, 221.0, 221.0, 221.0, 221.0, 221.0, 221.0, 221.0],
+        name: 'esparrago',
+        color: '#bcbd22',
+    },
+    {
+        x: ['2025-08-30', '2025-08-31', '2025-09-06', '2025-09-07', '2025-09-13', '2025-09-21'],
+        y: [28.2, 28.2, 25.0, 25.0, 28.9, 28.9],
+        name: 'papa blanca alfa gde',
+        color: '#1f77b4',
+    },
+    {
+        x: ['2025-08-30', '2025-09-21', '2025-09-28'],
+        y: [152.93, 152.93, 152.93200000000002],
+        name: 'elote desgranado lata gde.',
+        color: '#7f7f7f',
+    },
+    {
+        x: ['2025-08-30', '2025-09-06', '2025-09-07', '2025-09-13', '2025-09-18', '2025-09-20', '2025-09-24', '2025-09-27'],
+        y: [33.8, 33.8, 33.8, 33.8, 34.2, 34.2, 33.45, 33.45],
+        name: 'pina miel',
+        color: '#2ca02c',
+    },
+    {
+        x: ['2025-08-30', '2025-08-30', '2025-08-31', '2025-08-31', '2025-09-04', '2025-09-04', '2025-09-06', '2025-09-07', '2025-09-11', '2025-09-13', '2025-09-13', '2025-09-14', '2025-09-14', '2025-09-18', '2025-09-20', '2025-09-20', '2025-09-21', '2025-09-24', '2025-09-27', '2025-09-27', '2025-09-28'],
+        y: [90.0, 90.0, 90.0, 90.0, 90.0, 90.0, 90.0, 90.0, 85.0, 85.0, 85.0, 85.0, 85.0, 90.0, 90.0, 90.0, 90.0, 90.0, 90.0, 90.0, 90.0],
+        name: 'aguacate',
+        color: '#d62728',
+    },
+    {
+        x: ['2025-08-31', '2025-09-14'],
+        y: [64.77, 54.0],
+        name: 'cerveza piedra lisa',
+        color: '#e377c2',
+    },
+    {
+        x: ['2025-08-31', '2025-09-24'],
+        y: [131.66, 195.0],
+        name: 'nata natural 500 ml',
+        color: '#9467bd',
+    },
+    {
+        x: ['2025-08-31', '2025-08-31', '2025-09-14'],
+        y: [613.41, 617.1184000000001, 583.104],
+        name: 'licor 43',
+        color: '#9467bd',
+    },
+    {
+        x: ['2025-08-31', '2025-09-04', '2025-09-04', '2025-09-06', '2025-09-07', '2025-09-11', '2025-09-11', '2025-09-14', '2025-09-18', '2025-09-18', '2025-09-20', '2025-09-21', '2025-09-24', '2025-09-24', '2025-09-27', '2025-09-28'],
+        y: [25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 27.0, 27.0, 27.0, 27.0, 25.0, 25.0, 25.0, 25.0],
+        name: 'jitomate saladette 1ra',
+        color: '#8c564b',
+    },
+    {
+        x: ['2025-08-31', '2025-09-04', '2025-09-07', '2025-09-11', '2025-09-14', '2025-09-18', '2025-09-24', '2025-09-28'],
+        y: [115.0, 115.0, 115.0, 115.0, 115.0, 117.0, 117.0, 117.0],
+        name: 'arrachera',
+        color: '#1f77b4',
+    },
+    {
+        x: ['2025-08-31', '2025-09-04', '2025-09-04', '2025-09-14', '2025-09-21', '2025-09-28'],
+        y: [26.0, 20.8, 20.8, 20.8, 25.0, 25.0],
+        name: 'zanahoria',
+        color: '#8c564b',
+    },
+    {
+        x: ['2025-08-31', '2025-09-04', '2025-09-04', '2025-09-07', '2025-09-11', '2025-09-11', '2025-09-14', '2025-09-18', '2025-09-20', '2025-09-21', '2025-09-24', '2025-09-24'],
+        y: [28.2, 28.9, 28.9, 28.9, 28.9, 28.9, 28.9, 28.9, 28.9, 28.9, 28.2, 28.2],
+        name: 'papa blanca alfa',
+        color: '#17becf',
+    },
+    {
+        x: ['2025-09-04', '2025-09-07', '2025-09-11', '2025-09-18', '2025-09-18', '2025-09-21', '2025-09-24', '2025-09-24'],
+        y: [25.0, 25.0, 25.0, 26.0, 26.0, 26.0, 27.0, 27.0],
+        name: 'cebolla blanca',
+        color: '#e377c2',
+    },
+    {
+        x: ['2025-09-04', '2025-09-24'],
+        y: [162.5, 176.8],
+        name: 'chicharron',
+        color: '#e377c2',
+    },
+    {
+        x: ['2025-09-04', '2025-09-11', '2025-09-18', '2025-09-24'],
+        y: [38.25, 38.25, 35.05, 35.05],
+        name: 'limon sin semilla',
+        color: '#d62728',
+    },
+    {
+        x: ['2025-09-04', '2025-09-11', '2025-09-18', '2025-09-24', '2025-09-27'],
+        y: [25.5, 45.0, 45.0, 42.5, 42.5],
+        name: 'chile serrano',
+        color: '#2ca02c',
+    },
+    {
+        x: ['2025-09-04', '2025-09-04', '2025-09-07', '2025-09-14', '2025-09-18', '2025-09-18', '2025-09-21', '2025-09-24'],
+        y: [337.0, 337.0, 337.0, 337.0, 340.0, 340.0, 340.0, 340.0],
+        name: 'salmon',
+        color: '#7f7f7f',
+    },
+    {
+        x: ['2025-09-04', '2025-09-11', '2025-09-18', '2025-09-24'],
+        y: [25.0, 32.5, 32.5, 32.5],
+        name: 'tomate verde limpio',
+        color: '#9467bd',
+    },
+    {
+        x: ['2025-09-04', '2025-09-11', '2025-09-18', '2025-09-18', '2025-09-21', '2025-09-24'],
+        y: [155.0, 155.0, 160.0, 160.0, 160.0, 160.0],
+        name: 'pechuga de pollo entera',
+        color: '#1f77b4',
+    },
+    {
+        x: ['2025-09-06', '2025-09-21'],
+        y: [274.925, 274.93],
+        name: 'crema batida 3 pzas',
+        color: '#bcbd22',
+    },
+    {
+        x: ['2025-09-07', '2025-09-18', '2025-09-24'],
+        y: [38.5, 38.5, 35.5],
+        name: 'papaya',
+        color: '#7f7f7f',
+    },
+    {
+        x: ['2025-09-07', '2025-09-14', '2025-09-21'],
+        y: [255.34599999999998, 235.70399999999998, 235.70399999999998],
+        name: 'yogurth natural 4 lt',
+        color: '#1f77b4',
+    },
+    {
+        x: ['2025-09-07', '2025-09-13'],
+        y: [65.0, 218.20499999999998],
+        name: 'bolsa de 2 kg rollo',
+        color: '#9467bd',
+    },
+    {
+        x: ['2025-09-07', '2025-09-13'],
+        y: [65.0, 315.328],
+        name: 'bolsa de 4 kg rollo',
+        color: '#8c564b',
+    },
+    {
+        x: ['2025-09-07', '2025-09-18', '2025-09-24'],
+        y: [28.05, 29.9, 29.9],
+        name: 'melon chino',
+        color: '#7f7f7f',
+    },
+    {
+        x: ['2025-09-14', '2025-09-21', '2025-09-28'],
+        y: [503.31600000000003, 503.32, 472.62],
+        name: 'harina alta proteina 25 kgs',
+        color: '#17becf',
+    },
+    {
+        x: ['2025-09-20', '2025-09-27'],
+        y: [28.9, 28.2],
+        name: 'papa blanca alfa gde.',
+        color: '#8c564b',
+    },
+    {
+        x: ['2025-09-20', '2025-09-27'],
+        y: [150.0, 160.0],
+        name: 'maracuya (pulpa)',
+        color: '#e377c2',
+    },
+    {
+        x: ['2025-09-21', '2025-09-28'],
+        y: [245.88150000000002, 245.88],
+        name: 'mantequilla sin sal mm 1 kg',
+        color: '#8c564b',
+    },
+];
+
+const allDates = ['2025-08-30', '2025-08-31', '2025-09-04', '2025-09-06', '2025-09-07', '2025-09-11', '2025-09-13', '2025-09-14', '2025-09-18', '2025-09-20', '2025-09-21', '2025-09-24', '2025-09-27', '2025-09-28'];
+
+const products = ['acelga', 'jitomate bola', 'frambuesa', 'fresa', 'hierbabuena', 'alfalfa', 'flores comestibles', 'lechuga sangria', 'lechuga italiana', 'higo natural', 'hongo portobello', 'zarzamora', 'blueberry', 'arugula', 'esparrago', 'papa blanca alfa gde', 'elote desgranado lata gde.', 'pina miel', 'aguacate', 'cerveza piedra lisa', 'nata natural 500 ml', 'licor 43', 'jitomate saladette 1ra', 'arrachera', 'zanahoria', 'papa blanca alfa', 'cebolla blanca', 'chicharron', 'limon sin semilla', 'chile serrano', 'salmon', 'tomate verde limpio', 'pechuga de pollo entera', 'crema batida 3 pzas', 'papaya', 'yogurth natural 4 lt', 'bolsa de 2 kg rollo', 'bolsa de 4 kg rollo', 'melon chino', 'harina alta proteina 25 kgs', 'papa blanca alfa gde.', 'maracuya (pulpa)', 'mantequilla sin sal mm 1 kg'];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // Function to filter data based on time range
+        function filterDataByRange(days) {
+            const endDate = new Date(); // Current date (e.g., May 27, 2025)
+            const startDate = new Date(endDate.getTime() - days * 24 * 60 * 60 * 1000);
+            const filteredDates = allDates.filter(date => {
+                const d = new Date(date);
+                return d >= startDate && d <= endDate;
+            });
+
+            const filteredData = plotData.map(trace => {
+                const filteredX = [];
+                const filteredY = [];
+                trace.x.forEach((date, idx) => {
+                    if (filteredDates.includes(date)) {
+                        filteredX.push(date);
+                        filteredY.push(trace.y[idx]);
+                    }
+                });
+                return {
+                    ...trace,
+                    x: filteredX,
+                    y: filteredY
+                };
+            });
+
+            return { dates: filteredDates, data: filteredData };
+        }
+
+        // Function to update the Plotly chart with responsive adjustments
+        function updateChart() {
+            const selectedProducts = [];
+            document.querySelectorAll('#product-checkboxes input[type="checkbox"]:checked').forEach(checkbox => {
+                selectedProducts.push(checkbox.value);
+            });
+
+            const days = parseInt(document.getElementById('timeRange').value);
+            const filtered = filterDataByRange(days);
+
+            const traces = [];
+            const annotations = [];
+            filtered.data.forEach(trace => {
+                if (selectedProducts.includes(trace.name.toLowerCase())) {
+                    const priceLabels = trace.y.map(price => `$${price.toFixed(2)}`);
+                    traces.push({
+                        x: trace.x,
+                        y: trace.y,
+                        mode: 'lines+markers+text',
+                        name: trace.name,
+                        line: {
+                            color: trace.color,
+                            width: 3,
+                            shape: 'spline',
+                        },
+                        marker: {
+                            size: 10,
+                            color: trace.color,
+                            line: {
+                                color: '#ffffff',
+                                width: 2
+                            },
+                            opacity: 1
+                        },
+                        text: priceLabels,
+                        textposition: 'top center',
+                        textfont: {
+                            size: window.innerWidth <= 480 ? 8 : 10,
+                            color: trace.color,
+                            family: 'Poppins',
+                            shadow: '0 0 5px rgba(0, 0, 0, 0.5)'
+                        },
+                        hovertemplate: 'Date: %{x|%b %d, %Y}<br>Price: $%{y:.2f}<extra></extra>'
+                    });
+
+                    if (trace.x.length > 0) {
+                        const lastIdx = trace.x.length - 1;
+                        annotations.push({
+                            x: trace.x[lastIdx],
+                            y: trace.y[lastIdx],
+                            text: trace.name,
+                            showarrow: false,
+                            font: {
+                                size: window.innerWidth <= 480 ? 8 : 10,
+                                color: trace.color,
+                                family: 'Poppins',
+                                weight: 'bold',
+                                shadow: '0 0 5px rgba(0, 0, 0, 0.5)'
+                            },
+                            xanchor: 'left',
+                            yanchor: 'bottom',
+                            xshift: 5
+                        });
+                    }
+                }
+            });
+
+            const earliestDate = filtered.dates.length > 0 ? new Date(filtered.dates[0]) : new Date('2025-03-29');
+            const latestDate = filtered.dates.length > 0 ? new Date(filtered.dates[filtered.dates.length - 1]) : new Date();
+            const subtitle = `Data from ${earliestDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} to ${latestDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+
+            const layout = {
+                title: {
+                    text: 'Product Price Changes',
+                    font: { 
+                        size: window.innerWidth <= 480 ? 12 : 14, 
+                        family: 'Poppins', 
+                        color: '#F8F4ED', 
+                        weight: 'bold' 
+                    },
+                    x: 0.5,
+                    xanchor: 'center',
+                    pad: { b: 10 }
+                },
+                xaxis: {
+                    title: 'Date',
+                    titlefont: { 
+                        size: window.innerWidth <= 480 ? 10 : 12, 
+                        color: '#E7E7E3' 
+                    },
+                    tickfont: { 
+                        size: window.innerWidth <= 480 ? 8 : 10, 
+                        color: '#E7E7E3' 
+                    },
+                    tickformat: '%b %d',
+                    tickangle: 45,
+                    gridcolor: 'rgba(255, 255, 255, 0.1)',
+                    gridwidth: 1,
+                    griddash: 'dash',
+                    ticklen: 6
+                },
+                yaxis: {
+                    title: 'Price (MXN)',
+                    titlefont: { 
+                        size: window.innerWidth <= 480 ? 10 : 12, 
+                        color: '#E7E7E3' 
+                    },
+                    tickfont: { 
+                        size: window.innerWidth <= 480 ? 8 : 10, 
+                        color: '#E7E7E3' 
+                    },
+                    tickprefix: '$',
+                    gridcolor: 'rgba(255, 255, 255, 0.1)',
+                    gridwidth: 1,
+                    griddash: 'dash',
+                    ticklen: 6
+                },
+                showlegend: false,
+                hovermode: 'x unified',
+                template: 'plotly_white',
+                plot_bgcolor: '#1a2a3a',
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                margin: { 
+                    l: window.innerWidth <= 480 ? 40 : 60,
+                    r: window.innerWidth <= 480 ? 40 : 60,
+                    t: 80,
+                    b: window.innerWidth <= 480 ? 80 : 100
+                },
+                annotations: [
+                    {
+                        text: subtitle,
+                        xref: 'paper',
+                        yref: 'paper',
+                        x: 0.5,
+                        y: 1.05,
+                        showarrow: false,
+                        font: { 
+                            size: window.innerWidth <= 480 ? 10 : 12, 
+                            color: '#E5EAE6', 
+                            family: 'Poppins' 
+                        }
+                    },
+                    ...annotations
+                ]
+            };
+
+            Plotly.newPlot('priceChart', traces, layout, { responsive: true });
+        }
+
+        // Populate checkboxes and add event listeners
+        window.addEventListener('load', () => {
+            const checkboxContainer = document.getElementById('product-checkboxes');
+            products.forEach(product => {
+                const label = document.createElement('label');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.value = product;
+                checkbox.checked = true;
+                checkbox.onchange = updateChart;
+                label.appendChild(checkbox);
+                label.appendChild(document.createTextNode(` ${product}`));
+                checkboxContainer.appendChild(label);
+            });
+            updateChart();
+        });
+
+        // Redraw chart on window resize to ensure responsiveness
+        window.addEventListener('resize', updateChart);
+    </script>
 </body>
 </html>
