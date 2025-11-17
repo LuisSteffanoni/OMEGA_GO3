@@ -924,7 +924,7 @@ const products = ['fresa', 'perejil', 'higo natural', 'hierbabuena', 'albahaca',
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
                 checkbox.value = product;
-                checkbox.checked = true;
+                checkbox.checked = false;
                 checkbox.onchange = updateChart;
                 label.appendChild(checkbox);
                 label.appendChild(document.createTextNode(` ${product}`));
