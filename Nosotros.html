@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nosotros | Fresh Prime Group</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root{--teal-1:#032425;--teal-2:#083645;--green-1:#00664D;--green-2:#8CBA7F;--lime:#A8A24A;--white:#F8F4ED}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,var(--teal-1),var(--teal-2),#416858,#057BC1);background-size:400% 400%;animation:g 24s ease infinite;color:var(--white);overflow-x:hidden}
+        @keyframes g{0%{background-position:0% 0%}50%{background-position:100% 100%}100%{background-position:0% 0%}}
+        @media (prefers-reduced-motion:reduce){*,body{animation:none!important}}
+
+        .hero{height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center}
+        .hero-video{position:absolute;left:50%;top:-28%;min-width:100%;min-height:160%;transform:translateX(-50%);z-index:1;object-fit:cover}
+        .hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);z-index:2}
+        .hero-content{position:relative;z-index:3;padding:2rem}
+        .hero h1{font-family:'Bebas Neue',cursive;font-size:11vw;letter-spacing:8px;text-shadow:0 15px 50px rgba(0,0,0,.9)}
+        .hero p{font-size:2.2rem;margin:2rem 0;font-weight:300}
+
+        .section{padding:10vh 5vw;text-align:center}
+        .container{max-width:1100px;margin:0 auto}
+        .mission{font-size:2.8rem;line-height:1.4;margin:4rem 0;font-weight:300}
+        .values{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:3rem;margin:6rem 0}
+        .value-card{background:rgba(255,255,255,.08);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.15);border-radius:30px;padding:3rem;transition:all .4s}
+        .value-card:hover{transform:translateY(-15px);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+        .value-card h3{font-family:'Bebas Neue',cursive;font-size:4rem;margin-bottom:1rem;background:linear-gradient(90deg,var(--green-2),var(--lime));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .value-card p{font-size:1.4rem}
+
+        .team{margin:8rem 0}
+        .team img{max-width:100%;border-radius:20px;filter:brightness(0.9)}
+
+        .cta-final{padding:8rem 2rem;background:rgba(0,0,0,.4);backdrop-filter:blur(20px)}
+        .cta-final h2{font-family:'Bebas Neue',cursive;font-size:7rem;margin-bottom:2rem}
+        .whatsapp-btn{
+            display:inline-block;padding:2rem 6rem;font-size:2rem;font-weight:700;
+            background:linear-gradient(135deg,var(--teal-1),var(--teal-2),#416858,#057BC1);
+            background-size:400% 400%;animation:g 24s ease infinite;
+            border-radius:80px;box-shadow:0 25px 60px rgba(0,0,0,.7);
+            transition:all .5s;margin:2rem;
+        }
+        .whatsapp-btn:hover{transform:scale(1.1);box-shadow:0 35px 90px rgba(0,0,0,.8)}
+
+        footer{padding:4rem 2rem;text-align:center;background:rgba(0,0,0,.5);backdrop-filter:blur(15px)}
+        footer a{color:#4DDBFF;text-decoration:none}
+        footer a:hover{color:#F1FF58}
+
+        @media (max-width:768px){
+            .hero h1{font-size:14vw}
+            .mission{font-size:2.2rem}
+            .cta-final h2{font-size:5rem}
+            .whatsapp-btn{font-size:1.6rem;padding:1.6rem 4rem}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO igual que tu index -->
+    <section class="hero">
+        <video class="hero-video" autoplay muted loop playsinline poster="https://i.imgur.com/yP4RNYU.jpeg">
+            <source src="https://i.imgur.com/Eq6Obfr.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>NOSOTROS</h1>
+            <p>Tu proveedor de frescura premium</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <p class="mission">
+                Llevamos la frescura directamente de la tierra a tu cocina en menos de 12 horas.<br>
+                <strong>Somos el puente entre productores locales y los mejores hoteles y restaurantes de México.</strong>
+            </p>
+
+            <div class="values">
+                <div class="value-card">
+                    <h3>FRESCURA</h3>
+                    <p>Promedio de 12 horas desde la cosecha hasta tu puerta.</p>
+                </div>
+                <div class="value-card">
+                    <h3>CALIDAD</h3>
+                    <p>Selección manual y control en cada paso.</p>
+                </div>
+                <div class="value-card">
+                    <h3>CONFIANZA</h3>
+                    <p>Más de 50 productores aliados y creciendo.</p>
+                </div>
+            </div>
+
+            <div class="team">
+                <img src="https://i.imgur.com/Noy3D30.jpeg" alt="Nuestros productores">
+                <p style="margin-top:2rem;font-size:1.4rem">Desde la siembra hasta tu mesa — con orgullo mexicano.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CALL TO ACTION FINAL GIGANTE -->
+    <section class="cta-final">
+        <h2>SOLICITA TU CATÁLOGO CON PRECIOS HOY</h2>
+        <p style="font-size:2rem;margin-bottom:3rem">Precios actualizados cada semana • Entrega en 24 hrs</p>
+        
+        <a href="https://wa.me/+524424225756?text=Hola%20Fresh%20Prime%20%F0%9F%8C%BF%0AQuiero%20el%20cat%C3%A1logo%20con%20precios%20actualizados%20y%20hacer%20mi%20primera%20orden." 
+           class="whatsapp-btn" target="_blank">
+           ENVIAR MENSAJE POR WHATSAPP
+        </a>
+    </section>
+
+    <footer>
+        <p>Fresh Prime Group • 2025 • Querétaro, México</p>
+        <p><a href="https://www.instagram.com/fresh_prime_foods" target="_blank">Instagram</a> • <a href="mailto:FreshPrimeGroup@outlook.com">freshprimegroup@outlook.com</a></p>
+    </footer>
+
+</body>
+</html>
