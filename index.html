@@ -3,454 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Fresh Prime Group – Gestión de Frescura, Soluciones a Medida</title>
+    <title>FRESH PRIME GROUP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+        :root {
+            --teal-1: #032425;
+            --teal-2: #083645;
+            --green-1: #00664D;
+            --green-2: #8CBA7F;
+            --lime: #A8A24A;
+            --white: #F8F4ED;
         }
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            background: linear-gradient(135deg, #083645, #032425, #416858, #057BC1); /* Twilight Bliss to Teal Spill with June Ivy and Star of Life */
-            background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
-            color: #F8F4ED; /* Crystal Cut for text */
-            line-height: 1.6;
-            overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem;
+            font-family:'Poppins',sans-serif;
+            background:linear-gradient(135deg,var(--teal-1),var(--teal-2),#416858,#057BC1);
+            background-size:400% 400%;
+            animation:gradientAnimation 24s ease infinite; /* más lento = menos batería */
+            color:var(--white);
+            overflow-x:hidden;
         }
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 0%; }
-            50% { background-position: 100% 100%; }
-            100% { background-position: 0% 0%; }
+        @keyframes gradientAnimation{
+            0%{background-position:0% 0%}
+            50%{background-position:100% 100%}
+            100%{background-position:0% 0%}
         }
-        .hero {
-            position: relative;
-            height: 100vh;
-            width: 100%;
-            max-width: 1200px;
-            overflow: hidden;
-            background: linear-gradient(135deg, rgba(9, 51, 44, 0.2), rgba(65, 104, 88, 0.3)); /* Fence Green to June Ivy */
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(244, 237, 228, 0.2); /* Angelic White border */
-            margin-bottom: 2rem;
+        /* iOS y Android viejos: desactivar animación si el usuario lo tiene activado */
+        @media (prefers-reduced-motion: reduce) {
+            *,body { animation:none !important; transition:none !important; }
         }
-        .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #F8F4ED; /* Crystal Cut */
+
+        .hero{
+            height:100vh;
+            position:relative;
+            overflow:hidden;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
         }
-        .slide::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+        .hero-video{
+            position:absolute;
+            left:50%;
+            top:-25%;
+            min-width:100%;
+            min-height:150%;
+            width:auto;
+            height:auto;
+            transform:translateX(-50%);
+            z-index:1;
+            object-fit:cover;
         }
-        .slide.active {
-            opacity: 1;
+        .hero-overlay{
+            position:absolute;
+            inset:0;
+            background:rgba(0,0,0,0.45);
+            z-index:2;
         }
-        .slide-content {
-            position: relative;
-            z-index: 1;
+        .hero-content{
+            position:relative;
+            z-index:3;
+            padding:2rem;
         }
-        .slide-content h1 {
-            font-size: 3rem;
-            font-weight: 600;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-            margin-bottom: 1rem;
+        .hero h1{
+            font-family:'Bebas Neue',cursive;
+            font-size:10vw;
+            letter-spacing:6px;
+            text-shadow:0 10px 40px rgba(0,0,0,0.9);
         }
-        .slide-content p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            color: #E5EAE6; /* Distant Cloud */
+        .hero p{
+            font-size:2rem;
+            margin:1.5rem 0 3rem;
+            font-weight:300;
         }
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: linear-gradient(45deg, #8CBA7F, #00664D); /* Muted Lime Jelly to Muted Spring Green */
-            color: #F8F4ED; /* Crystal Cut */
-            text-decoration: none;
-            border-radius: 15px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        .cta-big{
+            padding:1.7rem 5rem;
+            font-size:1.7rem;
+            font-weight:700;
+            color:white;
+            background:linear-gradient(135deg,var(--teal-1),var(--teal-2),#416858,#057BC1);
+            background-size:400% 400%;
+            animation:gradientAnimation 24s ease infinite;
+            border:none;
+            border-radius:60px;
+            cursor:pointer;
+            box-shadow:0 20px 50px rgba(0,0,0,0.6);
+            transition:transform .4s,box-shadow .4s;
+            letter-spacing:2px;
         }
-        .cta-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-            background: linear-gradient(45deg, #A8A24A, #B3CDE0); /* Muted Yellow Ace to Muted Azure Cloud */
+        .cta-big:hover{
+            transform:translateY(-12px) scale(1.08);
+            box-shadow:0 30px 70px rgba(0,0,0,0.7);
         }
-        .dots {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            z-index: 1;
+
+        /* Resto igual pero con fallback seguro para blur */
+        .section,.card-full{
+            backdrop-filter:blur(20px);
+            -webkit-backdrop-filter:blur(20px); /* iOS */
         }
-        .dot {
-            width: 10px;
-            height: 10px;
-            background-color: rgba(244, 237, 228, 0.5); /* Angelic White with opacity */
-            border-radius: 50%;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        /* Si el navegador no soporta backdrop-filter → fondo sólido elegante */
+        @supports not (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
+            .card-full { background:rgba(0,0,0,0.5) !important; }
         }
-        .dot.active {
-            background-color: #8CBA7F; /* Muted Lime Jelly */
-        }
-        .about {
-            padding: 4rem 1rem;
-            text-align: center;
-            width: 100%;
-            max-width: 1200px;
-            background: linear-gradient(135deg, rgba(9, 51, 44, 0.2), rgba(65, 104, 88, 0.3)); /* Fence Green to June Ivy */
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(244, 237, 228, 0.2); /* Angelic White border */
-            margin-bottom: 2rem;
-        }
-        .about h2 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: #F8F4ED; /* Crystal Cut */
-            margin-bottom: 2rem;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-        }
-        .about-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .card {
-            position: relative;
-            background: linear-gradient(135deg, rgba(3, 36, 37, 0.2), rgba(65, 104, 88, 0.3)); /* Teal Spill to June Ivy */
-            backdrop-filter: blur(15px);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-        }
-        .card h3 {
-            color: #F8F4ED; /* Crystal Cut */
-            margin-bottom: 1rem;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-        }
-        .card p {
-            color: #E5EAE6; /* Distant Cloud */
-        }
-        .card-link {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-        .card .hover-content {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(45deg, #8CBA7F, #00664D); /* Muted Lime Jelly to Muted Spring Green */
-            color: #F8F4ED; /* Crystal Cut */
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            font-size: 0.9rem;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-        }
-        .card:hover .hover-content {
-            opacity: 1;
-        }
-        .card .expand-content {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(3, 36, 37, 0.2), rgba(65, 104, 88, 0.3)); /* Teal Spill to June Ivy */
-            backdrop-filter: blur(15px);
-            padding: 2rem;
-            text-align: left;
-            z-index: 1;
-            border-radius: 15px;
-        }
-        .card .expand-content p {
-            margin-bottom: 1rem;
-            color: #E5EAE6; /* Distant Cloud */
-        }
-        .card .collapse-btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 10px;
-            background: linear-gradient(45deg, #00664D, #8CBA7F); /* Muted Spring Green to Muted Lime Jelly */
-            color: #F8F4ED; /* Crystal Cut */
-            cursor: pointer;
-            transition: transform 0.3s ease, background 0.3s ease;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-        }
-        .card .collapse-btn:hover {
-            transform: scale(1.05);
-            background: linear-gradient(45deg, #A8A24A, #D4D687); /* Muted Yellow Ace to Muted Busy Bee */
-        }
-        .footer {
-            padding: 2rem 1rem;
-            text-align: center;
-            background: radial-gradient(circle, rgba(3, 36, 37, 0.6), rgba(9, 51, 44, 0.4)); /* Teal Spill to Fence Green */
-            backdrop-filter: blur(15px);
-            color: #F8F4ED; /* Crystal Cut */
-            border-top: 1px solid rgba(244, 237, 228, 0.2); /* Angelic White border */
-            width: 100%;
-            max-width: 1200px;
-            margin-top: auto;
-        }
-        .footer a {
-            color: #4DDBFF; /* Azure Cloud */
-            text-decoration: none;
-            margin: 0 1rem;
-            transition: color 0.3s ease;
-        }
-        .footer a:hover {
-            color: #F1FF58; /* Yellow Ace */
-        }
-        @media (max-width: 768px) {
-            .hero {
-                padding: 1rem;
-                height: 80vh;
-            }
-            .slide-content h1 {
-                font-size: 2rem;
-            }
-            .slide-content p {
-                font-size: 1rem;
-            }
-            .cta-button {
-                padding: 0.8rem 1.5rem;
-            }
-            .about {
-                padding: 2rem 0.5rem;
-            }
-            .about-cards {
-                grid-template-columns: 1fr;
-            }
-            .footer {
-                padding: 1.5rem 0.5rem;
-            }
-        }
-        @media (max-width: 480px) {
-            .hero {
-                height: 70vh;
-            }
-            .slide-content h1 {
-                font-size: 1.5rem;
-            }
-            .slide-content p {
-                font-size: 0.9rem;
-            }
-            .dots {
-                bottom: 10px;
-            }
-            .dot {
-                width: 8px;
-                height: 8px;
-            }
-            .footer {
-                font-size: 0.9rem;
-            }
+
+        /* Resto de estilos (secciones, footer, etc.) igual que antes */
+        .section{min-height:100vh;padding:10vh 5vw;display:flex;align-items:center;justify-content:center;position:relative}
+        .section-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.3;filter:blur(5px);transform:translateY(50px);transition:all 1s}
+        .section.visible .section-bg{opacity:.5;transform:translateY(0)}
+        .card-full{max-width:900px;width:100%;background:rgba(255,255,255,.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.15);border-radius:30px;padding:4rem;box-shadow:0 20px 60px rgba(0,0,0,.4);opacity:0;transform:translateY(100px);transition:all 1s cubic-bezier(.22,1,.36,1);z-index:2}
+        .card-full.visible{opacity:1;transform:translateY(0)}
+        .card-full h2{font-family:'Bebas Neue',cursive;font-size:6rem;margin-bottom:1rem;background:linear-gradient(90deg,var(--green-2),var(--lime));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .card-full p{font-size:1.4rem;line-height:1.8;margin:2rem 0}
+        .btn{padding:1rem 3rem;background:linear-gradient(45deg,var(--green-1),var(--green-2));border:none;border-radius:50px;color:white;font-weight:600;cursor:pointer;transition:all .4s}
+        .btn:hover{transform:scale(1.1);background:linear-gradient(45deg,var(--lime),#B3CDE0)}
+        footer{padding:5rem 2rem;text-align:center;background:rgba(0,0,0,.5);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px)}
+        footer a{color:#4DDBFF;text-decoration:none;margin:0 1rem}
+        footer a:hover{color:#F1FF58}
+
+        @media (max-width:768px){
+            .hero h1{font-size:13vw}
+            .hero-video{top:-20%!important;min-height:140%}
+            .cta-big{padding:1.4rem 4rem;font-size:1.5rem}
+            .card-full h2{font-size:4.5rem}
         }
     </style>
 </head>
 <body>
-    <!-- Hero Slider -->
-    <div class="hero">
-        <div class="slide active" style="background-image: url('https://i.imgur.com/yP4RNYU.jpeg');">
-            <div class="slide-content">
-                <h1>FRESH PRIME GROUP</h1>
-                <p>Gestión de Frescura, Soluciones a Medida</p>
-                <a href="https://luissteffanoni.github.io/FreshPrime/" class="cta-button">Explora Nuestro Catálogo</a>
-            </div>
-        </div>
-        <div class="slide" style="background-image: url('https://i.imgur.com/s8AjuO9.jpeg');">
-            <div class="slide-content">
-                <h1>Calidad Fresca Garantizada</h1>
-                <p>Pedidos personalizados con facilidad</p>
-                <a href="https://luissteffanoni.github.io/FreshPrime/" class="cta-button">Empieza Ahora</a>
-            </div>
-        </div>
-        <div class="slide" style="background-image: url('https://i.imgur.com/5KOa6VD.jpeg');">
-            <div class="slide-content">
-                <h1>Productos Frescos y Saludables</h1>
-                <p>Todo lo que necesitas y más...</p>
-                <a href="https://luissteffanoni.github.io/FreshPrime/" class="cta-button">Descubre Más</a>
-            </div>
-        </div>
-        <div class="dots">
-            <span class="dot active"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </div>
-    </div>
 
-    <!-- About Section -->
-    <div class="about">
-        <h2>Sobre Nosotros</h2>
-        <div class="about-cards">
-            <a href="frescura.html" class="card-link" data-index="0">
-                <div class="card">
-                    <h3>Frescura</h3>
-                    <p>Garantizamos productos frescos en cada entrega.</p>
-                    <div class="hover-content">Entregas en 24 horas.</div>
-                    <div class="expand-content" style="display: none;">
-                        <p>Nuestra red de proveedores asegura que cada producto llegue fresco, con un promedio de 12 horas desde la cosecha.</p>
-                        <button class="collapse-btn">Cerrar</button>
-                    </div>
-                </div>
-            </a>
-            <a href="personalizacion.html" class="card-link" data-index="1">
-                <div class="card">
-                    <h3>Personalización</h3>
-                    <p>Soluciones a medida para tus necesidades.</p>
-                    <div class="hover-content">Notas personalizadas disponibles.</div>
-                    <div class="expand-content" style="display: none;">
-                        <p>Personaliza tu pedido con notas específicas, como cantidades o instrucciones, directamente en nuestro catálogo.</p>
-                        <button class="collapse-btn">Cerrar</button>
-                    </div>
-                </div>
-            </a>
-            <a href="sostenibilidad.html" class="card-link" data-index="2">
-                <div class="card">
-                    <h3>Sostenibilidad</h3>
-                    <p>Comprometidos con prácticas ecológicas.</p>
-                    <div class="hover-content">Reducción de 15% en emisiones.</div>
-                    <div class="expand-content" style="display: none;">
-                        <p>Usamos logística optimizada para reducir nuestra huella de carbono en un 15%, apoyando prácticas sostenibles.</p>
-                        <button class="collapse-btn">Cerrar</button>
-                    </div>
-                </div>
-            </a>
-            <a href="price-tracker.html" class="card-link" data-index="3">
-                <div class="card">
-                    <h3>Price Tracker</h3>
-                    <p>Comprometidos con el comercio justo.</p>
-                    <div class="hover-content">Precios actualizados semanalmente.</div>
-                    <div class="expand-content" style="display: none;">
-                        <p>Seguimos el mercado para ofrecer precios justos, actualizando nuestro catálogo semanalmente para reflejar los costos más equitativos.</p>
-                        <button class="collapse-btn">Cerrar</button>
-                    </div>
-                </div>
-            </a>
-            <a href="socios-productores.html" class="card-link" data-index="4">
-                <div class="card">
-                    <h3>Cultura y Equipo</h3>
-                    <p>Desde la siembra hasta la ingesta. Disfruta tu trabajo con nosotros.</p>
-                    <div class="hover-content">Colaboramos con 50+ productores.</div>
-                    <div class="expand-content" style="display: none;">
-                        <p>Trabajamos con más de 50 productores locales para garantizar calidad y frescura desde la siembra hasta tu mesa.</p>
-                        <button class="collapse-btn">Cerrar</button>
-                    </div>
-                </div>
-            </a>
+    <section class="hero">
+        <video class="hero-video" autoplay muted loop playsinline poster="https://i.imgur.com/yP4RNYU.jpeg">
+            <source src="https://i.imgur.com/1zyGeas.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>FRESH PRIME GROUP</h1>
+            <p>Gestión de Frescura • Soluciones a Medida</p>
+            <button class="cta-big">EXPLORA AHORA</button>
         </div>
-    </div>
+    </section>
 
-    <!-- Footer -->
-    <div class="footer">
-        <p>Contáctanos: <a href="mailto:FreshPrimeGroup@outlook.com">FreshPrimeGroup@outlook.com</a> | (55) 1234-5678</p>
-        <p>Síguenos: <a href="https://www.instagram.com/fresh_prime_foods?igsh=MWFyendicGV4bnRxMQ%3D%3D&utm_source=qr" target="_blank">Instagram</a> | <a href="https://www.freshprime.com">Website</a></p>
-        <p>© 2025 Fresh Prime – ¡Frescura que da gusto!</p>
-    </div>
+    <!-- Tus 5 secciones (igual) -->
+    <section class="section"><div class="section-bg" style="background-image:url('https://i.imgur.com/yP4RNYU.jpeg')"></div>
+        <div class="card-full"><h2>FRESCURA</h2><p>Promedio 12 horas desde la cosecha.</p><button class="btn" onclick="location.href='frescura.html'">VER MÁS</button></div>
+    </section>
+    <section class="section"><div class="section-bg" style="background-image:url('https://i.imgur.com/s8AjuO9.jpeg')"></div>
+        <div class="card-full"><h2>PERSONALIZACIÓN</h2><p>Tú mandas, nosotros adaptamos.</p><button class="btn" onclick="location.href='personalizacion.html'">VER MÁS</button></div>
+    </section>
+    <section class="section"><div class="section-bg" style="background-image:url('https://i.imgur.com/5KOa6VD.jpeg')"></div>
+        <div class="card-full"><h2>SOSTENIBILIDAD</h2><p>-15% emisiones de CO₂.</p><button class="btn" onclick="location.href='sostenibilidad.html'">VER MÁS</button></div>
+    </section>
+    <section class="section"><div class="section-bg" style="background-image:url('https://source.unsplash.com/random/1920x1080/?market')"></div>
+        <div class="card-full"><h2>PRICE TRACKER</h2><p>Precios justos en tiempo real.</p><button class="btn" onclick="location.href='price-tracker.html'">VER MÁS</button></div>
+    </section>
+    <section class="section"><div class="section-bg" style="background-image:url('https://source.unsplash.com/random/1920x1080/?team')"></div>
+        <div class="card-full"><h2>CULTURA & EQUIPO</h2><p>Más de 50 productores locales.</p><button class="btn" onclick="location.href='socios-productores.html'">VER MÁS</button></div>
+    </section>
+
+    <footer>
+        <p>Contáctanos: <a href="mailto:FreshPrimeGroup@outlook.com">FreshPrimeGroup@outlook.com</a></p>
+        <p><a href="https://www.instagram.com/fresh_prime_foods" target="_blank">Instagram</a> • © 2025 Fresh Prime Group</p>
+    </footer>
 
     <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.dot');
-
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                slide.classList.remove('active');
-                dots[i].classList.remove('active');
-            });
-            slides[index].classList.add('active');
-            dots[index].classList.add('active');
-        }
-
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        }
-
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentSlide = index;
-                showSlide(currentSlide);
-            });
-        });
-
-        setInterval(nextSlide, 5000);
-
-        // Preload images for older devices
-        const images = [
-            'https://i.imgur.com/yP4RNYU.jpeg',
-            'https://i.imgur.com/s8AjuO9.jpeg',
-            'https://i.imgur.com/5KOa6VD.jpeg'
-        ];
-        images.forEach(src => {
-            const img = new Image();
-            img.src = src;
-        });
-
-        // Card click-to-expand functionality
-        const cards = document.querySelectorAll('.card-link');
-
-        cards.forEach(card => {
-            card.addEventListener('click', (e) => {
-                const expandContent = card.querySelector('.expand-content');
-                const isExpanded = expandContent.style.display === 'block';
-                if (!isExpanded) {
-                    e.preventDefault(); // Prevent redirection if expanding
-                    cards.forEach(c => c.querySelector('.expand-content').style.display = 'none');
-                    expandContent.style.display = 'block';
+        // Observador compatible con todo
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.querySelector('.card-full')?.classList.add('visible');
+                    entry.target.classList.add('visible');
                 }
             });
-        });
-
-        document.querySelectorAll('.collapse-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                btn.parentElement.style.display = 'none';
-            });
-        });
+        }, { threshold: 0.2 });
+        document.querySelectorAll('.section').forEach(sec => observer.observe(sec));
     </script>
 </body>
 </html>
