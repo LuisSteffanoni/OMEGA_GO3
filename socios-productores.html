@@ -2,319 +2,292 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comercio Justo - Fresh Prime</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FRESH PRIME CULTURE & TEAM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+        :root {
+            --teal-1: #032425;
+            --teal-2: #083645;
+            --green-1: #00664D;
+            --green-2: #8CBA7F;
+            --lime: #A8A24A;
+            --white: #F8F4ED;
         }
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            background: linear-gradient(135deg, #083645, #032425, #416858, #057BC1); /* Twilight Bliss to Teal Spill with June Ivy and Star of Life */
-            background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
-            color: #F8F4ED; /* Crystal Cut for text */
-            line-height: 1.6;
-            overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem;
+            font-family:'Poppins',sans-serif;
+            background:linear-gradient(135deg,var(--teal-1),var(--teal-2),#416858,#057BC1);
+            background-size:400% 400%;
+            animation:gradientAnimation 24s ease infinite;
+            color:var(--white);
+            overflow-x:hidden;
+            min-height:100vh;
         }
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 0%; }
-            50% { background-position: 100% 100%; }
-            100% { background-position: 0% 0%; }
+        @keyframes gradientAnimation{
+            0%{background-position:0% 0%}
+            50%{background-position:100% 100%}
+            100%{background-position:0% 0%}
         }
-        header {
-            background: linear-gradient(135deg, rgba(9, 51, 44, 0.2), rgba(65, 104, 88, 0.3)); /* Fence Green to June Ivy */
-            backdrop-filter: blur(15px);
-            padding: 1rem;
-            text-align: center;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            margin-bottom: 2rem;
-            width: 100%;
-            max-width: 1200px;
+        @media (prefers-reduced-motion: reduce) {
+            *,body { animation:none !important; transition:none !important; }
         }
-        header a {
-            color: #4DDBFF; /* Azure Cloud for links */
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: color 0.3s ease;
+
+        /* Header / Back Button */
+        .page-header {
+            padding: 2rem 5vw;
+            text-align: left;
         }
-        header a:hover {
-            color: #F1FF58; /* Yellow Ace on hover */
-        }
-        .content {
-            max-width: 1200px;
-            width: 100%;
-            padding: 2rem;
-            background: linear-gradient(135deg, rgba(9, 51, 44, 0.2), rgba(65, 104, 88, 0.3)); /* Fence Green to June Ivy */
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(244, 237, 228, 0.2); /* Angelic White border */
-            animation: fadeIn 1s ease-in;
-            margin-bottom: 2rem;
-        }
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        .content h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: #F8F4ED; /* Crystal Cut for headings */
-            text-align: center;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-        }
-        .content p {
-            margin-bottom: 1.5rem;
-            color: #E5EAE6; /* Distant Cloud for paragraph text */
-            text-align: center;
-        }
-        .content .highlight {
-            color: #8CBA7F; /* Muted Lime Jelly */
-            font-weight: bold;
-        }
-        .content img {
-            width: 100%;
-            max-width: 600px;
-            height: auto;
-            border-radius: 15px;
-            margin: 1rem auto;
-            display: block;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s ease;
-        }
-        .content img:hover {
-            transform: translateY(-10px);
-        }
-        .fun-fact {
-            background: linear-gradient(135deg, rgba(3, 36, 37, 0.2), rgba(65, 104, 88, 0.3)); /* Teal Spill to June Ivy */
-            backdrop-filter: blur(15px);
-            padding: 1rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            color: #E5EAE6; /* Distant Cloud */
-            font-style: italic;
-            text-align: center;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-        .learn-more {
+        .back-link {
             display: inline-block;
-            padding: 1rem 2rem;
-            background: rgba(0, 0, 0, 0.2); /* Slightly darker for readability */
-            color: #F8F4ED; /* Crystal Cut */
+            padding: 0.8rem 2rem;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50px;
+            color: var(--white);
             text-decoration: none;
-            border-radius: 15px;
-            border: 1px solid rgba(244, 237, 228, 0.3); /* Subtle Angelic White border */
-            font-weight: bold;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Stronger shadow for readability */
-            position: relative;
-            margin: 0 auto;
-            display: block;
-            width: fit-content;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.4s;
         }
-        .learn-more:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); /* Slightly stronger shadow on hover */
-        }
-        .learn-more::after {
-            content: "🌊"; /* Water wave emoji to match the "wet" theme */
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            animation: bounce 1.5s infinite;
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(-50%); }
-            40% { transform: translateY(-60%); }
-            60% { transform: translateY(-40%); }
-        }
-        /* Stakeholder Section */
-        .stakeholder-section {
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: transparent; /* Fully transparent to let video shine */
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s ease;
-            position: relative;
-            overflow: hidden; /* Ensure video doesn't overflow */
-        }
-        .stakeholder-section video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Cover the entire section */
-            object-position: center; /* Center the video content */
-            z-index: 0;
-        }
-        .stakeholder-section:hover {
+        .back-link:hover {
+            background: var(--green-2);
             transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
-        .stakeholder-content {
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
             position: relative;
-            z-index: 1; /* Ensure content is above video */
-            background: rgba(0, 0, 0, 0.1); /* Only 10% visible */
-            padding: 1.5rem;
-            border-radius: 15px;
-        }
-        .stakeholder-section h2 {
-            color: #F8F4ED; /* Crystal Cut */
-            margin-bottom: 1rem;
-            text-shadow: 0 3px 8px rgba(0, 0, 0, 0.6); /* Stronger shadow for readability */
-            text-align: center;
-        }
-        .stakeholder-section p {
-            color: #E5EAE6; /* Distant Cloud */
-            text-align: center;
-            margin-bottom: 1rem;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5); /* Stronger shadow for readability */
-        }
-        .stakeholder-roles {
+            overflow: hidden;
             display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
+            align-items: center;
             justify-content: center;
-            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://i.imgur.com/Noy3D30.jpeg');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.6);
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            max-width: 900px;
+        }
+        .hero-content h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 9vw;
+            letter-spacing: 6px;
+            margin-bottom: 1rem;
+            text-shadow: 0 10px 40px rgba(0,0,0,0.9);
+        }
+        .hero-content p {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+        }
+
+        /* Main Content Card */
+        .main-card {
+            max-width: 1100px;
+            width: 90%;
+            margin: 6rem auto;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 30px;
+            padding: 4rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            text-align: center;
+        }
+        .main-card h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(90deg, var(--green-2), var(--lime));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .main-card p {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Video Section – integrada orgánicamente */
+        .video-section {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 4rem auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.6);
+        }
+        .video-section video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+            display: flex;
+            align-items: flex-end;
+            padding: 2rem;
+        }
+        .video-overlay p {
+            font-size: 1.6rem;
+            font-weight: 500;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
         }
         .role-item {
-            background: rgba(0, 0, 0, 0.2); /* Slightly darker for readability */
-            padding: 1rem;
-            border-radius: 10px;
-            border: 1px solid rgba(244, 237, 228, 0.3); /* Subtle Angelic White border */
-            color: #F8F4ED; /* Crystal Cut */
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Stronger shadow for readability */
-            flex: 1;
-            min-width: 200px;
-            max-width: 250px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.4s;
         }
         .role-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); /* Slightly stronger shadow on hover */
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.15);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
         }
-        .footer {
-            padding: 1rem;
+        .role-item h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--green-2);
+        }
+        .cta-btn {
+            padding: 1.2rem 4rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+            background: linear-gradient(45deg, var(--green-1), var(--green-2));
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.4s;
+            letter-spacing: 1px;
+        }
+        .cta-btn:hover {
+            transform: scale(1.1);
+            background: linear-gradient(45deg, var(--lime), #B3CDE0);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+        }
+
+        /* Footer */
+        footer {
+            padding: 5rem 2rem;
             text-align: center;
-            background: radial-gradient(circle, rgba(3, 36, 37, 0.6), rgba(9, 51, 44, 0.4)); /* Teal Spill to Fence Green */
+            background: rgba(0,0,0,0.5);
             backdrop-filter: blur(15px);
-            color: #F8F4ED; /* Crystal Cut for footer text */
-            border-top: 1px solid rgba(244, 237, 228, 0.2); /* Angelic White border */
-            width: 100%;
-            max-width: 1200px;
-            margin-top: auto;
+            -webkit-backdrop-filter: blur(15px);
         }
-        .footer a {
-            color: #4DDBFF; /* Azure Cloud for links */
+        footer a {
+            color: #4DDBFF;
             text-decoration: none;
             margin: 0 1rem;
-            transition: color 0.3s ease;
         }
-        .footer a:hover {
-            color: #F1FF58; /* Yellow Ace on hover */
+        footer a:hover {
+            color: #F1FF58;
         }
+
         @media (max-width: 768px) {
-            .content {
-                padding: 1.5rem;
-            }
-            .content h1 {
-                font-size: 2rem;
-            }
-            .content img {
-                max-width: 100%;
-            }
-            .stakeholder-section {
-                padding: 1rem;
-            }
-            .stakeholder-section video {
-                width: 100%;
-                height: 100%;
-                object-fit: cover; /* Ensure proper scaling */
-                object-position: center; /* Center the video */
-            }
-            .stakeholder-content {
-                padding: 1rem;
-            }
-            .role-item {
-                min-width: 150px;
-            }
-            .learn-more {
-                padding: 0.8rem 1.5rem;
-            }
-        }
-        @media (max-width: 480px) {
-            .content h1 {
-                font-size: 1.5rem;
-            }
-            .role-item {
-                min-width: 100%;
-            }
-            .learn-more {
-                padding: 0.8rem 1.5rem;
-            }
+            .hero-content h1 { font-size: 12vw; }
+            .hero-content p { font-size: 1.4rem; }
+            .main-card { padding: 3rem 2rem; }
+            .main-card h2 { font-size: 4rem; }
+            .video-section { max-width: 100%; margin: 3rem auto; }
+            .video-overlay p { font-size: 1.3rem; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <a href="index.html">Volver a Fresh Prime</a>
-    </header>
-    <div class="content">
-        <h1>Comercio Justo 🌍</h1>
-        <p>En Fresh Prime, nos apasiona el <span class="highlight">comercio justo</span>, asegurando que cada productor reciba un precio justo y viva dignamente. Nuestro compromiso va más allá del producto: apoyamos comunidades, promovemos la sostenibilidad y construimos un futuro equitativo. 🌱</p>
-        <img src="https://i.imgur.com/t3qxMDe.jpeg" alt="Farmers benefiting from fair trade">
-        <div class="fun-fact">🎉 ¡Cada compra tuya ayuda a financiar educación para los hijos de nuestros productores!</div>
-        <p>Descubre cómo tu apoyo transforma vidas y explora nuestra misión de impacto social.</p>
-        <!-- Stakeholder Section -->
-        <div class="stakeholder-section">
-            <video autoplay loop muted playsinline src="https://i.imgur.com/bk4BtIy.mp4">
-                <!-- Fallback background color if video fails -->
+
+    <div class="page-header">
+        <a href="index.html" class="back-link">← VOLVER A INICIO</a>
+    </div>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>FRESH PRIME CULTURE & TEAM</h1>
+            <p>Somos una amplia comunidad de productores y colaboradores. ¡Bienvenido!</p>
+        </div>
+    </section>
+
+    <div class="main-card">
+        <h2>NUESTRA COMUNIDAD</h2>
+        <p>En Fresh Prime, somos más que una empresa: somos una familia extendida de productores, colaboradores, proveedores y socios comprometidos con la frescura, la sostenibilidad y el comercio justo. Cada miembro de nuestra red recibe precios justos, apoyo continuo y oportunidades de crecimiento.</p>
+        
+        <p>Creemos en construir relaciones duraderas que beneficien a todos: desde el campo hasta tu mesa. Nuestra cultura se basa en el respeto, la transparencia y el impacto positivo en las comunidades locales.</p>
+
+        <!-- Video integrado orgánicamente -->
+        <div class="video-section">
+            <video autoplay loop muted playsinline>
+                <source src="https://i.imgur.com/bk4BtIy.mp4" type="video/mp4">
+                Tu navegador no soporta video.
             </video>
-            <div class="stakeholder-content">
-                <h2>Únete como Stakeholder</h2>
-                <p>Forma parte de nuestra misión de frescura sostenible. Ya seas Productor, Proveedor, Inversor o Repartidor, juntos podemos crecer y hacer una diferencia.</p>
-                <div class="stakeholder-roles">
-                    <div class="role-item">
-                        <h3>Productor</h3>
-                        <p>Accede a mercados amplios y precios justos.</p>
-                    </div>
-                    <div class="role-item">
-                        <h3>Proveedor</h3>
-                        <p>Conecta con una red de distribución sostenible.</p>
-                    </div>
-                    <div class="role-item">
-                        <h3>Inversor</h3>
-                        <p>Apoya un negocio verde con retornos justos.</p>
-                    </div>
-                    <div class="role-item">
-                        <h3>Repartidor</h3>
-                        <p>Horarios flexibles y bonos atractivos.</p>
-                    </div>
-                </div>
-                <a href="https://wa.me/525512345678?text=¡Hola!%20Quiero%20ser%20parte%20de%20Fresh%20Prime%20como%20stakeholder." target="_blank" class="learn-more">Contáctanos Ahora</a>
+            <div class="video-overlay">
+                <p>Conoce a nuestra familia extendida en el campo</p>
             </div>
         </div>
+
+        <p>Únete a nuestra comunidad y forma parte de un movimiento que transforma vidas mientras entrega la mejor frescura.</p>
+
+        <div class="roles-grid">
+            <div class="role-item">
+                <h3>Productor</h3>
+                <p>Accede a mercados amplios, precios justos y apoyo técnico para prácticas sostenibles.</p>
+            </div>
+            <div class="role-item">
+                <h3>Proveedor</h3>
+                <p>Conecta con una red de distribución eficiente y confiable.</p>
+            </div>
+            <div class="role-item">
+                <h3>Inversor</h3>
+                <p>Apoya un negocio sostenible con impacto real y retornos éticos.</p>
+            </div>
+            <div class="role-item">
+                <h3>Colaborador / Repartidor</h3>
+                <p>Horarios flexibles, bonos atractivos y un equipo que valora tu esfuerzo.</p>
+            </div>
+        </div>
+
+        <button class="cta-btn" onclick="location.href='mailto:FreshPrimeGroup@outlook.com'">ÚNETE A NUESTRA COMUNIDAD</button>
     </div>
-    <footer class="footer">
-        <p>Contáctanos: <a href="mailto:info@freshprime.com">info@freshprime.com</a> | (55) 1234-5678</p>
-        <p>Síguenos: <a href="https://www.instagram.com/fresh_prime_foods?igsh=MWFyendicGV4bnRxMQ%3D%3D&utm_source=qr" target="_blank">Instagram</a> | <a href="https://www.freshprime.com">Website</a></p>
-        <p>© 2025 Fresh Prime – ¡Frescura que da gusto!</p>
+
+    <footer>
+        <p>Contáctanos: <a href="mailto:FreshPrimeGroup@outlook.com">FreshPrimeGroup@outlook.com</a></p>
+        <p><a href="https://www.instagram.com/fresh_prime_foods" target="_blank">Instagram</a> • © 2025 Fresh Prime Group</p>
     </footer>
+
 </body>
 </html>
