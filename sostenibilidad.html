@@ -2,112 +2,237 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sostenibilidad - Fresh Prime</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FRESH PRIME CAPITAL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+        :root {
+            --teal-1: #032425;
+            --teal-2: #083645;
+            --green-1: #00664D;
+            --green-2: #8CBA7F;
+            --lime: #A8A24A;
+            --white: #F8F4ED;
         }
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            background-color: #1a1a1a;
-            color: #e0e0e0;
-            line-height: 1.6;
+            font-family:'Poppins',sans-serif;
+            background:linear-gradient(135deg,var(--teal-1),var(--teal-2),#416858,#057BC1);
+            background-size:400% 400%;
+            animation:gradientAnimation 24s ease infinite;
+            color:var(--white);
+            overflow-x:hidden;
+            min-height:100vh;
         }
-        header {
-            background-color: #388E3C;
-            padding: 1rem;
+        @keyframes gradientAnimation{
+            0%{background-position:0% 0%}
+            50%{background-position:100% 100%}
+            100%{background-position:0% 0%}
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *,body { animation:none !important; transition:none !important; }
+        }
+
+        /* Header / Back Button */
+        .page-header {
+            padding: 2rem 5vw;
+            text-align: left;
+        }
+        .back-link {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50px;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.4s;
+        }
+        .back-link:hover {
+            background: var(--green-2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
         }
-        header a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.2rem;
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://i.imgur.com/v4kIHqO.jpeg'); /* Imagen original de la card en landing */
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.6);
         }
-        header a:hover {
-            color: #4CAF50;
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
         }
-        .content {
+        .hero-content {
+            position: relative;
+            z-index: 2;
             padding: 2rem;
-            max-width: 800px;
-            margin: 0 auto;
+            max-width: 900px;
         }
-        .content h1 {
-            color: #4CAF50;
-            font-size: 2.5rem;
+        .hero-content h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 9vw;
+            letter-spacing: 6px;
             margin-bottom: 1rem;
-            animation: bounce 2s infinite;
+            text-shadow: 0 10px 40px rgba(0,0,0,0.9);
         }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
+        .hero-content p {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
         }
-        .content p {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
+
+        /* Main Content Card */
+        .main-card {
+            max-width: 1100px;
+            width: 90%;
+            margin: 6rem auto;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 30px;
+            padding: 4rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            text-align: center;
         }
-        .content img {
+        .main-card h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(90deg, var(--green-2), var(--lime));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .main-card p {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .main-card img {
             width: 100%;
-            max-width: 600px;
-            height: auto;
-            border-radius: 10px;
-            margin: 1rem 0;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
+            max-width: 800px;
+            border-radius: 20px;
+            margin: 3rem auto;
+            display: block;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
         }
-        .content img:hover {
-            transform: scale(1.05);
-        }
-        .fun-fact {
-            background-color: #2c2c2c;
-            padding: 1rem;
-            border-radius: 10px;
-            margin: 1.5rem 0;
-            font-style: italic;
-            color: #4CAF50;
-        }
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background-color: #4CAF50;
+        .cta-btn {
+            padding: 1.2rem 4rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+            background: linear-gradient(45deg, var(--green-1), var(--green-2));
+            border: none;
+            border-radius: 50px;
             color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.4s;
+            letter-spacing: 1px;
         }
-        .cta-button:hover {
+        .cta-btn:hover {
             transform: scale(1.1);
-            background-color: #388E3C;
-            box-shadow: 0 0 10px #4CAF50;
+            background: linear-gradient(45deg, var(--lime), #B3CDE0);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
         }
+
+        /* Footer */
+        footer {
+            padding: 5rem 2rem;
+            text-align: center;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
+        footer a {
+            color: #4DDBFF;
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+        footer a:hover {
+            color: #F1FF58;
+        }
+
         @media (max-width: 768px) {
-            .content {
-                padding: 1rem;
-            }
-            .content h1 {
-                font-size: 2rem;
-            }
-            .content img {
-                max-width: 100%;
-            }
+            .hero-content h1 { font-size: 12vw; }
+            .hero-content p { font-size: 1.4rem; }
+            .main-card { padding: 3rem 2rem; }
+            .main-card h2 { font-size: 4rem; }
+            .main-card img { max-width: 100%; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <a href="index.html">Volver a Fresh Prime</a>
-    </header>
-    <div class="content">
-        <h1>Sostenibilidad 🎉</h1>
-        <p>¡En Fresh Prime, estamos locos por el planeta! Reducimos nuestra huella de carbono en un increíble 15% gracias a nuestra logística optimizada. ¡Ayudamos a la Tierra a respirar más fácil con cada entrega!</p>
-        <img src="https://i.imgur.com/2ogAXyA.jpeg" alt="Fresh Prime's cornucopia">
-        <div class="fun-fact">🤓 ¡Dato curioso! Usamos energía solar para enfriar tus productos frescos. ¡Es como darle un abrazo al sol!</div>
-        <p>Únete a nuestra misión verde y descubre cómo puedes contribuir. ¡Juntos, hagamos del mundo un lugar más fresco y sostenible!</p>
-        <a href="#join-us" class="cta-button">¡Únete a la Revolución Verde!</a>
+
+    <div class="page-header">
+        <a href="index.html" class="back-link">← VOLVER A INICIO</a>
     </div>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>FRESH PRIME CAPITAL</h1>
+            <p>Financiamiento inteligente para el sector agroalimentario</p>
+        </div>
+    </section>
+
+    <div class="main-card">
+        <h2>INVIRTIENDO EN EL FUTURO DE LA FRESCURA</h2>
+        <p>En Fresh Prime Capital ofrecemos soluciones de financiamiento flexibles y a medida para marcas posicionadas, productores y empresas del sector de productos frescos. Entendemos las necesidades únicas de la cadena agroalimentaria y diseñamos modelos que impulsan crecimiento sostenible sin comprometer la operación diaria.</p>
+        
+        <p>Nuestros programas de capital están enfocados en fortalecer productores locales, expandir capacidades de cultivo protegido, optimizar infraestructura poscosecha y escalar operaciones de distribución — siempre priorizando prácticas sostenibles y rentabilidad a largo plazo.</p>
+
+<grok-card data-id="ffddaa" data-type="image_card"></grok-card>
+
+
+
+<grok-card data-id="415e56" data-type="image_card"></grok-card>
+
+
+
+<grok-card data-id="662350" data-type="image_card"></grok-card>
+
+
+
+<grok-card data-id="561c2e" data-type="image_card"></grok-card>
+
+
+
+<grok-card data-id="17e68a" data-type="image_card"></grok-card>
+
+
+        <p>Trabajamos como socios estratégicos: evaluamos oportunidades de inversión, proporcionamos capital de trabajo, financiamiento para expansión y estructuras que alinean intereses entre productores, proveedores y clientes finales.</p>
+        
+        <p>Si eres una marca consolidada o un productor con visión de crecimiento, Fresh Prime Capital es el puente hacia una operación más fuerte y sostenible.</p>
+        
+        <button class="cta-btn" onclick="location.href='mailto:FreshPrimeGroup@outlook.com'">EXPLORA OPORTUNIDADES DE FINANCIAMIENTO</button>
+    </div>
+
+    <footer>
+        <p>Contáctanos: <a href="mailto:FreshPrimeGroup@outlook.com">FreshPrimeGroup@outlook.com</a></p>
+        <p><a href="https://www.instagram.com/fresh_prime_foods" target="_blank">Instagram</a> • © 2025 Fresh Prime Group</p>
+    </footer>
+
 </body>
 </html>
