@@ -8070,10 +8070,23 @@
             }
         }
 
-        function sendToWhatsApp() {
+                function sendToWhatsApp() {
+            // === PREGUNTAR NOMBRE DEL CLIENTE ===
+            let customerName = prompt("👤 Ingresa el nombre del cliente:", "");
+            
+            if (customerName === null || customerName.trim() === "") {
+                alert("❌ Debes ingresar un nombre de cliente para enviar el mensaje.");
+                return; // Cancela el envío
+            }
+
+            customerName = customerName.trim();
+
+            // Construir el mensaje
             const cards = document.querySelectorAll('#product-list .product-card');
             let message = "📋 *Orden de Compra - Fresh Prime*\n\n";
-            message += "📅 " + document.getElementById("dynamic-timestamp").textContent + "\n\n";
+            
+            message += `👤 *Cliente*: ${customerName}\n`;
+            message += `📅 ${document.getElementById("dynamic-timestamp").textContent}\n\n`;
 
             cards.forEach(card => {
                 const quantity = parseFloat(card.querySelector('.quantity-input').value) || 0;
@@ -8100,6 +8113,7 @@
             const encodedMessage = encodeURIComponent(message);
             const phoneNumber = "+524424225756";
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
             window.open(whatsappUrl, '_blank');
         }
     </script>
