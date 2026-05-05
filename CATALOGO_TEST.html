@@ -16,116 +16,121 @@
             padding: 20px;
         }
         @keyframes gradientAnimation { 0% {background-position:0% 0%} 50%{background-position:100% 100%} 100%{background-position:0% 0%} }
-        
-        .header { text-align: center; margin-bottom: 20px; }
-        .logo { width: 140px; border-radius: 50%; }
-        .mic-button {
-            width: 180px;
-            height: 180px;
+
+        .mic {
+            width: 200px; height: 200px;
             background: linear-gradient(45deg, #FF5722, #FF9800);
             border-radius: 50%;
+            margin: 30px auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 60px;
-            margin: 30px auto;
-            box-shadow: 0 10px 30px rgba(255, 87, 34, 0.5);
-            animation: pulse 2s infinite;
+            font-size: 80px;
+            box-shadow: 0 15px 40px rgba(255,87,34,0.6);
+            cursor: pointer;
+            transition: all 0.3s;
         }
-        .transcript {
-            background: rgba(255,255,255,0.1);
-            padding: 15px;
-            border-radius: 12px;
-            min-height: 80px;
-            margin: 20px 0;
-            font-size: 17px;
-        }
-        .order-list {
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-            padding: 15px;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        .order-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        button { padding: 12px 20px; margin: 8px; border-radius: 12px; font-weight: 600; cursor: pointer; }
-        .send-btn { background: #25D366; color: white; }
-        .clear-btn { background: #f44336; color: white; }
+        .mic:active { transform: scale(0.9); background: #f44336; }
+        .transcript { background: rgba(255,255,255,0.1); padding: 18px; border-radius: 12px; min-height: 90px; margin: 15px 0; font-size: 17px; }
+        .order-item { padding: 12px; background: rgba(0,0,0,0.3); margin: 8px 0; border-radius: 10px; }
+        button { padding: 14px 24px; margin: 8px; border-radius: 12px; font-size: 16px; font-weight: 600; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <img src="https://i.imgur.com/EZ5QUew.png" class="logo" alt="Fresh Prime">
+    <div style="text-align:center;">
+        <img src="https://i.imgur.com/EZ5QUew.png" style="width:130px; border-radius:50%; margin-bottom:10px;">
         <h1>Fresh Prime</h1>
-        <p style="font-size:18px;">Asistente de Voz para Chefs</p>
-        <p style="font-size:14px; opacity:0.8;">Habla normal… yo lo traduzco y lo ordeno</p>
+        <p style="font-size:19px; margin:10px 0;">Asistente de Voz para Chefs</p>
+        <p style="opacity:0.8;">Habla como siempre, yo lo traduzco</p>
     </div>
 
-    <div onclick="startVoiceRecognition()" class="mic-button">🎤</div>
+    <div onclick="toggleListening()" id="mic" class="mic">🎤</div>
+    <div id="status" style="text-align:center; font-size:16px; min-height:28px;"></div>
 
-    <div id="status" style="text-align:center; font-size:15px; margin:10px 0; min-height:24px;"></div>
+    <div class="transcript" id="transcript">Presiona el micrófono y habla normalmente...</div>
 
-    <div class="transcript" id="transcript">Aquí aparecerá lo que dijiste...</div>
-
-    <h2 style="margin:20px 0 10px; text-align:center;">Orden generada:</h2>
-    <div class="order-list" id="order-list"></div>
+    <h2 style="text-align:center; margin:20px 0 10px;">Orden Generada</h2>
+    <div id="order-list" style="max-height:420px; overflow-y:auto;"></div>
 
     <div style="text-align:center; margin-top:25px;">
-        <button onclick="sendToWhatsApp()" class="send-btn">📱 Enviar por WhatsApp</button>
-        <button onclick="downloadExcel()" class="send-btn" style="background:#2196F3;">📊 Descargar Excel</button>
-        <button onclick="clearOrder()" class="clear-btn">🗑️ Limpiar todo</button>
+        <button onclick="sendToWhatsApp()" style="background:#25D366; color:white;">📱 Enviar WhatsApp</button>
+        <button onclick="downloadCSV()" style="background:#2196F3; color:white;">📊 Descargar CSV / Excel</button>
+        <button onclick="clearAll()" style="background:#f44336; color:white;">🗑️ Limpiar</button>
     </div>
 
     <script>
+        let isListening = false;
+        let recognition = null;
         let currentOrder = [];
 
-        function startVoiceRecognition() {
+        function toggleListening() {
+            if (isListening) {
+                stopListening();
+            } else {
+                startListening();
+            }
+        }
+
+        function startListening() {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             if (!SpeechRecognition) {
-                alert("Tu navegador no soporta voz. Abre con Chrome.");
+                alert("❌ Tu navegador no soporta voz.\nAbre esta página en Chrome (mejor resultado).");
                 return;
             }
 
-            const recognition = new SpeechRecognition();
+            recognition = new SpeechRecognition();
             recognition.lang = "es-MX";
-            recognition.interimResults = false;
-
-            document.getElementById("status").innerHTML = "🎤 Escuchando... habla normal";
+            recognition.continuous = true;           // ← Mejorado
+            recognition.interimResults = true;       // ← Muestra mientras habla
 
             recognition.onresult = (event) => {
-                const text = event.results[0][0].transcript;
-                document.getElementById("transcript").textContent = text;
-                parseAndShowOrder(text);
+                let transcript = "";
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    transcript += event.results[i][0].transcript;
+                }
+                document.getElementById("transcript").textContent = transcript;
+                
+                if (event.results[event.results.length-1].isFinal) {
+                    parseNaturalOrder(transcript);
+                }
             };
 
-            recognition.onerror = () => document.getElementById("status").innerHTML = "❌ No entendí bien. Intenta de nuevo";
+            recognition.onend = () => { isListening = false; document.getElementById("mic").style.background = "linear-gradient(45deg, #FF5722, #FF9800)"; };
             recognition.start();
+            isListening = true;
+            document.getElementById("mic").style.background = "#f44336";
+            document.getElementById("status").innerHTML = "🎤 Escuchando... habla normal (puedes decir varias cosas seguidas)";
         }
 
-        function parseAndShowOrder(text) {
-            currentOrder = [];
-            const parts = text.toLowerCase().split(/,| y | luego | después /);
+        function stopListening() {
+            if (recognition) recognition.stop();
+        }
+
+        function parseNaturalOrder(text) {
+            const lower = text.toLowerCase();
+            const parts = lower.split(/,| y | luego | después | más | otro /);
 
             parts.forEach(part => {
-                part = part.trim();
-                if (!part) return;
+                if (!part.trim()) return;
 
                 const qtyMatch = part.match(/(\d+(?:\.\d+)?)/);
-                const qty = qtyMatch ? parseFloat(qtyMatch[1]) : 1;
+                let qty = qtyMatch ? parseFloat(qtyMatch[1]) : 1;
 
-                let product = part.replace(/(\d+(?:\.\d+)?)\s*(kilo|kg|pieza|litro|caja|paquete)?/i, '').trim();
+                let product = part.replace(/(\d+(?:\.\d+)?)\s*(kilo|kg|pieza|litro|caja|paquete|gramo)?/i, '').trim();
                 let notes = "";
 
-                if (part.includes("decoracion") || part.includes("decoración") || part.includes("para decorar")) notes = "Decoración";
-                if (part.includes("primera") || part.includes("bueno")) notes = (notes ? notes + " - " : "") + "Calidad primera";
+                if (lower.includes("decoracion") || lower.includes("decoración") || lower.includes("para decorar")) notes = "Decoración";
+                if (lower.includes("primera") || lower.includes("bueno") || lower.includes("calidad")) notes = (notes ? notes + " - " : "") + "Calidad Primera";
 
-                currentOrder.push({ product: product.charAt(0).toUpperCase() + product.slice(1), quantity: qty, unit: "Kilo", notes: notes });
+                if (product.length > 2) {
+                    currentOrder.push({
+                        product: product.charAt(0).toUpperCase() + product.slice(1),
+                        quantity: qty,
+                        unit: "Kilo",
+                        notes: notes
+                    });
+                }
             });
 
             renderOrder();
@@ -134,67 +139,64 @@
         function renderOrder() {
             const container = document.getElementById("order-list");
             container.innerHTML = "";
-
-            currentOrder.forEach((item, index) => {
+            currentOrder.forEach((item, i) => {
                 const div = document.createElement("div");
                 div.className = "order-item";
                 div.innerHTML = `
-                    <div>
-                        <strong>${item.quantity} ${item.unit}</strong> ${item.product}<br>
-                        <small style="opacity:0.7">${item.notes || ''}</small>
-                    </div>
-                    <div>
-                        <button onclick="editItem(${index})" style="font-size:12px; padding:4px 8px;">Editar</button>
-                        <button onclick="removeItem(${index})" style="font-size:12px; padding:4px 8px; background:#f44336; color:white;">Eliminar</button>
+                    <div><strong>${item.quantity} ${item.unit}</strong> ${item.product}</div>
+                    <div style="text-align:right;">
+                        ${item.notes ? `<small>${item.notes}</small><br>` : ''}
+                        <button onclick="editItem(${i})" style="font-size:12px;padding:4px 8px;">Editar</button>
+                        <button onclick="removeItem(${i})" style="font-size:12px;padding:4px 8px;background:#f44336;color:white;">Quitar</button>
                     </div>
                 `;
                 container.appendChild(div);
             });
         }
 
-        function editItem(index) {
-            const item = currentOrder[index];
-            const newQty = prompt("Cantidad:", item.quantity);
-            if (newQty) item.quantity = parseFloat(newQty);
-            const newProduct = prompt("Producto:", item.product);
-            if (newProduct) item.product = newProduct;
+        function editItem(i) {
+            const item = currentOrder[i];
+            let newQty = prompt("Cantidad:", item.quantity);
+            if (newQty !== null) item.quantity = parseFloat(newQty) || item.quantity;
+            let newProd = prompt("Producto:", item.product);
+            if (newProd) item.product = newProd;
             renderOrder();
         }
 
-        function removeItem(index) {
-            currentOrder.splice(index, 1);
+        function removeItem(i) {
+            currentOrder.splice(i, 1);
             renderOrder();
         }
 
-        function clearOrder() {
+        function clearAll() {
             if (confirm("¿Borrar toda la orden?")) {
                 currentOrder = [];
                 document.getElementById("order-list").innerHTML = "";
-                document.getElementById("transcript").textContent = "Orden limpiada";
+                document.getElementById("transcript").textContent = "Orden borrada";
             }
         }
 
         function sendToWhatsApp() {
-            if (currentOrder.length === 0) return alert("No hay orden para enviar");
-            const client = prompt("Nombre del cliente / restaurante:", "");
-            let msg = `📋 *Orden Fresh Prime - Voz*\n👤 ${client || 'Chef'}\n\n`;
+            if (currentOrder.length === 0) return alert("No hay nada para enviar");
+            const name = prompt("Nombre del restaurante / chef:", "");
+            let msg = `📋 *Orden por Voz - Fresh Prime*\n👤 ${name || "Chef"}\n\n`;
             currentOrder.forEach(item => {
                 msg += `• ${item.quantity} ${item.unit} ${item.product} ${item.notes ? `(${item.notes})` : ''}\n`;
             });
             window.open(`https://wa.me/524424225756?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        function downloadExcel() {
+        function downloadCSV() {
             if (currentOrder.length === 0) return alert("No hay orden");
-            let csv = "Producto,Cantidad,Unidad,Notas\n";
-            currentOrder.forEach(item => {
-                csv += `"${item.product}",${item.quantity},"${item.unit}","${item.notes}"\n`;
+            let csv = "Cantidad,Unidad,Producto,Notas\n";
+            currentOrder.forEach(i => {
+                csv += `${i.quantity},${i.unit},"${i.product}","${i.notes}"\n`;
             });
-            const blob = new Blob([csv], { type: 'text/csv' });
+            const blob = new Blob([csv], {type: "text/csv"});
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
-            a.download = "Orden_Voz_FreshPrime.csv";
+            a.download = `Orden_FreshPrime_${new Date().toISOString().slice(0,10)}.csv`;
             a.click();
         }
     </script>
