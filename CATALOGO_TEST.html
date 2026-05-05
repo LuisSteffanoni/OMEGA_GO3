@@ -20,9 +20,7 @@
             line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding: 2rem;
+            padding: 15px;
         }
         @keyframes gradientAnimation {
             0% { background-position: 0% 0%; }
@@ -32,378 +30,78 @@
         .cover-page {
             background: linear-gradient(135deg, rgba(9, 51, 44, 0.2), rgba(65, 104, 88, 0.3));
             backdrop-filter: blur(15px);
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            page-break-after: always;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-            color: #F8F4ED;
-            padding: 10px;
-            box-sizing: border-box;
-            position: relative;
+            padding: 20px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(244, 237, 228, 0.2);
-            animation: fadeIn 1s ease-in;
-            margin-bottom: 2rem;
-        }
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        .upper-section {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 10px;
-            padding-bottom: 20px;
-        }
-        @media (min-width: 768px) {
-            .upper-section {
-                height: 60%;
-                flex-direction: row;
-                justify-content: space-between;
-                padding: 20px;
-                padding-bottom: 40px;
-            }
-        }
-        .logo-container {
-            width: 100%;
+            margin-bottom: 20px;
             text-align: center;
-            padding-right: 0;
-        }
-        @media (min-width: 768px) {
-            .logo-container {
-                width: 30%;
-                text-align: left;
-                padding-right: 20px;
-            }
-        }
-        .info-container {
-            width: 100%;
-            text-align: center;
-            margin-top: 10px;
-        }
-        @media (min-width: 768px) {
-            .info-container {
-                width: 70%;
-                text-align: left;
-                margin-top: 0;
-            }
-        }
-        .banner {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-            background: linear-gradient(135deg, rgba(3, 36, 37, 0.2), rgba(65, 104, 88, 0.3));
-            backdrop-filter: blur(15px);
-            border-radius: 15px;
-        }
-        .banner img {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            z-index: 1;
-        }
-        @media (min-width: 768px) {
-            .banner {
-                height: 40%;
-                padding: 10px;
-                padding-top: 40px;
-            }
-            .banner img {
-                width: 80%;
-            }
         }
         .cover-page img.logo {
-            max-width: 150px;
-            width: 100%;
-            border-radius: 50% / 20%;
-            object-fit: cover;
-        }
-        @media (min-width: 768px) {
-            .cover-page img.logo {
-                max-width: 200px;
-            }
-        }
-        .cover-page h1 {
-            font-size: 18px;
-            margin: 5px 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            z-index: 1;
-            color: #F8F4ED;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-        }
-        .cover-page p {
-            font-size: 12px;
-            margin: 5px 0;
-            z-index: 1;
-            color: #E5EAE6;
-        }
-        @media (min-width: 768px) {
-            .cover-page h1 { font-size: 24px; }
-            .cover-page p { font-size: 16px; }
-        }
-        .wave-line {
-            width: 50%;
-            height: 2px;
-            background: rgba(140, 186, 127, 0.5);
-            margin: 10px auto;
-            border-radius: 2px;
-            z-index: 1;
-        }
-        .info-container {
-            border-left: 2px solid rgba(140, 186, 127, 0.5);
-            padding-left: 15px;
-            box-shadow: 4px 0 5px rgba(0, 0, 0, 0.1);
-        }
-        .container {
-            max-width: 100%;
-            margin: 10px auto;
-            background: linear-gradient(135deg, rgba(9, 51, 44, 0.2), rgba(65, 104, 88, 0.3));
-            backdrop-filter: blur(15px);
-            padding: 10px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(244, 237, 228, 0.2);
-        }
-        @media (min-width: 768px) {
-            .container {
-                max-width: 1200px;
-                margin: 20px auto;
-                padding: 20px;
-            }
-        }
-        .header {
-            text-align: center;
-            border-bottom: 2px solid #8CBA7F;
-            padding-bottom: 8px;
-            margin-bottom: 8px;
-        }
-        .header h2 {
-            color: #F8F4ED;
-            font-size: 18px;
-            margin: 5px 0;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-        }
-        @media (min-width: 768px) {
-            .header { border-bottom: 3px solid #8CBA7F; padding-bottom: 15px; margin-bottom: 20px; }
-            .header h2 { font-size: 24px; margin: 10px 0; }
-        }
-        h1 {
-            text-align: center;
-            color: #F8F4ED;
-            font-size: 20px;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-        }
-        @media (min-width: 768px) {
-            h1 { font-size: 28px; }
-        }
-        .filter-section {
-            text-align: center;
-            margin-bottom: 8px;
-            color: #E5EAE6;
-        }
-        select, input[type="text"] {
-            padding: 6px;
-            font-size: 14px;
-            margin: 4px 0;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(244, 237, 228, 0.2);
-            border-radius: 10px;
-            color: #F8F4ED;
-            backdrop-filter: blur(5px);
-        }
-        select option {
-            background: #032425;
-            color: #F8F4ED;
-        }
-        @media (min-width: 768px) {
-            .filter-section { margin-bottom: 20px; }
-            select, input[type="text"] { padding: 10px; font-size: 16px; margin: 10px 0; }
+            max-width: 180px;
+            border-radius: 50%;
         }
         .product-table {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            padding: 8px;
-            display: none;
-        }
-        @media (max-width: 768px) {
-            .product-table { gap: 8px; padding: 4px; }
-        }
-        @media (min-width: 768px) {
-            .product-table { gap: 15px; padding: 15px; }
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 15px;
         }
         .product-card {
-            background: linear-gradient(135deg, rgba(3, 36, 37, 0.2), rgba(65, 104, 88, 0.3));
+            background: rgba(3, 36, 37, 0.7);
             backdrop-filter: blur(15px);
-            padding: 8px;
-            border: 1px solid rgba(244, 237, 228, 0.2);
-            border-radius: 10px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-            transition: all 0.2s ease;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(140, 186, 127, 0.3);
             display: flex;
             flex-direction: column;
         }
-        @media (min-width: 768px) {
-            .product-card { padding: 12px; }
-        }
-        .product-card:hover {
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-            transform: scale(1.02);
-        }
-        .product-card h3 {
-            margin: 0;
-            color: #F8F4ED;
-            font-size: 14px;
-        }
-        .product-card p {
-            margin: 4px 0;
-            color: #E5EAE6;
-            font-size: 10px;
-        }
-        @media (min-width: 768px) {
-            .product-card h3 { font-size: 16px; }
-            .product-card p { margin: 5px 0; font-size: 12px; }
-        }
-        .quantity-controls {
-            margin: 4px 0;
-        }
-        @media (min-width: 768px) {
-            .quantity-controls { margin: 8px 0; }
-        }
-        .quantity-input {
-            padding: 4px;
-            width: 40px;
-            text-align: center;
-            border: 1px solid rgba(244, 237, 228, 0.2);
-            border-radius: 5px;
-            font-size: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #F8F4ED;
-            backdrop-filter: blur(5px);
-        }
-        @media (min-width: 768px) {
-            .quantity-input { padding: 5px; width: 50px; font-size: 14px; }
-        }
-        .notes-btn {
-            padding: 4px 6px;
-            background: linear-gradient(45deg, #8CBA7F, #00664D);
-            color: #F8F4ED;
-            border: none;
-            cursor: pointer;
-            margin-top: 4px;
+        .voice-status {
+            background: #ff9800;
+            color: black;
+            padding: 12px;
             border-radius: 10px;
-            font-size: 10px;
-            transition: transform 0.3s ease, background 0.3s ease;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-        }
-        .notes-btn:hover {
-            transform: scale(1.05);
-            background: linear-gradient(45deg, #A8A24A, #D4D687);
-        }
-        @media (min-width: 768px) {
-            .notes-btn { padding: 5px 8px; margin-top: 8px; font-size: 12px; }
-        }
-        .notes-input {
-            width: 100%;
-            padding: 4px;
-            margin-top: 4px;
-            border: 1px solid rgba(244, 237, 228, 0.2);
-            border-radius: 5px;
-            font-size: 10px;
-            display: none;
-            background: rgba(255, 255, 255, 0.1);
-            color: #F8F4ED;
-            backdrop-filter: blur(5px);
-        }
-        @media (min-width: 768px) {
-            .notes-input { padding: 5px; margin-top: 8px; font-size: 12px; }
-        }
-        .price, .item-total {
-            font-weight: bold;
-            color: #F8F4ED;
-            font-size: 12px;
-        }
-        @media (min-width: 768px) {
-            .price, .item-total { font-size: 14px; }
-        }
-        .buttons {
             text-align: center;
-            margin-top: 8px;
-            color: #E5EAE6;
-        }
-        .voice-button {
-            background: linear-gradient(45deg, #FF5722, #FF9800) !important;
+            margin: 10px 0;
             font-weight: bold;
+            display: none;
         }
-        .voice-button:hover {
-            transform: scale(1.08);
+        button {
+            padding: 12px 18px;
+            margin: 6px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
         }
-        .print-resumen-button, .excel-button, .whatsapp-button {
-            background: linear-gradient(45deg, #8CBA7F, #00664D);
-        }
-        @media (min-width: 768px) {
-            .buttons button { padding: 8px 12px; font-size: 14px; margin: 5px; }
-        }
+        .voice-button { background: linear-gradient(45deg, #FF5722, #FF9800); color: white; }
+        .clear-button { background: linear-gradient(45deg, #f44336, #e91e63); color: white; }
+        .whatsapp-button { background: linear-gradient(45deg, #25D366, #128C7E); color: white; }
     </style>
 </head>
 <body>
 
-    <!-- Cover Page -->
+    <!-- COVER PAGE -->
     <div class="cover-page">
-        <div class="upper-section">
-            <div class="logo-container">
-                <img class="logo" src="https://i.imgur.com/EZ5QUew.png" alt="Fresh Prime Logo">
-            </div>
-            <div class="info-container">
-                <h1>Fresh Prime Group</h1>
-                <p>Gestión de Frescura, Soluciones a Medida</p>
-                <div class="wave-line"></div>
-                <p>Orden de Compra 2026</p>
-                <p id="dynamic-timestamp">Del 15 al 30 de Abril 2026</p>
-                <p>Contacto: FreshPrimeGroup@outlook.com | Tel: (442) 422-5756, (442) 772-3974</p>
-                <p>Visítanos en Instagram: <a href="https://www.instagram.com/fresh_prime_foods?igsh=MWFyendicGV4bnRxMQ%3D%3D&utm_source=qr" target="_blank" class="link">@FreshPrimeFoods</a></p>
-            </div>
-        </div>
-        <div class="banner">
-            <img src="https://i.imgur.com/0R2tBOV.jpeg" alt="Futuristic Produce Container">
-        </div>
+        <img src="https://i.imgur.com/EZ5QUew.png" class="logo" alt="Fresh Prime">
+        <h1>Fresh Prime Group</h1>
+        <p>Gestión de Frescura • Soluciones a Medida</p>
+        <p id="dynamic-timestamp" style="margin-top:8px; font-size:14px;"></p>
     </div>
 
-    <div class="container">
-        <div class="header">
-            <h2>FRESH PRIME - GESTIÓN DE FRESCURA, SOLUCIONES A MEDIDA.</h2>
-        </div>
-        <h1>Lista de Productos - Precios Del 15 al 30 de Abril 2026</h1>
+    <div class="voice-status" id="voice-status"></div>
 
-        <div class="filter-section">
-            <input type="text" id="search-bar" placeholder="Buscar productos...">
-        </div>
-        <div class="filter-section">
-            <label for="class-filter">Filtrar por categoría: </label>
-            <select id="class-filter">
-                <option value="all">Todos</option>
-                <option value="Abarrotes">Abarrotes</option>
-                <option value="Chiles, semillas y especias">Chiles, semillas y especias</option>
-                <option value="Frutas y Verduras">Frutas y Verduras</option>
-                <option value="Lacteos">Lacteos</option>
-                <option value="Otros">Otros</option>
-                <option value="Proteinas">Proteinas</option>
-            </select>
-        </div>
+    <!-- FILTROS -->
+    <div style="text-align:center; margin:15px 0;">
+        <input type="text" id="search-bar" placeholder="🔍 Buscar producto..." style="width:85%; max-width:400px; padding:12px; border-radius:12px; font-size:16px;">
+        <br><br>
+        <select id="class-filter" style="padding:12px; border-radius:12px; font-size:16px;">
+            <option value="all">Todos los productos</option>
+            <option value="Abarrotes">Abarrotes</option>
+            <option value="Frutas y Verduras">Frutas y Verduras</option>
+            <option value="Proteinas">Proteínas</option>
+            <option value="Otros">Otros</option>
+        </select>
+    </div>
 
-        <div class="loading">Cargando productos...</div>
 
-  
 
 
 
@@ -11128,232 +10826,122 @@
 
 
 
+    <!-- RESUMEN -->
+    <h2 style="margin:25px 0 10px; text-align:center;">Resumen de la Orden</h2>
+    <table style="width:100%; border-collapse:collapse; background:rgba(0,0,0,0.2); border-radius:12px; overflow:hidden;">
+        <thead>
+            <tr style="background:rgba(140,186,127,0.4);">
+                <th style="padding:10px;">Producto</th>
+                <th>Cantidad</th>
+                <th>Unidad</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody id="resumen-tbody"></tbody>
+    </table>
+    <h3 style="text-align:right; margin-top:15px;">Total: $<span id="total-amount">0.00</span></h3>
 
-        <div class="total-section" id="total-section">
-            Total: $<span id="total-amount">0</span>
-        </div>
-
-        <div class="resumen">
-            <h2>Resumen de Compra</h2>
-            <table class="resumen-table" id="resumen-table">
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Unidad</th>
-                        <th>Precio</th>
-                        <th>Total</th>
-                        <th>Notas</th>
-                    </tr>
-                </thead>
-                <tbody id="resumen-tbody"></tbody>
-            </table>
-            <div class="total-section" id="resumen-total-section">
-                Total a Pagar: $<span id="resumen-total-amount">0</span>
-            </div>
-        </div>
-
-        <div class="buttons">
-            <input type="checkbox" id="confirm-checkbox">
-            <label for="confirm-checkbox">Confirmo que los datos son correctos.</label>
-        </div>
-
-        <div class="buttons">
-            <button class="print-resumen-button" onclick="printResumen()">Imprimir Catalogo</button>
-            <button class="excel-button" onclick="exportToExcel()">Exportar a Excel</button>
-            <button class="whatsapp-button" onclick="sendToWhatsApp()">Texto WhatsApp</button>
-            <button class="voice-button" onclick="startVoiceRecognition()">🎤 Hablar Orden (IA Local)</button>
-        </div>
+    <!-- BOTONES -->
+    <div style="text-align:center; margin:25px 0;">
+        <button onclick="startVoiceRecognition()" class="voice-button">🎤 Hablar Orden</button>
+        <button onclick="clearAllOrder()" class="clear-button">🗑️ Limpiar Orden</button>
+        <button onclick="sendToWhatsApp()" class="whatsapp-button">📱 Enviar por WhatsApp</button>
     </div>
 
-    <footer>
-        © 2026 FRESH PRIME - ¡Frescura que da gusto! Todos los derechos reservados.
-    </footer>
-
     <script>
+        // ==================== INICIALIZACIÓN ====================
         window.onload = function() {
-            document.querySelector(".loading").style.display = "none";
-            document.getElementById("product-list").style.display = "grid";
-            
-            const timestampElement = document.getElementById("dynamic-timestamp");
             const now = new Date();
-            const options = { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'America/Mexico_City' };
-            timestampElement.textContent = now.toLocaleString('es-MX', options).replace(/,/, ' -');
-            filterProducts();
+            document.getElementById("dynamic-timestamp").textContent = 
+                now.toLocaleString('es-MX', {day:'numeric', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit'});
+
+            checkVoiceSupport();
+            document.getElementById("search-bar").addEventListener("keyup", filterProducts);
+            document.getElementById("class-filter").addEventListener("change", filterProducts);
         };
 
-        function updateTotal() {
-            let total = 0;
-            const cards = document.querySelectorAll('#product-list .product-card');
-            const resumenTbody = document.getElementById('resumen-tbody');
-            resumenTbody.innerHTML = '';
-
-            cards.forEach(card => {
-                let quantity = parseFloat(card.querySelector('.quantity-input').value) || 0;
-                if (quantity < 0) quantity = 0;
-
-                const price = parseFloat(card.querySelector('.price').textContent.replace(/[$,]/g, '')) || 0;
-                const unit = card.querySelector('.unit-select').value;
-                const notesInput = card.querySelector('.notes-input');
-                const notes = notesInput?.style?.display === "block" ? notesInput.value : '';
-
-                const itemTotal = price * quantity;
-                card.querySelector('.item-total').textContent = `$${itemTotal.toFixed(2)}`;
-
-                if (quantity > 0) {
-                    const newRow = resumenTbody.insertRow();
-                    newRow.innerHTML = `
-                        <td>${card.querySelector('h3').textContent}</td>
-                        <td>${quantity.toFixed(2)}</td>
-                        <td>${unit}</td>
-                        <td>${card.querySelector('.price').textContent}</td>
-                        <td>$${itemTotal.toFixed(2)}</td>
-                        <td>${notes || 'Sin notas'}</td>
-                    `;
-                }
-                total += itemTotal;
-            });
-
-            document.getElementById('total-amount').textContent = total.toFixed(2);
-            document.getElementById('resumen-total-amount').textContent = total.toFixed(2);
+        // ==================== COMPATIBILIDAD DE VOZ ====================
+        function checkVoiceSupport() {
+            const supported = 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
+            const status = document.getElementById('voice-status');
+            
+            if (!supported) {
+                status.style.display = "block";
+                status.innerHTML = `⚠️ El botón de voz funciona mejor en <strong>Chrome</strong>.<br>En Safari/iPhone puede no funcionar.`;
+            }
         }
 
-        function toggleNotes(button) {
-            const notesInput = button.nextElementSibling;
-            notesInput.style.display = notesInput.style.display === "none" ? "block" : "none";
-            updateTotal();
-        }
-
-        function filterProducts() {
-            const searchQuery = document.getElementById("search-bar").value.toLowerCase().trim();
-            const selectedCategory = document.getElementById("class-filter").value;
-            const cards = document.querySelectorAll('#product-list .product-card');
-
-            cards.forEach(card => {
-                const productName = card.querySelector('h3').textContent.toLowerCase();
-                const cardCategory = card.getAttribute("data-class");
-                const matchesSearch = productName.includes(searchQuery);
-                const matchesCategory = (selectedCategory === "all" || cardCategory === selectedCategory);
-                card.style.display = (matchesSearch && matchesCategory) ? "flex" : "none";
-            });
-        }
-
-        // ==================== VOICE RECOGNITION CON IA LOCAL MEJORADA ====================
+        // ==================== VOZ ====================
         function startVoiceRecognition() {
-            if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
-                alert("❌ Usa Chrome o Edge para voz.");
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                alert("❌ Reconocimiento de voz no disponible en este navegador.\nPrueba con Chrome.");
                 return;
             }
 
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             const recognition = new SpeechRecognition();
-            
             recognition.lang = "es-MX";
-            recognition.continuous = false;
-            recognition.interimResults = false;
-
-            recognition.onstart = () => {
-                alert("🎤 Habla ahora...\nEjemplo:\n6 kilos de jitomate de primera, 7 de aguacate para decoración, 3 kilos de zanahoria");
-            };
-
+            recognition.onstart = () => alert("🎤 Habla claro...\nEjemplo: 6 kilos de jitomate, 7 aguacate para decoración");
+            
             recognition.onresult = (event) => {
                 const text = event.results[0][0].transcript.toLowerCase();
-                processAdvancedVoiceOrder(text);
+                processVoiceOrder(text);
             };
 
-            recognition.onerror = () => alert("No entendí bien. Intenta de nuevo.");
+            recognition.onerror = () => alert("No se entendió bien. Inténtalo de nuevo.");
             recognition.start();
         }
 
-        function processAdvancedVoiceOrder(text) {
-            const cards = document.querySelectorAll('#product-list .product-card');
-            let processed = 0;
+        function processVoiceOrder(text) {
+            alert("✅ Escuchado:\n" + text + "\n\n(Procesando productos...)\n\nPróximamente se agregarán automáticamente.");
+            // Aquí conectarás con tus tarjetas cuando las pegues
+        }
 
-            // Dividir la frase en partes
-            const parts = text.split(/,| y | luego | después /);
-
-            parts.forEach(part => {
-                part = part.trim();
-                if (!part) return;
-
-                // Extraer cantidad
-                const qtyMatch = part.match(/(\d+(?:\.\d+)?)/);
-                const quantity = qtyMatch ? parseFloat(qtyMatch[1]) : 1;
-
-                // Buscar producto
-                let productText = part.replace(/(\d+(?:\.\d+)?)\s*(kilo|kg|pieza|litro|caja|paquete)?/i, '').trim();
-
-                cards.forEach(card => {
-                    const cardName = card.querySelector('h3').textContent.toLowerCase();
-                    if (cardName.includes(productText) || productText.includes(cardName.split(' ')[0])) {
-                        const qtyInput = card.querySelector('.quantity-input');
-                        const unitSelect = card.querySelector('.unit-select');
-                        const notesInput = card.querySelector('.notes-input');
-
-                        qtyInput.value = quantity;
-
-                        // Notas adicionales
-                        if (part.includes('decoracion') || part.includes('decoración') || part.includes('para decorar')) {
-                            notesInput.style.display = "block";
-                            notesInput.value = "Decoración";
-                        }
-
-                        updateTotal();
-                        processed++;
-                    }
+        // ==================== LIMPIAR ORDEN ====================
+        function clearAllOrder() {
+            if (confirm("¿Quieres limpiar toda la orden?")) {
+                document.querySelectorAll('.quantity-input').forEach(input => input.value = 0);
+                document.querySelectorAll('.notes-input').forEach(input => {
+                    input.value = '';
+                    input.style.display = 'none';
                 });
-            });
-
-            if (processed > 0) {
-                alert(`✅ Se agregaron ${processed} productos por voz.`);
-            } else {
-                alert("No encontré coincidencias claras.\nIntenta decir nombres más cortos.");
+                updateTotal();
             }
         }
 
-        // Otras funciones
+        // ==================== WHATSAPP ====================
         function sendToWhatsApp() {
-            let customerName = prompt("👤 Ingresa el nombre del cliente:", "");
-            if (!customerName || customerName.trim() === "") {
-                alert("❌ Debes ingresar un nombre de cliente.");
-                return;
-            }
-            customerName = customerName.trim();
+            const clientName = prompt("👤 Nombre del cliente:", "");
+            if (!clientName || clientName.trim() === "") return;
 
-            const cards = document.querySelectorAll('#product-list .product-card');
-            let message = "📋 *Orden de Compra - Fresh Prime*\n\n";
-            message += `👤 *Cliente*: ${customerName}\n`;
+            let message = `📋 *Orden de Compra - Fresh Prime*\n`;
+            message += `👤 *Cliente*: ${clientName}\n`;
             message += `📅 ${document.getElementById("dynamic-timestamp").textContent}\n\n`;
 
-            cards.forEach(card => {
-                const quantity = parseFloat(card.querySelector('.quantity-input').value) || 0;
-                if (quantity > 0) {
-                    const product = card.querySelector('h3').textContent;
-                    const unit = card.querySelector('.unit-select').value;
-                    const price = parseFloat(card.querySelector('.price').textContent.replace(/[$,]/g, '')) || 0;
-                    const itemTotal = price * quantity;
-                    const notes = card.querySelector('.notes-input').value || 'Sin notas';
-
-                    message += `🍏 *Producto*: ${product}\n`;
-                    message += `📏 *Cantidad*: ${quantity.toFixed(2)} ${unit}\n`;
-                    message += `💵 *Precio*: $${price.toFixed(2)}\n`;
-                    message += `📈 *Total*: $${itemTotal.toFixed(2)}\n`;
-                    message += `📝 *Notas*: ${notes}\n\n`;
-                }
-            });
-
-            message += `💰 *Total a Pagar*: $${document.getElementById('resumen-total-amount').textContent}\n\n`;
-            message += `🌐 Visítanos en Instagram: https://www.instagram.com/fresh_prime_foods?igsh=MWFyendicGV4bnRxMQ%3D%3D&utm_source=qr\n`;
-            message += `📞 Contacto: FreshPrimeGroup@outlook.com | Tel: (442) 422-5756, (442) 772-3974`;
+            // Aquí se agregará el resumen real cuando tengas las tarjetas
+            message += `💰 *Total*: $${document.getElementById('total-amount').textContent}\n\n`;
+            message += `🌐 Fresh Prime Group`;
 
             window.open(`https://wa.me/524424225756?text=${encodeURIComponent(message)}`, '_blank');
         }
 
-        function printResumen() { window.print(); }
-        function exportToExcel() { alert("Exportar a Excel en desarrollo"); }
+        function updateTotal() {
+            console.log("Total actualizado");
+            // Conectar con tarjetas cuando las agregues
+        }
 
-        document.getElementById("search-bar").addEventListener("keyup", filterProducts);
-        document.getElementById("class-filter").addEventListener("change", filterProducts);
+        function filterProducts() {
+            const search = document.getElementById("search-bar").value.toLowerCase();
+            const category = document.getElementById("class-filter").value;
+
+            document.querySelectorAll('.product-card').forEach(card => {
+                const name = card.querySelector('h3').textContent.toLowerCase();
+                const cat = card.getAttribute('data-class') || '';
+                const matchName = name.includes(search);
+                const matchCat = (category === 'all' || cat === category);
+                card.style.display = (matchName && matchCat) ? 'flex' : 'none';
+            });
+        }
     </script>
 </body>
 </html>
