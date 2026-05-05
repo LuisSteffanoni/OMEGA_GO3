@@ -17,20 +17,9 @@
         }
         @keyframes gradientAnimation { 0% {background-position:0% 0%} 50%{background-position:100% 100%} 100%{background-position:0% 0%} }
 
-        .mic {
-            width: 200px; height: 200px;
-            background: linear-gradient(45deg, #FF5722, #FF9800);
-            border-radius: 50%;
-            margin: 30px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 80px;
-            box-shadow: 0 15px 40px rgba(255,87,34,0.6);
-            cursor: pointer;
-        }
+        .mic { width: 200px; height: 200px; background: linear-gradient(45deg, #FF5722, #FF9800); border-radius: 50%; margin: 30px auto; display: flex; align-items: center; justify-content: center; font-size: 80px; box-shadow: 0 15px 40px rgba(255,87,34,0.6); cursor: pointer; }
         .mic.listening { background: #f44336; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+        @keyframes pulse { 0%{transform:scale(1)} 50%{transform:scale(1.1)} 100%{transform:scale(1)} }
 
         .transcript { background: rgba(255,255,255,0.1); padding: 18px; border-radius: 12px; min-height: 110px; margin: 15px 0; font-size: 17px; }
         .order-item { padding: 12px; background: rgba(0,0,0,0.3); margin: 8px 0; border-radius: 10px; }
@@ -43,13 +32,12 @@
         <img src="https://i.imgur.com/EZ5QUew.png" style="width:130px; border-radius:50%; margin-bottom:10px;">
         <h1>Fresh Prime</h1>
         <p style="font-size:19px;">Asistente de Voz para Chefs</p>
-        <p style="opacity:0.8;">Habla natural • Yo lo traduzco y organizo</p>
     </div>
 
     <div onclick="toggleListening()" id="mic" class="mic">🎤</div>
     <div id="status" style="text-align:center; font-size:16px; min-height:28px;"></div>
 
-    <div class="transcript" id="transcript">Presiona el micrófono y habla normalmente...</div>
+    <div class="transcript" id="transcript">Presiona el micrófono y habla naturalmente...</div>
 
     <h2 style="text-align:center; margin:20px 0 10px;">Orden Generada</h2>
     <div id="order-list" style="max-height:450px; overflow-y:auto;"></div>
@@ -61,27 +49,22 @@
     </div>
 
     <script>
-        // ==================== TU CATÁLOGO COMPLETO ====================
+        // ==================== TU CATÁLOGO REAL ====================
         const productDatabase = [
-            "ACHIOTE 100GR", "ACHIOTE 1KG", "AJONJOLI CARAMELIZADO", "AJONJOLI NEGRO", "ALMENDRA ENTERA", 
-            "ALMENDRA FILETEADA", "AMARANTO", "ARANDANO DESHIDRATADO", "ARROZ BLANCO", "AVENA", 
-            "CACAHUATE ENCHILADO", "CACAHUATE JAPONES", "CACAHUATE PELADO", "CACAHUATE SALADO", 
-            "CANELA ENTERA", "CANELA MOLIDA", "CHIA", "CHILE ANCHO", "CHILE CHIPOTLE", "CHILE DE ARBOL", 
-            "CHILE GUAJILLO", "CHILE MORITA", "CHILE NEGRO", "CHILE PASILLA", "CHILE PUYA", 
-            "CIRUELA PASA", "COCO RALLADO", "COMINO", "DATIL", "FRIJOL JUNIO", "FRIJOL MICHIGAN", 
-            "FRIJOL PERUANO", "GARBANZO", "GRANOLA", "JAMAICA", "LAUREL", "LENTEJA", "LINAZA", 
-            "MAIZ PALOMERO", "NUEZ CARAMELIZADA", "NUEZ DE LA INDIA", "NUEZ ENTERA", "NUEZ GRANILLO", 
-            "NUEZ MOSCADA", "OREGANO", "PEPITA", "PEPITA DE CALABAZA", "PILONCILLO", 
-            "SEMILLA DE GIRASOL", "SOYA", "TAMARINDO", "TOMILLO", "TOTOMOXTLE", "UVA PASAS",
-            
-            "ACELGA", "AGUACATE", "AJO CABEZA", "AJO PELADO", "ALBAHACA", "APIO", "ARUGULA", 
-            "BERENJENA", "BETABEL", "BROCOLI", "CALABAZA ITALIANA", "CAMOTE", "CEBOLLA BLANCA", 
-            "CEBOLLA MORADA", "CHAMPINON", "CHAYOTE", "CHILE HABANERO", "CHILE JALAPENO", 
-            "CHILE POBLANO", "CHILE SERRANO", "CILANTRO", "COL BLANCA", "COL MORADA", "COLIFLOR", 
-            "EJOTES", "ELOTE", "ESPINACA", "JITOMATE BOLA", "JITOMATE CHERRY", "JITOMATE SALADETTE", 
-            "LECHUGA", "LIMON", "MANDARINA", "MANGO", "MANZANA", "NOPAL", "PAPA", "PAPAYA", 
-            "PEPINO", "PERA", "PEREJIL", "PINA", "PLATANO", "RABANO", "SANDIA", "TOMATE VERDE", 
-            "ZANAHORIA", "ZARZAMORA"
+            "ACHIOTE 100GR","ACHIOTE 1KG","AJONJOLI CARAMELIZADO","AJONJOLI NEGRO","ALMENDRA ENTERA","ALMENDRA FILETEADA",
+            "AMARANTO","ARANDANO DESHIDRATADO","ARROZ BLANCO","AVENA","CACAHUATE ENCHILADO","CACAHUATE JAPONES",
+            "CACAHUATE PELADO","CACAHUATE SALADO","CANELA ENTERA","CANELA MOLIDA","CHIA","CHILE ANCHO","CHILE CHIPOTLE",
+            "CHILE DE ARBOL","CHILE GUAJILLO","CHILE MORITA","CHILE NEGRO","CHILE PASILLA","CHILE PUYA","CIRUELA PASA",
+            "COCO RALLADO","COMINO","DATIL","FRIJOL JUNIO","FRIJOL MICHIGAN","FRIJOL PERUANO","GARBANZO","GRANOLA",
+            "JAMAICA","LAUREL","LENTEJA","LINAZA","MAIZ PALOMERO","NUEZ CARAMELIZADA","NUEZ DE LA INDIA","NUEZ ENTERA",
+            "NUEZ GRANILLO","NUEZ MOSCADA","OREGANO","PEPITA","PEPITA DE CALABAZA","PILONCILLO","SEMILLA DE GIRASOL",
+            "SOYA","TAMARINDO","TOMILLO","TOTOMOXTLE","UVA PASAS",
+            "ACELGA","AGUACATE","AJO CABEZA","AJO PELADO","ALBAHACA","APIO","ARUGULA","BERENJENA","BETABEL","BROCOLI",
+            "CALABAZA ITALIANA","CAMOTE","CEBOLLA BLANCA","CEBOLLA MORADA","CHAMPINON","CHAYOTE","CHILE HABANERO",
+            "CHILE JALAPENO","CHILE POBLANO","CHILE SERRANO","CILANTRO","COL BLANCA","COL MORADA","COLIFLOR","EJOTES",
+            "ELOTE","ESPINACA","JITOMATE BOLA","JITOMATE CHERRY","JITOMATE SALADETTE","LECHUGA","LIMON","MANDARINA",
+            "MANGO","MANZANA","NOPAL","PAPA","PAPAYA","PEPINO","PERA","PEREJIL","PINA","PLATANO","RABANO","SANDIA",
+            "TOMATE VERDE","ZANAHORIA","ZARZAMORA"
         ];
 
         let currentOrder = [];
@@ -94,26 +77,23 @@
         }
 
         function startListening() {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) {
-                alert("Abre en Chrome para mejor resultado.");
-                return;
-            }
+            const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SR) return alert("Usa Chrome para mejor resultado");
 
-            recognition = new SpeechRecognition();
+            recognition = new SR();
             recognition.lang = "es-MX";
             recognition.continuous = true;
             recognition.interimResults = true;
 
             recognition.onresult = (event) => {
-                let transcript = "";
+                let text = "";
                 for (let i = event.resultIndex; i < event.results.length; i++) {
-                    transcript += event.results[i][0].transcript + " ";
+                    text += event.results[i][0].transcript + " ";
                 }
-                document.getElementById("transcript").textContent = transcript.trim();
-                
+                document.getElementById("transcript").textContent = text.trim();
+
                 if (event.results[event.results.length-1].isFinal) {
-                    parseOrder(transcript.trim());
+                    parseNaturalSpeech(text.trim());
                 }
             };
 
@@ -121,45 +101,63 @@
             recognition.start();
             isListening = true;
             document.getElementById("mic").classList.add("listening");
-            document.getElementById("status").innerHTML = "🎤 Escuchando... habla normal";
+            document.getElementById("status").innerHTML = "🎤 Escuchando... habla como le hablas a tu ayudante";
         }
 
         function stopListening() {
             if (recognition) recognition.stop();
         }
 
-        function parseOrder(text) {
-            const lower = text.toLowerCase();
-            const parts = lower.split(/,| y | luego | después | más | otro /);
+        // ==================== PARSER MEJORADO ====================
+        function parseNaturalSpeech(text) {
+            const lower = text.toLowerCase()
+                .replace(/por favor|agregame|porfa|hmmm|del mejor|que tengas|bueno|porfa/g, " ")
+                .trim();
 
-            parts.forEach(part => {
-                part = part.trim();
-                if (part.length < 3) return;
+            const sentences = lower.split(/,| y | luego | después | más | otro /);
 
-                const qtyMatch = part.match(/(\d+(?:\.\d+)?)/);
+            sentences.forEach(sentence => {
+                sentence = sentence.trim();
+                if (sentence.length < 3) return;
+
+                // Detectar cantidad
+                const qtyMatch = sentence.match(/(\d+(?:\.\d+)?)/);
                 const qty = qtyMatch ? parseFloat(qtyMatch[1]) : 1;
 
-                let productRaw = part.replace(/(\d+(?:\.\d+)?)\s*(kilo|kg|pieza|litro|caja|paquete)?/i, '').trim();
+                // Detectar unidad
+                let unit = "Kilo";
+                if (sentence.includes("pieza") || sentence.includes("pieza")) unit = "Pieza";
+                else if (sentence.includes("domo")) unit = "Domo";
+                else if (sentence.includes("atado")) unit = "Atado";
+                else if (sentence.includes("paquete")) unit = "Paquete";
+                else if (sentence.includes("caja")) unit = "Caja";
 
-                // Búsqueda inteligente en tu catálogo
-                let matched = productRaw;
-                for (let prod of productDatabase) {
-                    if (productRaw.includes(prod.toLowerCase()) || prod.toLowerCase().includes(productRaw)) {
-                        matched = prod;
+                // Extraer producto
+                let product = sentence
+                    .replace(/(\d+(?:\.\d+)?)\s*(kilo|kg|pieza|domo|atado|paquete|caja)?/i, '')
+                    .trim();
+
+                // Matching con tu catálogo
+                let bestMatch = product;
+                for (let dbProd of productDatabase) {
+                    if (product.includes(dbProd.toLowerCase()) || dbProd.toLowerCase().includes(product)) {
+                        bestMatch = dbProd;
                         break;
                     }
                 }
 
                 let notes = "";
                 if (lower.includes("decoracion") || lower.includes("decoración")) notes = "Decoración";
-                if (lower.includes("primera") || lower.includes("bueno") || lower.includes("calidad")) notes += (notes ? " - " : "") + "Calidad Primera";
+                if (lower.includes("primera") || lower.includes("1ra") || lower.includes("mejor")) notes = "Calidad Primera";
 
-                currentOrder.push({
-                    product: matched,
-                    quantity: qty,
-                    unit: "Kilo",
-                    notes: notes
-                });
+                if (bestMatch.length > 2) {
+                    currentOrder.push({
+                        product: bestMatch.toUpperCase(),
+                        quantity: qty,
+                        unit: unit,
+                        notes: notes
+                    });
+                }
             });
 
             renderOrder();
@@ -168,13 +166,14 @@
         function renderOrder() {
             const container = document.getElementById("order-list");
             container.innerHTML = "";
+
             currentOrder.forEach((item, i) => {
                 const div = document.createElement("div");
                 div.className = "order-item";
                 div.innerHTML = `
                     <div><strong>${item.quantity} ${item.unit}</strong> ${item.product}</div>
-                    <div style="text-align:right;">
-                        ${item.notes ? `<small>${item.notes}</small><br>` : ''}
+                    <div style="text-align:right; font-size:13px;">
+                        ${item.notes ? `<span>${item.notes}</span><br>` : ''}
                         <button onclick="editItem(${i})" style="font-size:12px;padding:4px 8px;">Editar</button>
                         <button onclick="removeItem(${i})" style="font-size:12px;padding:4px 8px;background:#f44336;color:white;">Quitar</button>
                     </div>
@@ -185,10 +184,8 @@
 
         function editItem(i) {
             const item = currentOrder[i];
-            const newQty = prompt("Cantidad:", item.quantity);
-            if (newQty) item.quantity = parseFloat(newQty);
-            const newProd = prompt("Producto:", item.product);
-            if (newProd) item.product = newProd;
+            item.quantity = parseFloat(prompt("Cantidad:", item.quantity)) || item.quantity;
+            item.product = prompt("Producto:", item.product) || item.product;
             renderOrder();
         }
 
@@ -219,7 +216,7 @@
             if (currentOrder.length === 0) return alert("No hay orden");
             let csv = "Cantidad,Unidad,Producto,Notas\n";
             currentOrder.forEach(item => {
-                csv += `${item.quantity},Kilo,"${item.product}","${item.notes}"\n`;
+                csv += `${item.quantity},${item.unit},"${item.product}","${item.notes}"\n`;
             });
             const blob = new Blob([csv], {type: "text/csv"});
             const a = document.createElement("a");
