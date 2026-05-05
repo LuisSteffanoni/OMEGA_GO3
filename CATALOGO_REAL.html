@@ -454,10 +454,9 @@
         }
         .resumen-table tr:hover { background: rgba(255, 255, 255, 0.05); }
         @media (min-width: 768px) {
+            .resumen-table { margin-top: 10px; }
             .resumen-table th, .resumen-table td { padding: 8px 12px; font-size: 12px; }
         }
-
-        /* ==================== IMPRESIÓN MEJORADA (más parecida a tabla Excel) ==================== */
         @media print {
             body { background: white !important; color: black !important; }
             .cover-page, .banner, .filter-section, .buttons, .loading, .total-section { display: none !important; }
@@ -480,13 +479,7 @@
                 vertical-align: middle;
                 color: black;
             }
-            .product-card h3 { font-weight: bold; }
             .quantity-controls, .notes-btn, .notes-input { display: none !important; }
-            .resumen { page-break-before: always; }
-            .resumen-table th, .resumen-table td {
-                border: 1px solid #000;
-                color: black;
-            }
         }
     </style>
 </head>
@@ -538,6 +531,9 @@
 
 
 
+
+
+
         <div class="loading">Cargando productos...</div>
 
 
@@ -545,7 +541,10 @@
 
 
 
-<div class="product-table" id="product-list">
+
+
+
+        <div class="product-table" id="product-list">
     <div class="product-card" data-class="Abarrotes">
         <h3>ACAI EN POLVO</h3>
         <p><strong>Categoría:</strong> Abarrotes</p>
@@ -9963,7 +9962,7 @@
         <input type="text" class="notes-input" placeholder="Ingrese notas aquí" style="display: none;">
     </div>
     <div class="product-card" data-class="Otros">
-        <h3>TEST-14; APR 2ND HALF DFKJDNFKJDFKJSNDFKJNSDF  2.0 2026 A**</h3>
+        <h3>TEST-14; APR 2ND HALF 2.0 2026 A**</h3>
         <p><strong>Categoría:</strong> Otros</p>
         <div class="quantity-controls">
             <input type="number" class="quantity-input" step="1" min="0" value="0" onchange="updateTotal()">
@@ -11263,15 +11262,6 @@
 </div>
 
 
-
-
-
-
-
-
-
-
-
         <div class="total-section" id="total-section">
             Total: $<span id="total-amount">0</span>
         </div>
@@ -11332,7 +11322,10 @@
 
             cards.forEach(card => {
                 let quantity = parseFloat(card.querySelector('.quantity-input').value) || 0;
-                if (quantity < 0) quantity = 0;
+                if (quantity < 0) {
+                    quantity = 0;
+                    card.querySelector('.quantity-input').value = 0;
+                }
 
                 const price = parseFloat(card.querySelector('.price').textContent.replace(/[$,]/g, '')) || 0;
                 const unit = card.querySelector('.unit-select').value;
@@ -11366,6 +11359,7 @@
             updateTotal();
         }
 
+        // FILTRO MEJORADO
         function filterProducts() {
             const searchQuery = document.getElementById("search-bar").value.toLowerCase().trim();
             const selectedCategory = document.getElementById("class-filter").value;
@@ -11374,8 +11368,10 @@
             cards.forEach(card => {
                 const productName = card.querySelector('h3').textContent.toLowerCase();
                 const cardCategory = card.getAttribute("data-class");
+
                 const matchesSearch = productName.includes(searchQuery);
                 const matchesCategory = (selectedCategory === "all" || cardCategory === selectedCategory);
+
                 card.style.display = (matchesSearch && matchesCategory) ? "flex" : "none";
             });
         }
