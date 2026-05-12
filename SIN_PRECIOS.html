@@ -1,4 +1,188 @@
-let products = [
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Fresh Prime - Orden de Compra OPERACIÓN</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+        
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+
+        body {
+            background: linear-gradient(135deg, #083645, #032425, #416858, #057BC1);
+            background-size: 400% 400%;
+            animation: gradientAnimation 20s ease infinite;
+            color: #F8F4ED;
+            min-height: 100vh;
+            padding: 15px;
+        }
+        @keyframes gradientAnimation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        .cover-page, .container { 
+            background: linear-gradient(135deg, rgba(9,51,44,0.45), rgba(65,104,88,0.5)); 
+            backdrop-filter: blur(16px); 
+            border-radius: 24px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6); 
+            border: 1px solid rgba(140,186,127,0.4); 
+        }
+        .cover-page { padding: 30px; margin-bottom: 20px; text-align:center; }
+        .logo { max-width: 170px; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.5)); }
+
+        .product-table { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 16px; 
+        }
+        .product-card { 
+            background: rgba(3,36,37,0.7); 
+            padding: 18px; 
+            border-radius: 20px; 
+            border: 1px solid rgba(140,186,127,0.35); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -50%;
+            width: 50px;
+            height: 300%;
+            background: linear-gradient(transparent, rgba(255,255,255,0.25), transparent);
+            transform: rotate(30deg);
+            transition: all 0.8s;
+            opacity: 0;
+        }
+        .product-card:hover::before { left: 150%; opacity: 1; }
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.04);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.55);
+            border-color: #A8D39A;
+        }
+
+        h3 { font-size: 16px; margin-bottom: 8px; transition: color 0.3s; }
+        .product-card:hover h3 { color: #A8D39A; }
+
+        .quantity-input, .unit-select {
+            width: 100%;
+            padding: 11px;
+            margin: 6px 0;
+            background: #021c1d;
+            color: #F8F4ED;
+            border: 1px solid #8CBA7F;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+        .notes-btn {
+            width: 100%;
+            padding: 11px;
+            margin-top: 8px;
+            background: linear-gradient(45deg, #8CBA7F, #5E9C6A);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .notes-btn:hover {
+            transform: scale(1.06);
+            background: linear-gradient(45deg, #A8D39A, #7EB88A);
+        }
+
+        .notes-input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            display: none;
+            background: #021c1d;
+            color: #F8F4ED;
+            border: 1px solid #8CBA7F;
+            border-radius: 10px;
+        }
+
+        .buttons button {
+            padding: 14px 26px;
+            margin: 8px;
+            background: linear-gradient(45deg, #8CBA7F, #00664D);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .buttons button:hover {
+            transform: translateY(-4px);
+        }
+
+        @media (max-width: 480px) {
+            .product-table { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cover-page">
+        <img class="logo" src="https://i.imgur.com/EZ5QUew.png" alt="Fresh Prime">
+        <h1>ORDEN DE COMPRA - OPERACIÓN</h1>
+        <p>Para Chefs y Cocina • Solo Cantidades</p>
+        <p id="dynamic-timestamp"></p>
+    </div>
+
+    <div class="container" style="padding:20px;">
+        
+        <!-- Agregar Producto -->
+        <div style="margin:15px 0; padding:15px; background:rgba(255,255,255,0.1); border-radius:12px;">
+            <h3>➕ Agregar Producto Nuevo</h3>
+            <input type="text" id="new-name" placeholder="Nombre del producto" style="width:58%;">
+            <select id="new-category" style="width:38%;">
+                <option value="Abarrotes">Abarrotes</option>
+                <option value="Proteinas">Proteínas</option>
+                <option value="Frutas y Verduras">Frutas y Verduras</option>
+                <option value="Lacteos">Lácteos</option>
+                <option value="Chiles, semillas y especias">Chiles y Especias</option>
+                <option value="Otros">Otros</option>
+            </select>
+            <button onclick="addNewProduct()" style="width:100%; margin-top:8px;">Agregar a la Lista</button>
+        </div>
+
+        <!-- Filtros -->
+        <div style="text-align:center; margin:15px 0;">
+            <input type="text" id="search-bar" placeholder="🔎 Buscar producto..." style="width:65%; padding:12px;">
+            <select id="class-filter" style="padding:12px; width:30%;">
+                <option value="all">Todos</option>
+                <option value="Abarrotes">Abarrotes</option>
+                <option value="Proteinas">Proteínas</option>
+                <option value="Frutas y Verduras">Frutas y Verduras</option>
+                <option value="Lacteos">Lácteos</option>
+                <option value="Chiles, semillas y especias">Chiles y Especias</option>
+                <option value="Otros">Otros</option>
+            </select>
+        </div>
+
+        <div class="product-table" id="product-list"></div>
+
+        <!-- Resumen -->
+        <div style="margin-top:30px; padding:15px; background:rgba(3,36,37,0.4); border-radius:15px;">
+            <h2>Resumen de Orden</h2>
+            <table id="resumen-table" style="width:100%; border-collapse:collapse; margin-top:10px;">
+                <thead><tr><th>Producto</th><th>Cantidad</th><th>Unidad</th><th>Notas</th></tr></thead>
+                <tbody id="resumen-tbody"></tbody>
+            </table>
+        </div>
+
+        <div style="text-align:center; margin-top:25px;">
+            <button onclick="downloadExcel()">📊 Descargar Excel</button>
+            <button onclick="sendToWhatsApp()">📱 Enviar WhatsApp</button>
+        </div>
+    </div>
+
+    <script>
+        let products = [
     {name: "ACAI EN POLVO", category: "Abarrotes"},
     {name: "ACEITE 1LT 123", category: "Abarrotes"},
     {name: "ACEITE DE AJONJOLI PICANTE INES 250 ML", category: "Abarrotes"},
@@ -594,3 +778,139 @@ let products = [
     {name: "T-BONE DE RES", category: "Proteinas"},
     {name: "TOCINO", category: "Proteinas"}
 ];
+
+        let state = {}; // Guarda todo permanentemente
+
+        function getKey(name) {
+            return name.toLowerCase().trim();
+        }
+
+        function renderProducts(filtered) {
+            const container = document.getElementById("product-list");
+            container.innerHTML = "";
+
+            filtered.forEach(p => {
+                const key = getKey(p.name);
+                const saved = state[key] || {qty: 0, unit: "Kilo", note: ""};
+
+                const card = document.createElement("div");
+                card.className = "product-card";
+                card.setAttribute("data-category", p.category);
+                card.innerHTML = `
+                    <h3>${p.name}</h3>
+                    <p><strong>Categoría:</strong> ${p.category}</p>
+                    <input type="number" class="quantity-input" step="0.01" min="0" value="${saved.qty}" onchange="saveState(this)">
+                    <select class="unit-select" onchange="saveState(this)">
+                        <option value="Kilo" ${saved.unit==="Kilo"?"selected":""}>Kilo</option>
+                        <option value="Pieza" ${saved.unit==="Pieza"?"selected":""}>Pieza</option>
+                        <option value="Caja" ${saved.unit==="Caja"?"selected":""}>Caja</option>
+                        <option value="Litro" ${saved.unit==="Litro"?"selected":""}>Litro</option>
+                        <option value="Paquete" ${saved.unit==="Paquete"?"selected":""}>Paquete</option>
+                    </select>
+                    <button class="notes-btn" onclick="toggleNotes(this)">Agregar Nota</button>
+                    <input type="text" class="notes-input" placeholder="Notas..." value="${saved.note}" onkeyup="saveState(this)">
+                `;
+                container.appendChild(card);
+            });
+            updateResumen();
+        }
+
+        function saveState(el) {
+            const card = el.closest(".product-card");
+            const name = card.querySelector("h3").textContent;
+            const key = getKey(name);
+
+            state[key] = {
+                qty: parseFloat(card.querySelector(".quantity-input").value) || 0,
+                unit: card.querySelector(".unit-select").value,
+                note: card.querySelector(".notes-input").value || ""
+            };
+            updateResumen();
+        }
+
+        function toggleNotes(btn) {
+            const input = btn.nextElementSibling;
+            input.style.display = input.style.display === "block" ? "none" : "block";
+            saveState(btn);
+        }
+
+        function updateResumen() {
+            const tbody = document.getElementById("resumen-tbody");
+            tbody.innerHTML = "";
+            products.forEach(p => {
+                const key = getKey(p.name);
+                const saved = state[key];
+                if (saved && saved.qty > 0) {
+                    const row = tbody.insertRow();
+                    row.innerHTML = `
+                        <td>${p.name}</td>
+                        <td>${saved.qty}</td>
+                        <td>${saved.unit}</td>
+                        <td>${saved.note || 'Sin notas'}</td>
+                    `;
+                }
+            });
+        }
+
+        function filterProducts() {
+            const search = document.getElementById("search-bar").value.toLowerCase().trim();
+            const category = document.getElementById("class-filter").value;
+
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(search) && 
+                (category === "all" || p.category === category)
+            );
+            renderProducts(filtered);
+        }
+
+        function addNewProduct() {
+            const name = document.getElementById("new-name").value.trim();
+            const category = document.getElementById("new-category").value;
+            if (name) {
+                products.unshift({name: name.toUpperCase(), category: category});
+                renderProducts(products);
+                document.getElementById("new-name").value = "";
+            }
+        }
+
+        function downloadExcel() {
+            let csv = "Producto,Cantidad,Unidad,Notas\n";
+            products.forEach(p => {
+                const key = getKey(p.name);
+                const saved = state[key];
+                if (saved && saved.qty > 0) {
+                    csv += `"${p.name}",${saved.qty},"${saved.unit}","${saved.note || ''}"\n`;
+                }
+            });
+            const blob = new Blob([csv], { type: "text/csv" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = `Orden_Operacion_${new Date().toISOString().slice(0,10)}.csv`;
+            link.click();
+        }
+
+        function sendToWhatsApp() {
+            let name = prompt("Nombre del Chef / Responsable:");
+            if (!name) return;
+            let msg = `📋 *Orden de Compra - OPERACIÓN Fresh Prime*\n👤 *Responsable:* ${name}\n📅 ${document.getElementById("dynamic-timestamp").textContent}\n\n`;
+            products.forEach(p => {
+                const key = getKey(p.name);
+                const saved = state[key];
+                if (saved && saved.qty > 0) {
+                    msg += `• ${p.name} → ${saved.qty} ${saved.unit}\n`;
+                    if (saved.note) msg += `   Nota: ${saved.note}\n`;
+                }
+            });
+            window.open(`https://wa.me/524424225756?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        window.onload = function() {
+            document.getElementById("dynamic-timestamp").textContent = new Date().toLocaleDateString('es-MX', {day:'numeric', month:'long', year:'numeric'});
+            renderProducts(products);
+
+            document.getElementById("search-bar").addEventListener("input", filterProducts);
+            document.getElementById("class-filter").addEventListener("change", filterProducts);
+        };
+    </script>
+</body>
+</html>
