@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Fresh Prime - Orden de Compra OPERACIÓN</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+
+        body {
+            background: linear-gradient(135deg, #083645, #032425, #416858, #057BC1);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            color: #F8F4ED;
+            min-height: 100vh;
+            padding: 15px;
+        }
+        @keyframes gradientAnimation { 0% { background-position: 0% 0%; } 50% { background-position: 100% 100%; } 100% { background-position: 0% 0%; } }
+
+        .cover-page, .container { 
+            background: linear-gradient(135deg, rgba(9,51,44,0.35), rgba(65,104,88,0.4)); 
+            backdrop-filter: blur(12px); 
+            border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            border: 1px solid rgba(244,237,228,0.25); 
+        }
+        .cover-page { padding: 25px; margin-bottom: 20px; text-align:center; }
+        .logo { max-width: 170px; }
+
+        .product-table { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
+            gap: 14px; 
+        }
+        .product-card { 
+            background: rgba(3,36,37,0.6); 
+            padding: 16px; 
+            border-radius: 16px; 
+            border: 1px solid rgba(140,186,127,0.3); 
+            transition: all 0.2s;
+        }
+        .product-card:hover { transform: scale(1.03); box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
+
+        h3 { font-size: 15.5px; margin-bottom: 10px; }
+        p { font-size: 13px; color: #E5EAE6; margin-bottom: 10px; }
+
+        .quantity-input, .unit-select {
+            width: 100%;
+            padding: 10px;
+            margin: 6px 0;
+            background: #032425;
+            color: #F8F4ED;
+            border: 1px solid #8CBA7F;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+        .unit-select option { background: #032425; color: #F8F4ED; }
+
+        .notes-btn {
+            padding: 10px;
+            width: 100%;
+            background: linear-gradient(45deg, #8CBA7F, #00664D);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+        .notes-input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            display: none;
+            background: #032425;
+            color: #F8F4ED;
+            border: 1px solid #8CBA7F;
+            border-radius: 8px;
+        }
+
+        .buttons button {
+            padding: 14px 20px;
+            margin: 8px;
+            background: linear-gradient(45deg, #8CBA7F, #00664D);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        @media (max-width: 480px) {
+            .product-table { grid-template-columns: 1fr; }
+            .product-card { padding: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cover -->
+    <div class="cover-page">
+        <img class="logo" src="https://i.imgur.com/EZ5QUew.png" alt="Fresh Prime">
+        <h1>ORDEN DE COMPRA - OPERACIÓN</h1>
+        <p>Para Chefs y Cocina • Solo Cantidades</p>
+        <p id="dynamic-timestamp"></p>
+    </div>
+
+    <div class="container" style="padding:20px;">
+        
+        <!-- Agregar Producto -->
+        <div style="margin:15px 0; padding:15px; background:rgba(255,255,255,0.1); border-radius:12px;">
+            <h3>➕ Agregar Producto Nuevo</h3>
+            <input type="text" id="new-name" placeholder="Nombre del producto" style="width:58%;">
+            <select id="new-category" style="width:38%;">
+                <option value="Abarrotes">Abarrotes</option>
+                <option value="Proteinas">Proteínas</option>
+                <option value="Frutas y Verduras">Frutas y Verduras</option>
+                <option value="Lacteos">Lácteos</option>
+                <option value="Chiles, semillas y especias">Chiles y Especias</option>
+                <option value="Otros">Otros</option>
+            </select>
+            <button onclick="addNewProduct()" style="width:100%; margin-top:8px;">Agregar a la Lista</button>
+        </div>
+
+        <!-- Filtros -->
+        <div style="text-align:center; margin:15px 0;">
+            <input type="text" id="search-bar" placeholder="🔎 Buscar producto..." style="width:65%; padding:12px;">
+            <select id="class-filter" style="padding:12px; width:30%;">
+                <option value="all">Todos</option>
+                <option value="Abarrotes">Abarrotes</option>
+                <option value="Proteinas">Proteínas</option>
+                <option value="Frutas y Verduras">Frutas y Verduras</option>
+                <option value="Lacteos">Lácteos</option>
+                <option value="Chiles, semillas y especias">Chiles y Especias</option>
+                <option value="Otros">Otros</option>
+            </select>
+        </div>
+
+        <div class="product-table" id="product-list"></div>
+
+        <!-- Resumen -->
+        <div style="margin-top:30px; padding:15px; background:rgba(3,36,37,0.4); border-radius:15px;">
+            <h2>Resumen de Orden</h2>
+            <table id="resumen-table" style="width:100%; border-collapse:collapse; margin-top:10px;">
+                <thead><tr><th>Producto</th><th>Cantidad</th><th>Unidad</th><th>Notas</th></tr></thead>
+                <tbody id="resumen-tbody"></tbody>
+            </table>
+        </div>
+
+        <div style="text-align:center; margin-top:25px;">
+            <button onclick="downloadExcel()">📊 Descargar Excel</button>
+            <button onclick="sendToWhatsApp()">📱 Enviar WhatsApp</button>
+        </div>
+    </div>
+
+    <script>
+        let products = [
+    {name: "ACAI EN POLVO", category: "Abarrotes"},
+    {name: "ACEITE 1LT 123", category: "Abarrotes"},
+    {name: "ACEITE DE AJONJOLI PICANTE INES 250 ML", category: "Abarrotes"},
+    {name: "ACEITE DE AJONJOLI TOSTADO 250 ML SAN MIGUEL", category: "Abarrotes"},
+    {name: "ACEITE DE AJONJOLI YUKAI 2PZAS 320ML", category: "Abarrotes"},
+    {name: "ACEITE DE CANOLA ORIGINAL 170 GR PAM", category: "Abarrotes"},
+    {name: "ACEITE DE COCO MEMBERS MARK COCOCARE EXTRA VIRGEN ORGÁNICO 1.66 L", category: "Abarrotes"},
+    {name: "ACEITE DE OLIVA EXTRA  VIRGEN CON AJO 250 ML", category: "Abarrotes"},
+    {name: "ACEITE DE OLIVA MM 1LT", category: "Abarrotes"},
+    {name: "ACEITE DE OLIVA MM 5L", category: "Abarrotes"},
+    {name: "ACEITE DE OLIVA SUAVE 1 LT MONASTERIO", category: "Abarrotes"},
+    {name: "ACEITE DE SOYA MEMBERS MARK 10 L", category: "Abarrotes"},
+    {name: "ACEITE DE TRUFA ACIERTO 250ML", category: "Abarrotes"},
+    {name: "ACEITE DE UVA 2LT", category: "Abarrotes"},
+    {name: "ACEITE MM 20LTS", category: "Abarrotes"},
+    {name: "ACEITE PAM EN AEROSOL 2 PZAS DE 340 G C/U", category: "Abarrotes"},
+    {name: "ACEITUNAS NEGRAS SIN HUESO CARBONEL 920 GRS", category: "Abarrotes"},
+    {name: "ACEITUNAS VERDES DESHUESADAS MM 935 GR MM", category: "Abarrotes"},
+    {name: "ACEITUNAS VERDES MM SIN HUESO 3KG", category: "Abarrotes"},
+    {name: "ADEREZO CESAR MM 3.7KG", category: "Abarrotes"},
+    {name: "ADEREZO DE MAYONESA HEINZ 200 PZAS DE 8 G C/U", category: "Abarrotes"},
+    {name: "ADEREZO RANCH MM 3.7KG", category: "Abarrotes"},
+    {name: "AGUA MM 500 ML 45 PZAS", category: "Abarrotes"},
+    {name: "AGUA QUINA SCHWEPPES 296 ML 6 PZAS", category: "Abarrotes"},
+    {name: "AGUA TONICA 12 UD 355 ML LATA", category: "Abarrotes"},
+    {name: "AJI MOLIDO", category: "Abarrotes"},
+    {name: "AJO MOLIDO KG", category: "Abarrotes"},
+    {name: "ALCAPARRAS SERPIS 2 PZAS 220GR", category: "Abarrotes"},
+    {name: "ALCOHOL SOLIDO 24 PZAS 250ML", category: "Abarrotes"},
+    {name: "ALCOHOL SOLIDO MM 5 LT", category: "Abarrotes"},
+    {name: "ALUMINIO ALUPRACTIC 400 MTS", category: "Abarrotes"},
+    {name: "ARROZ PARA SUSHI", category: "Abarrotes"},
+    {name: "ARROZ SALVAJE 500 GR", category: "Abarrotes"},
+    {name: "ATÚN ALETA AMARILLA MEMBERS MARK EN AGUA DE 1.02 KG", category: "Abarrotes"},
+    {name: "ATÚN EN ACEITE DOLORES 8 PZAS DE 140 G C/U", category: "Abarrotes"},
+    {name: "ATUN EN AGUA 1.8 KG HERDEZ", category: "Abarrotes"},
+    {name: "AZUCAR ESPLENDA 1000 PZAS", category: "Abarrotes"},
+    {name: "AZUCAR ESTANDARD", category: "Abarrotes"},
+    {name: "AZUCAR GLASS 1 KG", category: "Abarrotes"},
+    {name: "AZUCAR MAZCABADO PORCION", category: "Abarrotes"},
+    {name: "AZÚCAR REFINADA MEMBERS MARK 1000 PZAS DE 5 G C/U", category: "Abarrotes"},
+    {name: "BARRAS DE GRANOLA NATURE VALLEY FRUT & NUT TRAIL MIX 24 PZAS DE 30 G C/U", category: "Abarrotes"},
+    {name: "BEBIDA JUMEX PIÑA 960 ML", category: "Abarrotes"},
+    {name: "BEBIDA JUMEX TOMATE 960 ML", category: "Abarrotes"},
+    {name: "BEBIDA JUMEX TORONJA 960 ML", category: "Abarrotes"},
+    {name: "BEBIDA MEMBERS MARK SABOR ALMENDRA 6 PZAS DE 946 ML C/U", category: "Abarrotes"},
+    {name: "BEBIDA OCEAN SPRAY ARANDANO 1L", category: "Abarrotes"},
+    {name: "BEBIDA SABOR ALMENDRA 1LT", category: "Abarrotes"},
+    {name: "BEBIDA SABOR SOYA 1LT", category: "Abarrotes"},
+    {name: "BRAN FLAKES", category: "Abarrotes"},
+    {name: "BRANDY DON PEDRO", category: "Abarrotes"},
+    {name: "CACAO EN POLVO", category: "Abarrotes"},
+    {name: "CACAO ENTERO", category: "Abarrotes"},
+    {name: "CAFÉ EN GRANO MEMBERS MARK COLOMBIANO 1 KG", category: "Abarrotes"},
+    {name: "CAFÉ TOSTADO Y MOLIDO MEMBERS MARK COLOMBIANO 1 KG", category: "Abarrotes"},
+    {name: "CAJETA 5 KG", category: "Abarrotes"},
+    {name: "CAJETA CORONADO ENVINADA 594 G", category: "Abarrotes"},
+    {name: "CAJETA MM 1.2KG", category: "Abarrotes"},
+    {name: "CALDO DE CAMARÓN KNORR 1.6 KG", category: "Abarrotes"},
+    {name: "CANASTAS GREAT VALUE DE GALLETA 195 G", category: "Abarrotes"},
+    {name: "CARAMELO LIQUIDO 1 LT", category: "Abarrotes"},
+    {name: "CARAMELO LIQUIDO 500 ML", category: "Abarrotes"},
+    {name: "CATSUP MM 3.8KG", category: "Abarrotes"},
+    {name: "CATSUP PORCIONADA 200 PZAS 9 GR", category: "Abarrotes"},
+    {name: "CEREAL ALL-BRAN KELLOGGS FLAKES 1.1 KG", category: "Abarrotes"},
+    {name: "CEREAL ALL-BRAN KELLOGGS PASAS 980 G", category: "Abarrotes"},
+    {name: "CEREAL FROOT LOOPS KELLOGGS 790 G", category: "Abarrotes"},
+    {name: "CEREAL INTEGRAL ALL BRAN 1.1KG", category: "Abarrotes"},
+    {name: "CEREAL INTEGRAL NESTLÉ FITNESS 600 G", category: "Abarrotes"},
+    {name: "CEREAL KELLOGGS SPECIAL K ORIGINAL 980 G", category: "Abarrotes"},
+    {name: "CEREZAS CON TALLOS MEMBERS MARK MARASCHINO 2.1 K", category: "Abarrotes"},
+    {name: "CHEESECAKE ZARZAMORA MEMBERS MARK", category: "Abarrotes"},
+    {name: "CHICHARRON RUEDA SECO PARA FREIR", category: "Abarrotes"},
+    {name: "CHICHARRON SECO PARA FREIR", category: "Abarrotes"},
+    {name: "CHILE CHIPOTLE ADOBADO 2.8 GR LA COSTENA", category: "Abarrotes"},
+    {name: "CHILE CHIPOTLE LA COSTEÑA PAQ 10PZAS 105GR", category: "Abarrotes"},
+    {name: "CHILE CHIPOTLES ADOBADO MM 2.8KG", category: "Abarrotes"},
+    {name: "CHILES EN VINAGRE MM 3KGS", category: "Abarrotes"},
+    {name: "CHILES JALAPEÑOS LA COSTEÑA 2.8KG", category: "Abarrotes"},
+    {name: "CHILES JALAPEÑOS MM BOLSA DE RODAJAS 3KG", category: "Abarrotes"},
+    {name: "CHILES JALAPEÑOS MM RAJAS 3KG", category: "Abarrotes"},
+    {name: "CHISPAS CHOCOLATE TURIN", category: "Abarrotes"},
+    {name: "CHISPAS DE COLORES", category: "Abarrotes"},
+    {name: "CEREAL CHOCO KRISPIS 1.2KG", category: "Abarrotes"},
+    {name: "CEREAL CHOCO KRISPIS 5 KG", category: "Abarrotes"},
+    {name: "CHOCOLATE ABUELITA 2PZAS 630GR", category: "Abarrotes"},
+    {name: "CHOCOLATE BLANCO", category: "Abarrotes"},
+    {name: "CHOCOLATE GRANILLO", category: "Abarrotes"},
+    {name: "CHOCOLATE HERSHEYS 214 PZ", category: "Abarrotes"},
+    {name: "CHOCOLATE SEMI AMARGO", category: "Abarrotes"},
+    {name: "CHOCOLATE TURIN EN TROZO", category: "Abarrotes"},
+    {name: "CHOCOMILK 2KG", category: "Abarrotes"},
+    {name: "CIRUELA PASAS SIN HUESO MM 1.13KGS", category: "Abarrotes"},
+    {name: "CLAMATO 1.89", category: "Abarrotes"},
+    {name: "CLAMATO 2.5 LT", category: "Abarrotes"},
+    {name: "CLAMATO PARTY PACK 2 PZAS DE 2.54 L", category: "Abarrotes"},
+    {name: "COFFEE MATE STICK 200 PZAS 4GR", category: "Abarrotes"},
+    {name: "COMINO MOLIDO MEMBERS MARK BY MCCORMICK 410 G", category: "Abarrotes"},
+    {name: "CONCENTRADO FRESA TUCAN 1.9 LT", category: "Abarrotes"},
+    {name: "CONCENTRADO MANGO TUCAN 1.9 LT", category: "Abarrotes"},
+    {name: "CONCENTRADO MANZANA TUCAN 1.9 LT", category: "Abarrotes"},
+    {name: "CONCENTRADO TAMARINDO TUCAN 1.9 LT", category: "Abarrotes"},
+    {name: "CONDIMIENTO ESTILO ITALIANO", category: "Abarrotes"},
+    {name: "CONO PARA HELADO DE GALLETA 10 PZA GREAT VALUE", category: "Abarrotes"},
+    {name: "CEREAL CORN FLAKES (A GRANEL)", category: "Abarrotes"},
+    {name: "CEREAL CORN POPS", category: "Abarrotes"},
+    {name: "CREMA ACIDA 1 LT", category: "Abarrotes"},
+    {name: "CREMA BATIDA VEGETAL CHANTILLY 1 LT", category: "Abarrotes"},
+    {name: "CREMA DE AVELLANA MM 1KG", category: "Abarrotes"},
+    {name: "CREMA DE CACAHUATE MEMBERS MARK 1.13 KG", category: "Abarrotes"},
+    {name: "CREMA DE COCO CALAHUA 1 LT", category: "Abarrotes"},
+    {name: "CREMA NATURAL 4 LTS", category: "Abarrotes"},
+    {name: "CREMA PARA BATIR 1LT", category: "Abarrotes"},
+    {name: "CREMA PARA BATIR LYNCOTT 1 LT 2 PZAS", category: "Abarrotes"},
+    {name: "CRUTONES MEMBERS MARK SABOR ITALIANO 907 G", category: "Abarrotes"},
+    {name: "CUBETA DE MOLE 4 KG", category: "Abarrotes"},
+    {name: "CUCHARA PASTELERA 50 PZA", category: "Abarrotes"},
+    {name: "DULCE DE LECHE", category: "Abarrotes"},
+    {name: "DURAZNO EN MITADES LA COSTEÑA 2 PZAS DE 820G", category: "Abarrotes"},
+    {name: "DURAZNOS EN ALMIBAR MM 3KG", category: "Abarrotes"},
+    {name: "EDULCORANTE DE MESA MEMBERS MARK CON STEVIA 400 SOBRES DE 1 G", category: "Abarrotes"},
+    {name: "ELOTE AMARILLO EN GRANO 2.9 KG HERDEZ", category: "Abarrotes"},
+    {name: "ELOTE EN GRANO CONGELADO LA HUERTA", category: "Abarrotes"},
+    {name: "ELOTE ENTERO LA HUERTA 2 KG", category: "Abarrotes"},
+    {name: "EMPANIZADOR A GRANEL KG", category: "Abarrotes"},
+    {name: "ENCENDEDOR DE ANTORCHA TOKAI 2", category: "Abarrotes"},
+    {name: "ENSALADA CAMPESINA DEL MONTE 400 GR", category: "Abarrotes"},
+    {name: "FLAN 800 GR", category: "Abarrotes"},
+    {name: "FLAN DE VAINILLA 1 KG GARI", category: "Abarrotes"},
+    {name: "FROOT LOOPS 5KG", category: "Abarrotes"},
+    {name: "FRIJOL BAYO COCIDO 580 GR", category: "Abarrotes"},
+    {name: "FRIJOL BAYO REFRITO 580 GR", category: "Abarrotes"},
+    {name: "FRIJOL BAYO REFRITO 2.5 KG", category: "Abarrotes"},
+    {name: "GALLETAS SALADAS 13 GR 200 PZAS", category: "Abarrotes"},
+    {name: "GALLETAS SURTIDO FINA VARIEDAD GABI", category: "Abarrotes"},
+    {name: "GELATINA 720 GR DURAZNO", category: "Abarrotes"},
+    {name: "GELATINA 720 GR FRESA", category: "Abarrotes"},
+    {name: "GELATINA 720 GR GROSELLA", category: "Abarrotes"},
+    {name: "GELATINA 720 GR JEREZ", category: "Abarrotes"},
+    {name: "GELATINA 720 GR LIMON", category: "Abarrotes"},
+    {name: "GELATINA 720 GR PINA", category: "Abarrotes"},
+    {name: "GELATINA 720 GR UVA", category: "Abarrotes"},
+    {name: "GELATINA DE FRESA", category: "Abarrotes"},
+    {name: "GELATINA DE LIMON", category: "Abarrotes"},
+    {name: "GELATINA DE PINA", category: "Abarrotes"},
+    {name: "GELATINA DE UVA", category: "Abarrotes"},
+    {name: "GRANILLO DE CHOCOLATE", category: "Abarrotes"},
+    {name: "GRANILLO DE COLORES", category: "Abarrotes"},
+    {name: "HARINA DE MAIZ MASECA AZUL", category: "Abarrotes"},
+    {name: "HARINA DE TRIGO 1 KG", category: "Abarrotes"},
+    {name: "HARINA DE TRIGO COSTAL", category: "Abarrotes"},
+    {name: "HARINA HOTCAKES 3 ESTRELLAS", category: "Abarrotes"},
+    {name: "HARINA PARA HOT CAKES MM 4.54 KGS", category: "Abarrotes"},
+    {name: "HELADO CHOCOLATE MM 4.7LTS", category: "Abarrotes"},
+    {name: "HELADO DE FRESA VAINILLA Y CHOCOLATE MM 4.7LTS", category: "Abarrotes"},
+    {name: "HELADO FRESA MM 4.7LTS", category: "Abarrotes"},
+    {name: "HELADO VAINILLA MM 4.7LTS", category: "Abarrotes"},
+    {name: "HOJUELA DE PAPA MM 2.26 KG", category: "Abarrotes"},
+    {name: "HOJUELAS DE PAPA MEMBERS MARK 2.26 KG", category: "Abarrotes"},
+    {name: "JARABE DE AGAVE AZUL ORGANICO GOLDEN HILLS 660 GR", category: "Abarrotes"},
+    {name: "JARABE DE AGAVE AZUL ORGANICO KIRKLAND 1 LT 2 PZAS", category: "Abarrotes"},
+    {name: "JARABE DE CHOCOLATE HERSHEYS 3 PZAS DE 589 G", category: "Abarrotes"},
+    {name: "JARABE HEINZ SABOR MAPLE 72 PZAS DE 30 G", category: "Abarrotes"},
+    {name: "JARABE NATURAL MADRILEÑA ENDULZANTE 1 L", category: "Abarrotes"},
+    {name: "JARANE DE MAPLE 1.2 KG MM", category: "Abarrotes"},
+    {name: "JITOMATE DESHIDRATADO 992G", category: "Abarrotes"},
+    {name: "JUEGO DE PINA 1 LT", category: "Abarrotes"},
+    {name: "JUGO DE TOMATE 1 LT", category: "Abarrotes"},
+    {name: "KIRKLAND SIGNATURE PIMIENTA NEGRA MOLIDO GRUESO 359 G", category: "Abarrotes"},
+    {name: "KNORR CALDO DE POLLO 1 KG", category: "Abarrotes"},
+    {name: "KNORR CONDIMIX POLLO 3.6 KG", category: "Abarrotes"},
+    {name: "LECHE CARNATION NESTLE 1 LT", category: "Abarrotes"},
+    {name: "LECHE CARNATION NESTLÉ 4PZA 944.3 ML C/U", category: "Abarrotes"},
+    {name: "LECHE CONDENSADA LECHERA 8 PZAS 387 GR", category: "Abarrotes"},
+    {name: "LECHE DE SOYA", category: "Abarrotes"},
+    {name: "LECHE DESLACTOSADA ALPURA 12 PZAS 1 LT", category: "Abarrotes"},
+    {name: "LECHE DESLACTOSADA MM 12PZAS", category: "Abarrotes"},
+    {name: "LECHE ENTERA ALPURA CLASICA 12 PZAS 1 LT", category: "Abarrotes"},
+    {name: "LECHE ENTERA MM 12PZAS", category: "Abarrotes"},
+    {name: "LECHE EVAPORADA NESTLÉ 2 PZAS DE 720 GR C/U", category: "Abarrotes"},
+    {name: "LEVADURA SECA 450 GR", category: "Abarrotes"},
+    {name: "MACHACA TIA LENCHA 100GR", category: "Abarrotes"},
+    {name: "MAIZ POZOLERO 3.30 KG", category: "Abarrotes"},
+    {name: "MAIZENA 750GR", category: "Abarrotes"},
+    {name: "MANGA CREMA PASTELERA", category: "Abarrotes"},
+    {name: "MANTEQUILLA EN BARRA GLORIA SIN SAL 1 KG", category: "Abarrotes"},
+    {name: "MAYONESA MM CON JUGO DE LIMON 3.35KG", category: "Abarrotes"},
+    {name: "MEDIA CREMA 1 LT", category: "Abarrotes"},
+    {name: "MEDIA CREMA AZUCARADA CHANTILLY CHANTY WIP AZUCARADA 200 G", category: "Abarrotes"},
+    {name: "MERMELADA CHABACANO 500 GR MCCORMICK", category: "Abarrotes"},
+    {name: "MERMELADA DE FRESA 450 GR MCCORMICK", category: "Abarrotes"},
+    {name: "MERMELADA DE FRESA HEINZ 120 PZAS DE 20 G C/U", category: "Abarrotes"},
+    {name: "MERMELADA DE FRESA SAN ANDRES 5KG", category: "Abarrotes"},
+    {name: "MERMELADA ZARZAMORA 450 GR MCCORMICK", category: "Abarrotes"},
+    {name: "MEZCLA CAMPESINA LA HUERTA 2 KG", category: "Abarrotes"},
+    {name: "MEZCLA DE QUESOS (MOZZARELLA & MANCHEGO)", category: "Abarrotes"},
+    {name: "MEZCLA DE QUESOS (MOZZARELLA & MANCHEGO) 5 KGS", category: "Abarrotes"},
+    {name: "MIEL DE ABEJA FCO 1.050 KG CARLOTA", category: "Abarrotes"},
+    {name: "MIEL DE ABEJA HEINZ 120 PZAS DE 20 G", category: "Abarrotes"},
+    {name: "MIEL DE ABEJA MEMBERS MARK 2 PZAS DE 1 KG C/U", category: "Abarrotes"},
+    {name: "MIEL MAPLE 1 LT", category: "Abarrotes"},
+    {name: "MIEL MAPLE MM 1.2KG", category: "Abarrotes"},
+    {name: "MOLE ALMENDRADO", category: "Abarrotes"},
+    {name: "MOLE NEGRO EL SABOR DE OAXACA 500GR", category: "Abarrotes"},
+    {name: "MOLE ROJO", category: "Abarrotes"},
+    {name: "MOLE ROJO EN PASTA DOÑA MARIA FRASCO 200 GR", category: "Abarrotes"},
+    {name: "MOSTAZA ANTIGUA MAILLE 865GR", category: "Abarrotes"},
+    {name: "MOSTAZA DIJON MAILLE 865GR", category: "Abarrotes"},
+    {name: "MOSTAZA MEMBERS MARK 3.7 L", category: "Abarrotes"},
+    {name: "MOZZARELLA BELGIOIOSO 2PZA 453GR", category: "Abarrotes"},
+    {name: "NACHOS BARCEL TOSTACHOS 3 PZAS DE 950G", category: "Abarrotes"},
+    {name: "NESCAFE 1.5KG", category: "Abarrotes"},
+    {name: "PALILLOS DE MADERA PINGÜINO REDONDOS DOS PUNTAS 250 PZAS", category: "Abarrotes"},
+    {name: "PAN BAGEL NEW YORK DELI & BAGEL NATURAL 8 PZAS", category: "Abarrotes"},
+    {name: "PAN BIMBO INTEGRAL", category: "Abarrotes"},
+    {name: "PAN BIMBOLLO PARRILLERO 12 PZAS", category: "Abarrotes"},
+    {name: "PAN BLANCO BIMBO", category: "Abarrotes"},
+    {name: "PAN DE 12 GRANOS OROWEAT 600GR", category: "Abarrotes"},
+    {name: "PAN DE CENTENO OROWEAT 600GR", category: "Abarrotes"},
+    {name: "PAN MEDIAS NOCHES BIMBO 16 PZAS", category: "Abarrotes"},
+    {name: "PAN MEDIAS NOCHES BIMBO 8 PZAS", category: "Abarrotes"},
+    {name: "PAN MOLIDO", category: "Abarrotes"},
+    {name: "PAN OROWEAT MANTEQUILLA, MULTIGRANO 680GR", category: "Abarrotes"},
+    {name: "PAN PARA HAMBURGUESA BIMBO 12 PZAS", category: "Abarrotes"},
+    {name: "PAN PARA HOT DOGS JUMBO", category: "Abarrotes"},
+    {name: "PANKO 1 KG TOYO", category: "Abarrotes"},
+    {name: "PAPAS CHIPS A GRANEL", category: "Abarrotes"},
+    {name: "PAPAS CHIPS ADOBADA", category: "Abarrotes"},
+    {name: "PAPAS CHIPS RUFLADA", category: "Abarrotes"},
+    {name: "PAPRIKA MCCORMICK 600 GR", category: "Abarrotes"},
+    {name: "PASTA BARILLA FIDEO NO.0 500 G", category: "Abarrotes"},
+    {name: "PASTA BARILLA PENNE RIGATE 500 G", category: "Abarrotes"},
+    {name: "PASTA CODITOS 500 GR", category: "Abarrotes"},
+    {name: "PASTA DE HOJALDRE 2KG", category: "Abarrotes"},
+    {name: "PASTA DE TOMATE MEMBERS MARK 3 KG", category: "Abarrotes"},
+    {name: "PASTA ESPAGUETTI 500 GR", category: "Abarrotes"},
+    {name: "PASTA FARFALLE LA MODERNA 500 G", category: "Abarrotes"},
+    {name: "PASTA FETUCCINI 500 GR", category: "Abarrotes"},
+    {name: "PASTA FIDEO 500 GR", category: "Abarrotes"},
+    {name: "PASTA FUSILLI 500 GR", category: "Abarrotes"},
+    {name: "PASTA LENGUA 500 GR", category: "Abarrotes"},
+    {name: "PASTA LETRA 500 GR", category: "Abarrotes"},
+    {name: "PASTA MUNICION 500 GR", category: "Abarrotes"},
+    {name: "PASTA PLUMA PENNE RIGATE", category: "Abarrotes"},
+    {name: "PASTEL DE CHOCOLATE CUADRADO GDE.", category: "Abarrotes"},
+    {name: "PASTEL DE CHOCOLATE REDONDO MEDIANO", category: "Abarrotes"},
+    {name: "PASTEL TRES LECHES DELICIA CHOCOLATE 1.3 KG", category: "Abarrotes"},
+    {name: "PECHUGA DE PAVO NATURAL KG", category: "Abarrotes"},
+    {name: "PEPINILLO AGRIO SAN MIGUEL ONDULADO Y REBANADO 3.94 KG", category: "Abarrotes"},
+    {name: "PEPINILLO BABY FRASCO", category: "Abarrotes"},
+    {name: "PEREJIL SECO MEMBERS MARK", category: "Abarrotes"},
+    {name: "PIMIENTA CAYENA MOLIDA 65 GR", category: "Abarrotes"},
+    {name: "PIMIENTA CON LIMON MM MCCORMICK 745 GR", category: "Abarrotes"},
+    {name: "PIMIENTA NEGRA ENTERA MEMBERS MARK BY MCCORMICK 520 G", category: "Abarrotes"},
+    {name: "PIMIENTA NEGRA MM MOLIDA 545 G", category: "Abarrotes"},
+    {name: "PINA EN ALMIBAR", category: "Abarrotes"},
+    {name: "PRETZEL GALLETA HORNEADA", category: "Abarrotes"},
+    {name: "PURE DE PAPA SOLUTIONS 2 KG", category: "Abarrotes"},
+    {name: "QUESO AZUL PORT BLEU 100 GR", category: "Abarrotes"},
+    {name: "QUESO COTIJA", category: "Abarrotes"},
+    {name: "QUESO COTTAGE LYNCOTT 960GR", category: "Abarrotes"},
+    {name: "QUESO DE CABRA MM", category: "Abarrotes"},
+    {name: "QUESO FETA ATHENOS 680 GR", category: "Abarrotes"},
+    {name: "QUESO MOZZARELLA RALLADO 2.26 KG", category: "Abarrotes"},
+    {name: "QUESO PARMESANO RALLADO", category: "Abarrotes"},
+    {name: "QUESO PROVOLONE", category: "Abarrotes"},
+    {name: "QUESO RANCHERO", category: "Abarrotes"},
+    {name: "REFRESCO AGUA MINERAL 355 ML 12 UD", category: "Abarrotes"},
+    {name: "REFRESCO COCA COLA LIGHT 355 ML 12 UD", category: "Abarrotes"},
+    {name: "REFRESCO COCA COLA REGULAR 355 ML 12 UD", category: "Abarrotes"},
+    {name: "REFRESCO COCA COLA ZERO 355 ML 12 UD", category: "Abarrotes"},
+    {name: "REFRESCO FANTA 355 ML 12 UD", category: "Abarrotes"},
+    {name: "REFRESCO FRESKA 355 ML 12 UD", category: "Abarrotes"},
+    {name: "REFRESCO SIDRAL MUNDET 355 ML 12 UD", category: "Abarrotes"},
+    {name: "REFRESCO SPRITE 355 ML 12 UD", category: "Abarrotes"},
+    {name: "ROYAL ICILING", category: "Abarrotes"},
+    {name: "SAL CON AJO MEMBERS MARK BY MCCORMICK 1.03 KG", category: "Abarrotes"},
+    {name: "SAL DE MESA LA FINA YODADA 1 KG", category: "Abarrotes"},
+    {name: "SAL DEL HIMALAYA 370G", category: "Abarrotes"},
+    {name: "SAL PORCIONADA 300 PZAS 1 G C/U", category: "Abarrotes"},
+    {name: "SALADITAS GAMESA CON 200 PZAS DE 13 G C/U", category: "Abarrotes"},
+    {name: "SALCHICA VIENA ECONOMICA", category: "Abarrotes"},
+    {name: "SALCHICHA 2 KGS", category: "Abarrotes"},
+    {name: "SALCHICHA JUMBO KIRKLAND 14 PZAS", category: "Abarrotes"},
+    {name: "SALCHICHA VIENA ECONOMICA 2.1 KG", category: "Abarrotes"},
+    {name: "SALSA BBQ HANES 4.3KG", category: "Abarrotes"},
+    {name: "SALSA CATSUP HEINZ 200 PZAS DE 9 G C/U", category: "Abarrotes"},
+    {name: "SALSA DE SOYA MM 2LTS", category: "Abarrotes"},
+    {name: "SALSA DE TOMATE CONTADINA PARA PIZZA 3 KG", category: "Abarrotes"},
+    {name: "SALSA INGLESA CROSSE & BLACKWELL 980ML", category: "Abarrotes"},
+    {name: "SALSA INGLESA FRENCHS 1.76 L", category: "Abarrotes"},
+    {name: "SALSA JUGO MAGGI 800ML", category: "Abarrotes"},
+    {name: "SALSA MAGGI 1.7 LT", category: "Abarrotes"},
+    {name: "SALSA MANGO HABANERO MM 4.15KG", category: "Abarrotes"},
+    {name: "SALSA RED HOT BUFALO 3.7KG", category: "Abarrotes"},
+    {name: "SALSA TABASCO MC ILHENNY 60 ML 4 PZAS", category: "Abarrotes"},
+    {name: "SALSA VALENTINA 4 LT", category: "Abarrotes"},
+    {name: "SALSA VALENTINA 6PZAS 350ML", category: "Abarrotes"},
+    {name: "SALSA VALENTINA PORCIONADA 200 PZAS", category: "Abarrotes"},
+    {name: "SAZONADOR DE PAELLA EL UNICO 20 G", category: "Abarrotes"},
+    {name: "SAZONADOR MAGGI 800 ML", category: "Abarrotes"},
+    {name: "SOPA DE CARACOL LA MODERNA 250 G", category: "Abarrotes"},
+    {name: "SOPA DE CODO LA MODERNA 250 G", category: "Abarrotes"},
+    {name: "SOPA DE ESTRELLA LA MODERNA 250 G", category: "Abarrotes"},
+    {name: "SOPA DE FIDEO LA MODERNA 250 G", category: "Abarrotes"},
+    {name: "SOPA DE LETRA LA MODERNA 250 G", category: "Abarrotes"},
+    {name: "SOPA DE MUNICIÓN LA MODERNA 250 G", category: "Abarrotes"},
+    {name: "SUSTITUTO DE CREMA COFFEE MATE NESTLÉ 2 BOTES DE 980 G C/U", category: "Abarrotes"},
+    {name: "SUSTITUTO DE CREMA COFFEE MATE NESTLÉ 200 PZAS DE 4 G", category: "Abarrotes"},
+    {name: "TAJIN 3 PZAS 255GR", category: "Abarrotes"},
+    {name: "TAJIN CLASICO 142 GR", category: "Abarrotes"},
+    {name: "TALLCAKE DOBLE CHOCOLATE MEMBERS MARK", category: "Abarrotes"},
+    {name: "TE DE HIERBABUENA 25 PZA MCCORMICK", category: "Abarrotes"},
+    {name: "TE DE JAMAICA 25 PZA MCCORMICK", category: "Abarrotes"},
+    {name: "TE DE LIMON 25 PZA MCCORMICK", category: "Abarrotes"},
+    {name: "TE DE MANZANA CANELA 25 PZA MCCORMICK", category: "Abarrotes"},
+    {name: "TE MCK 25 SOBRES MANZANILLA PKT", category: "Abarrotes"},
+    {name: "TE MCK 25 SOBRES NEGRO PKT", category: "Abarrotes"},
+    {name: "TE MCK 25 VERDE GREAT VALUE PKT", category: "Abarrotes"},
+    {name: "TÉ MEMBERS MARK SABORES SURTIDOS 120 PZAS", category: "Abarrotes"},
+    {name: "TENEDORES PASTELERO 50 PZA", category: "Abarrotes"},
+    {name: "TORTILLA DE MAIZ AMARILLA 800 GR", category: "Abarrotes"},
+    {name: "TORTILLA DE MAIZ NIXTAMALIZADA", category: "Abarrotes"},
+    {name: "TOSTADAS 30 PZAS", category: "Abarrotes"},
+    {name: "VAINILLA 1LT", category: "Abarrotes"},
+    {name: "VINAGRE BALSÁMICO PIANELLO ITALIANO 1 L", category: "Abarrotes"},
+    {name: "VINAGRE BLANCO MM 6LTS", category: "Abarrotes"},
+    {name: "VINAGRE BLANCO SOLUTIONS 3.5 LT", category: "Abarrotes"},
+    {name: "VINAGRE CLEMENTE JACQUES 3.700 ML BLANCO PZA", category: "Abarrotes"},
+    {name: "VINAGRE DE BLANCO GREAT VALUE 1LT", category: "Abarrotes"},
+    {name: "VINAGRE DE MANZANA GREAT VALUE 1LT", category: "Abarrotes"},
+    {name: "VINAGRETA DE FRUTOS ROJOS 355 ML", category: "Abarrotes"},
+    {name: "VINO BLANCO DON SIMÓN 1 L", category: "Abarrotes"},
+    {name: "VINO PROSECCO ROSE", category: "Abarrotes"},
+    {name: "VINO TINTO DON SIMON 1LT", category: "Abarrotes"},
+    {name: "VINO TRES CORONAS ORO DULCE TIPO JEREZ 1 L", category: "Abarrotes"},
+    {name: "WAFER STICK CHOCOLATE", category: "Abarrotes"},
+    {name: "YOGURTH GRIEGO 1LT", category: "Abarrotes"},
+    {name: "YOGURTH NATURAL 4 LT", category: "Abarrotes"},
+    {name: "ZUCARITAS 1.2KG", category: "Abarrotes"},
+    {name: "ZUCARITAS A GRANEL 5KG", category: "Abarrotes"},
+    {name: "ACHIOTE 100GR", category: "Chiles, semillas y especias"},
+    {name: "ACHIOTE 1KG", category: "Chiles, semillas y especias"},
+    {name: "AJONJOLI CARAMELIZADO", category: "Chiles, semillas y especias"},
+    {name: "AJONJOLI NEGRO", category: "Chiles, semillas y especias"},
+    {name: "ALMENDRA ENTERA", category: "Chiles, semillas y especias"},
+    {name: "ALMENDRA FILETEADA", category: "Chiles, semillas y especias"},
+    {name: "AMARANTO", category: "Chiles, semillas y especias"},
+    {name: "ARANDANO DESHIDRATADO", category: "Chiles, semillas y especias"},
+    {name: "ARROZ BLANCO", category: "Chiles, semillas y especias"},
+    {name: "AVENA", category: "Chiles, semillas y especias"},
+    {name: "CACAHUATE ENCHILADO", category: "Chiles, semillas y especias"},
+    {name: "CACAHUATE JAPONES", category: "Chiles, semillas y especias"},
+    {name: "CACAHUATE PELADO", category: "Chiles, semillas y especias"},
+    {name: "CACAHUATE SALADO", category: "Chiles, semillas y especias"},
+    {name: "CANELA ENTERA", category: "Chiles, semillas y especias"},
+    {name: "CANELA MOLIDA", category: "Chiles, semillas y especias"},
+    {name: "CHIA", category: "Chiles, semillas y especias"},
+    {name: "CHILE ANCHO", category: "Chiles, semillas y especias"},
+    {name: "CHILE CHIPOTLE", category: "Chiles, semillas y especias"},
+    {name: "CHILE DE ARBOL", category: "Chiles, semillas y especias"},
+    {name: "CHILE GUAJILLO", category: "Chiles, semillas y especias"},
+    {name: "CHILE MORITA", category: "Chiles, semillas y especias"},
+    {name: "CHILE NEGRO / MULATO", category: "Chiles, semillas y especias"},
+    {name: "CHILE PASILLA", category: "Chiles, semillas y especias"},
+    {name: "CHILE PUYA", category: "Chiles, semillas y especias"},
+    {name: "CIRUELA PASA", category: "Chiles, semillas y especias"},
+    {name: "CIRUELA PASA S/H", category: "Chiles, semillas y especias"},
+    {name: "COCO RALLADO", category: "Chiles, semillas y especias"},
+    {name: "COMINO", category: "Chiles, semillas y especias"},
+    {name: "DATIL", category: "Chiles, semillas y especias"},
+    {name: "FRIJOL JUNIO", category: "Chiles, semillas y especias"},
+    {name: "FRIJOL MICHIGAN", category: "Chiles, semillas y especias"},
+    {name: "FRIJOL PERUANO", category: "Chiles, semillas y especias"},
+    {name: "GARBANZO", category: "Chiles, semillas y especias"},
+    {name: "GRANOLA", category: "Chiles, semillas y especias"},
+    {name: "JAMAICA", category: "Chiles, semillas y especias"},
+    {name: "LAUREL", category: "Chiles, semillas y especias"},
+    {name: "LENTEJA", category: "Chiles, semillas y especias"},
+    {name: "LINAZA", category: "Chiles, semillas y especias"},
+    {name: "MAIZ PALOMERO", category: "Chiles, semillas y especias"},
+    {name: "NUEZ CARAMELIZADA", category: "Chiles, semillas y especias"},
+    {name: "NUEZ DE LA INDIA", category: "Chiles, semillas y especias"},
+    {name: "NUEZ ENTERA", category: "Chiles, semillas y especias"},
+    {name: "NUEZ GRANILLO", category: "Chiles, semillas y especias"},
+    {name: "NUEZ MOSCADA", category: "Chiles, semillas y especias"},
+    {name: "NUEZ PICADA", category: "Chiles, semillas y especias"},
+    {name: "OREGANO", category: "Chiles, semillas y especias"},
+    {name: "PEPITA", category: "Chiles, semillas y especias"},
+    {name: "PEPITA DE CALABAZA PELADA", category: "Chiles, semillas y especias"},
+    {name: "PILONCILLO", category: "Chiles, semillas y especias"},
+    {name: "SEMILLA DE GIRASOL", category: "Chiles, semillas y especias"},
+    {name: "SOYA", category: "Chiles, semillas y especias"},
+    {name: "TAMARINDO", category: "Chiles, semillas y especias"},
+    {name: "TOMILLO", category: "Chiles, semillas y especias"},
+    {name: "TOTOMOXTLE", category: "Chiles, semillas y especias"},
+    {name: "UVA PASAS", category: "Chiles, semillas y especias"},
+    {name: "ACELGA", category: "Frutas y Verduras"},
+    {name: "AGUACATE", category: "Frutas y Verduras"},
+    {name: "AJO CABEZA", category: "Frutas y Verduras"},
+    {name: "AJO PELADO", category: "Frutas y Verduras"},
+    {name: "ALBAHACA", category: "Frutas y Verduras"},
+    {name: "ALFALFA", category: "Frutas y Verduras"},
+    {name: "APIO", category: "Frutas y Verduras"},
+    {name: "ARUGULA", category: "Frutas y Verduras"},
+    {name: "ARUGULA 500 GR", category: "Frutas y Verduras"},
+    {name: "BERENJENA", category: "Frutas y Verduras"},
+    {name: "BETABEL", category: "Frutas y Verduras"},
+    {name: "BLUEBERRY", category: "Frutas y Verduras"},
+    {name: "BROCOLI", category: "Frutas y Verduras"},
+    {name: "BROTE DE BETABEL", category: "Frutas y Verduras"},
+    {name: "BROTE DE CILANTRO", category: "Frutas y Verduras"},
+    {name: "CALABAZA ITALIANA", category: "Frutas y Verduras"},
+    {name: "CAMOTE", category: "Frutas y Verduras"},
+    {name: "CEBOLLA BLANCA", category: "Frutas y Verduras"},
+    {name: "CEBOLLA CAMBRAY", category: "Frutas y Verduras"},
+    {name: "CEBOLLA MORADA", category: "Frutas y Verduras"},
+    {name: "CHAMPINON", category: "Frutas y Verduras"},
+    {name: "CHAYOTE", category: "Frutas y Verduras"},
+    {name: "CHICHARO PELADO", category: "Frutas y Verduras"},
+    {name: "CHILE HABANERO", category: "Frutas y Verduras"},
+    {name: "CHILE JALAPENO", category: "Frutas y Verduras"},
+    {name: "CHILE POBLANO", category: "Frutas y Verduras"},
+    {name: "CHILE SERRANO", category: "Frutas y Verduras"},
+    {name: "CILANTRO", category: "Frutas y Verduras"},
+    {name: "COL BLANCA", category: "Frutas y Verduras"},
+    {name: "COL MORADA", category: "Frutas y Verduras"},
+    {name: "COLIFLOR", category: "Frutas y Verduras"},
+    {name: "EJOTES", category: "Frutas y Verduras"},
+    {name: "ELOTE (PELADO)", category: "Frutas y Verduras"},
+    {name: "ELOTE AMARILLO", category: "Frutas y Verduras"},
+    {name: "EPAZOTE", category: "Frutas y Verduras"},
+    {name: "ESPARRAGO", category: "Frutas y Verduras"},
+    {name: "ESPINACA", category: "Frutas y Verduras"},
+    {name: "ESPINACA BABY", category: "Frutas y Verduras"},
+    {name: "FLOR DE CALABAZA", category: "Frutas y Verduras"},
+    {name: "FLORES COMESTIBLES", category: "Frutas y Verduras"},
+    {name: "FRAMBUESA", category: "Frutas y Verduras"},
+    {name: "FRESA", category: "Frutas y Verduras"},
+    {name: "FRESA", category: "Frutas y Verduras"},
+    {name: "GERMEN DE SOYA", category: "Frutas y Verduras"},
+    {name: "GERMEN DE TRIGO", category: "Frutas y Verduras"},
+    {name: "GRANO DE ELOTE", category: "Frutas y Verduras"},
+    {name: "GUAYABA", category: "Frutas y Verduras"},
+    {name: "HIERBABUENA", category: "Frutas y Verduras"},
+    {name: "HIGO CARAMELIZADO", category: "Frutas y Verduras"},
+    {name: "HIGO NATURAL", category: "Frutas y Verduras"},
+    {name: "HIGO NATURAL 500 GR", category: "Frutas y Verduras"},
+    {name: "HINOJO", category: "Frutas y Verduras"},
+    {name: "HOJA DE PLATANO", category: "Frutas y Verduras"},
+    {name: "HONGO PORTOBELLO", category: "Frutas y Verduras"},
+    {name: "HUITLACOCHE", category: "Frutas y Verduras"},
+    {name: "JENGIBRE", category: "Frutas y Verduras"},
+    {name: "JICAMA", category: "Frutas y Verduras"},
+    {name: "JITOMATE BOLA", category: "Frutas y Verduras"},
+    {name: "JITOMATE CHERRY", category: "Frutas y Verduras"},
+    {name: "JITOMATE SALADETTE 1RA", category: "Frutas y Verduras"},
+    {name: "JITOMATE SALADETTE 3RA", category: "Frutas y Verduras"},
+    {name: "KIWI", category: "Frutas y Verduras"},
+    {name: "LECHUGA ESCAROLA", category: "Frutas y Verduras"},
+    {name: "LECHUGA ITALIANA", category: "Frutas y Verduras"},
+    {name: "LECHUGA MIXTA", category: "Frutas y Verduras"},
+    {name: "LECHUGA OREJONA", category: "Frutas y Verduras"},
+    {name: "LECHUGA ROMANA", category: "Frutas y Verduras"},
+    {name: "LECHUGA SANGRIA", category: "Frutas y Verduras"},
+    {name: "LIMON CON SEMILLA", category: "Frutas y Verduras"},
+    {name: "LIMON EUREKA", category: "Frutas y Verduras"},
+    {name: "LIMON SIN SEMILLA", category: "Frutas y Verduras"},
+    {name: "MANDARINA", category: "Frutas y Verduras"},
+    {name: "MANGO", category: "Frutas y Verduras"},
+    {name: "MANZANA GALA IMPORTADA", category: "Frutas y Verduras"},
+    {name: "MANZANA GOLDEN IMPORTADA", category: "Frutas y Verduras"},
+    {name: "MANZANA GOLDEN NACIONAL", category: "Frutas y Verduras"},
+    {name: "MANZANA GRANNY", category: "Frutas y Verduras"},
+    {name: "MANZANA RED DELICIOUS NACIONAL", category: "Frutas y Verduras"},
+    {name: "MANZANA STARKING IMPORTADA", category: "Frutas y Verduras"},
+    {name: "MARACUYA (PULPA)", category: "Frutas y Verduras"},
+    {name: "MELON CHINO", category: "Frutas y Verduras"},
+    {name: "MELON VALENCIANO", category: "Frutas y Verduras"},
+    {name: "MENTA", category: "Frutas y Verduras"},
+    {name: "NARANJA", category: "Frutas y Verduras"},
+    {name: "NOPAL LIMPIO", category: "Frutas y Verduras"},
+    {name: "PAPA BLANCA ALFA CH.", category: "Frutas y Verduras"},
+    {name: "PAPA BLANCA ALFA GDE.", category: "Frutas y Verduras"},
+    {name: "PAPA BLANCA ALFA MED.", category: "Frutas y Verduras"},
+    {name: "PAPA CAMBRAY BLANCA", category: "Frutas y Verduras"},
+    {name: "PAPA CAMBRAY ROJA", category: "Frutas y Verduras"},
+    {name: "PAPAYA", category: "Frutas y Verduras"},
+    {name: "PENCA DE MAGUEY", category: "Frutas y Verduras"},
+    {name: "PEPINO", category: "Frutas y Verduras"},
+    {name: "PERA", category: "Frutas y Verduras"},
+    {name: "PEREJIL", category: "Frutas y Verduras"},
+    {name: "PIMIENTO MORRON MIX (AMARILLO, NARANJA, ROJO o VERDE)", category: "Frutas y Verduras"},
+    {name: "PINA MIEL", category: "Frutas y Verduras"},
+    {name: "PLATANO MACHO", category: "Frutas y Verduras"},
+    {name: "PLATANO TABASCO", category: "Frutas y Verduras"},
+    {name: "PORO", category: "Frutas y Verduras"},
+    {name: "RABANO", category: "Frutas y Verduras"},
+    {name: "ROMERO", category: "Frutas y Verduras"},
+    {name: "SANDIA", category: "Frutas y Verduras"},
+    {name: "SANDIA PERSONAL", category: "Frutas y Verduras"},
+    {name: "SETAS", category: "Frutas y Verduras"},
+    {name: "SETAS", category: "Frutas y Verduras"},
+    {name: "TOMATE VERDE CON CASCARA", category: "Frutas y Verduras"},
+    {name: "TOMATE VERDE LIMPIO", category: "Frutas y Verduras"},
+    {name: "TORONJA", category: "Frutas y Verduras"},
+    {name: "UVA ROJA", category: "Frutas y Verduras"},
+    {name: "UVA VERDE", category: "Frutas y Verduras"},
+    {name: "VERDOLAGA", category: "Frutas y Verduras"},
+    {name: "ZANAHORIA", category: "Frutas y Verduras"},
+    {name: "ZANAHORIA ARCOIRIS BABY", category: "Frutas y Verduras"},
+    {name: "ZARZAMORA", category: "Frutas y Verduras"},
+    {name: "BOLSA NEGRA 60x90", category: "Otros"},
+    {name: "BOLSA NEGRA 90x120", category: "Otros"},
+    {name: "CONTENEDOR DE UNICEL LISO SIN DIVISION 8X8 100PZAS", category: "Otros"},
+    {name: "CONTENEDOR LISO 50 PZAS", category: "Otros"},
+    {name: "ENVASE REYMA LITRO 200 PZA", category: "Otros"},
+    {name: "FOGATA CARBON", category: "Otros"},
+    {name: "KIRKLAND SIGNATURE PLÁSTICO ADHERENTE 1 ROLLO 914.4MTSX30.5CMS", category: "Otros"},
+    {name: "LENA MADERA ENCINO", category: "Otros"},
+    {name: "SERVILLETA SENCILLA 500 PZAS 4 PAQ", category: "Otros"},
+    {name: "TAPA ENVASE REYMA 200 PZAS", category: "Otros"},
+    {name: "TEST-14; APR 2ND HALF 2.0 2026 A**", category: "Otros"},
+    {name: "AGUJA DE RES", category: "Proteinas"},
+    {name: "ARRACHERA BRESCO", category: "Proteinas"},
+    {name: "ARRACHERA CHOICE OUTSIDE", category: "Proteinas"},
+    {name: "ARRACHERA PRIME", category: "Proteinas"},
+    {name: "BICTEC DE RES FRESCO SEMILIMPIO", category: "Proteinas"},
+    {name: "BISTEC CONGELADO PROCESADO", category: "Proteinas"},
+    {name: "BISTEC DE RES REBANADO", category: "Proteinas"},
+    {name: "BISTEC TAQUERO", category: "Proteinas"},
+    {name: "CABEZA DE RES", category: "Proteinas"},
+    {name: "CABRERIA", category: "Proteinas"},
+    {name: "CAMARON U16", category: "Proteinas"},
+    {name: "CAMARON U21", category: "Proteinas"},
+    {name: "CARNE ENCHILADA", category: "Proteinas"},
+    {name: "CARNE MOLIDA", category: "Proteinas"},
+    {name: "CARNE MOLIDA 80/20", category: "Proteinas"},
+    {name: "CARNE MOLIDA DE CERDO", category: "Proteinas"},
+    {name: "CARNE MOLIDA ECONOMICA", category: "Proteinas"},
+    {name: "CARNE MOLIDA MIX", category: "Proteinas"},
+    {name: "CARNE MOLIDA PRIME", category: "Proteinas"},
+    {name: "CECINA NATURAL", category: "Proteinas"},
+    {name: "CHAMBARETE", category: "Proteinas"},
+    {name: "CHAMBARETE SIN HUESO", category: "Proteinas"},
+    {name: "CHICHARRON", category: "Proteinas"},
+    {name: "CHISTORRA", category: "Proteinas"},
+    {name: "CHORIZO", category: "Proteinas"},
+    {name: "CHULETA AHUMADA", category: "Proteinas"},
+    {name: "CHULETA NATURAL DE CERDO", category: "Proteinas"},
+    {name: "CHULETON DE RES", category: "Proteinas"},
+    {name: "CODILLO", category: "Proteinas"},
+    {name: "COSTILLA DE CERDO", category: "Proteinas"},
+    {name: "COSTILLA DE CERDO", category: "Proteinas"},
+    {name: "COSTILLA DE RES PARA CALDO", category: "Proteinas"},
+    {name: "COSTILLA EN TIRA O CARRILLERA", category: "Proteinas"},
+    {name: "DIEZMILLO CON HUESO", category: "Proteinas"},
+    {name: "DIEZMILLO SIN HUESO", category: "Proteinas"},
+    {name: "ESPINAZO", category: "Proteinas"},
+    {name: "FAJITA DE RES", category: "Proteinas"},
+    {name: "FALDA DE RES", category: "Proteinas"},
+    {name: "FILETE DE RES", category: "Proteinas"},
+    {name: "HAMBURGUESA DE CERDO", category: "Proteinas"},
+    {name: "HAMBURGUESA DE RES", category: "Proteinas"},
+    {name: "HUEVO", category: "Proteinas"},
+    {name: "HUEVO SAN JUAN", category: "Proteinas"},
+    {name: "LIBRO", category: "Proteinas"},
+    {name: "MANITAS DE CERDO", category: "Proteinas"},
+    {name: "MANTECA", category: "Proteinas"},
+    {name: "MENUDO", category: "Proteinas"},
+    {name: "MIGAJA", category: "Proteinas"},
+    {name: "MILANESA DE CERDO", category: "Proteinas"},
+    {name: "MILANESA DE RES", category: "Proteinas"},
+    {name: "PASTOR DE CERDO", category: "Proteinas"},
+    {name: "PATA DE RES", category: "Proteinas"},
+    {name: "PECHUGA DE POLLO APLANADA", category: "Proteinas"},
+    {name: "PECHUGA DE POLLO ENTERA", category: "Proteinas"},
+    {name: "PICANHA 1RA", category: "Proteinas"},
+    {name: "PICANHA 2DA", category: "Proteinas"},
+    {name: "PIERNA DE CERDO CON GRASA", category: "Proteinas"},
+    {name: "PIERNA DE CERDO EN TROZOS", category: "Proteinas"},
+    {name: "PIERNA DE CERDO SIN GRASA", category: "Proteinas"},
+    {name: "PIERNA Y MUSLO (POLLO)", category: "Proteinas"},
+    {name: "PORTERHOUSE STEAK (T-BONE)", category: "Proteinas"},
+    {name: "RIB EYE 1RA", category: "Proteinas"},
+    {name: "RIB EYE 2DA", category: "Proteinas"},
+    {name: "RIB EYE TOMAHAWK", category: "Proteinas"},
+    {name: "SALMON", category: "Proteinas"},
+    {name: "SIRLOIN", category: "Proteinas"},
+    {name: "SUADERO DE COSTILLA", category: "Proteinas"},
+    {name: "SUADERO ORIGINAL", category: "Proteinas"},
+    {name: "SURIMI", category: "Proteinas"},
+    {name: "T-BONE DE RES", category: "Proteinas"},
+    {name: "TOCINO", category: "Proteinas"}
+];
+
+        function renderProducts(filtered) {
+            const container = document.getElementById("product-list");
+            container.innerHTML = "";
+            filtered.forEach(p => {
+                const card = document.createElement("div");
+                card.className = "product-card";
+                card.setAttribute("data-category", p.category);   // ← CORREGIDO
+                card.innerHTML = `
+                    <h3>${p.name}</h3>
+                    <p><strong>Categoría:</strong> ${p.category}</p>
+                    <input type="number" class="quantity-input" step="0.01" min="0" value="0" onchange="updateResumen()">
+                    <select class="unit-select" onchange="updateResumen()">
+                        <option value="Kilo">Kilo</option>
+                        <option value="Pieza">Pieza</option>
+                        <option value="Caja">Caja</option>
+                        <option value="Litro">Litro</option>
+                        <option value="Paquete">Paquete</option>
+                    </select>
+                    <button class="notes-btn" onclick="toggleNotes(this)">Agregar Nota</button>
+                    <input type="text" class="notes-input" placeholder="Notas..." onkeyup="updateResumen()">
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function addNewProduct() {
+            const name = document.getElementById("new-name").value.trim();
+            const category = document.getElementById("new-category").value;
+            if (name) {
+                products.unshift({name: name.toUpperCase(), category: category});
+                renderProducts(products);
+                document.getElementById("new-name").value = "";
+                alert("✅ Producto agregado");
+            }
+        }
+
+        function toggleNotes(btn) {
+            const input = btn.nextElementSibling;
+            input.style.display = input.style.display === "block" ? "none" : "block";
+            updateResumen();
+        }
+
+        function updateResumen() {
+            const tbody = document.getElementById("resumen-tbody");
+            tbody.innerHTML = "";
+            document.querySelectorAll(".product-card").forEach(card => {
+                const qty = parseFloat(card.querySelector(".quantity-input").value) || 0;
+                if (qty > 0) {
+                    const row = tbody.insertRow();
+                    row.innerHTML = `
+                        <td>${card.querySelector("h3").textContent}</td>
+                        <td>${qty}</td>
+                        <td>${card.querySelector(".unit-select").value}</td>
+                        <td>${card.querySelector(".notes-input").value || 'Sin notas'}</td>
+                    `;
+                }
+            });
+        }
+
+        function filterProducts() {
+            const search = document.getElementById("search-bar").value.toLowerCase().trim();
+            const category = document.getElementById("class-filter").value;
+
+            const filtered = products.filter(p => {
+                const matchSearch = p.name.toLowerCase().includes(search);
+                const matchCategory = (category === "all" || p.category === category);
+                return matchSearch && matchCategory;
+            });
+
+            renderProducts(filtered);
+        }
+
+        function downloadExcel() {
+            let csv = "Producto,Cantidad,Unidad,Notas\n";
+            document.querySelectorAll(".product-card").forEach(card => {
+                const qty = parseFloat(card.querySelector(".quantity-input").value) || 0;
+                if (qty > 0) {
+                    csv += `"${card.querySelector("h3").textContent}",${qty},"${card.querySelector(".unit-select").value}","${card.querySelector(".notes-input").value || ''}"\n`;
+                }
+            });
+            const blob = new Blob([csv], { type: "text/csv" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = `Orden_Operacion_${new Date().toISOString().slice(0,10)}.csv`;
+            link.click();
+        }
+
+        function sendToWhatsApp() {
+            let name = prompt("Nombre del Chef / Responsable:");
+            if (!name) return;
+            let msg = `📋 *Orden de Compra - OPERACIÓN Fresh Prime*\n👤 *Responsable:* ${name}\n📅 ${document.getElementById("dynamic-timestamp").textContent}\n\n`;
+            document.querySelectorAll(".product-card").forEach(card => {
+                const qty = parseFloat(card.querySelector(".quantity-input").value) || 0;
+                if (qty > 0) {
+                    msg += `• ${card.querySelector("h3").textContent} → ${qty} ${card.querySelector(".unit-select").value}\n`;
+                    const note = card.querySelector(".notes-input").value;
+                    if (note) msg += `   Nota: ${note}\n`;
+                }
+            });
+            window.open(`https://wa.me/524424225756?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        window.onload = function() {
+            document.getElementById("dynamic-timestamp").textContent = new Date().toLocaleDateString('es-MX', {day:'numeric', month:'long', year:'numeric'});
+            renderProducts(products);
+
+            // FILTROS CORREGIDOS
+            document.getElementById("search-bar").addEventListener("input", filterProducts);
+            document.getElementById("class-filter").addEventListener("change", filterProducts);
+        };
+    </script>
+</body>
+</html>
