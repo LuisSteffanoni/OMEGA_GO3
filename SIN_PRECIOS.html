@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Fresh Prime - Orden de Compra OPERACIÓN</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
 
         body {
@@ -752,46 +752,59 @@
     {name: "TOCINO", category: "Proteinas"}
 ];
 
+        let state = {}; // Guarda cantidad, unidad y notas
+
+        function getKey(name) {
+            return name.toLowerCase().trim();
+        }
+
         function renderProducts(filtered) {
             const container = document.getElementById("product-list");
             container.innerHTML = "";
+
             filtered.forEach(p => {
+                const key = getKey(p.name);
+                const saved = state[key] || {qty: 0, unit: "Kilo", note: ""};
+
                 const card = document.createElement("div");
                 card.className = "product-card";
-                card.setAttribute("data-category", p.category);   // ← CORREGIDO
+                card.setAttribute("data-category", p.category);
                 card.innerHTML = `
                     <h3>${p.name}</h3>
                     <p><strong>Categoría:</strong> ${p.category}</p>
-                    <input type="number" class="quantity-input" step="0.01" min="0" value="0" onchange="updateResumen()">
-                    <select class="unit-select" onchange="updateResumen()">
-                        <option value="Kilo">Kilo</option>
-                        <option value="Pieza">Pieza</option>
-                        <option value="Caja">Caja</option>
-                        <option value="Litro">Litro</option>
-                        <option value="Paquete">Paquete</option>
+                    <input type="number" class="quantity-input" step="0.01" min="0" value="${saved.qty}" onchange="saveState(this)">
+                    <select class="unit-select" onchange="saveState(this)">
+                        <option value="Kilo" ${saved.unit === "Kilo" ? "selected" : ""}>Kilo</option>
+                        <option value="Pieza" ${saved.unit === "Pieza" ? "selected" : ""}>Pieza</option>
+                        <option value="Caja" ${saved.unit === "Caja" ? "selected" : ""}>Caja</option>
+                        <option value="Litro" ${saved.unit === "Litro" ? "selected" : ""}>Litro</option>
+                        <option value="Paquete" ${saved.unit === "Paquete" ? "selected" : ""}>Paquete</option>
                     </select>
                     <button class="notes-btn" onclick="toggleNotes(this)">Agregar Nota</button>
-                    <input type="text" class="notes-input" placeholder="Notas..." onkeyup="updateResumen()">
+                    <input type="text" class="notes-input" placeholder="Notas..." value="${saved.note}" onkeyup="saveState(this)">
                 `;
                 container.appendChild(card);
             });
+            updateResumen();
         }
 
-        function addNewProduct() {
-            const name = document.getElementById("new-name").value.trim();
-            const category = document.getElementById("new-category").value;
-            if (name) {
-                products.unshift({name: name.toUpperCase(), category: category});
-                renderProducts(products);
-                document.getElementById("new-name").value = "";
-                alert("✅ Producto agregado");
-            }
+        function saveState(el) {
+            const card = el.closest(".product-card");
+            const name = card.querySelector("h3").textContent;
+            const key = getKey(name);
+
+            state[key] = {
+                qty: parseFloat(card.querySelector(".quantity-input").value) || 0,
+                unit: card.querySelector(".unit-select").value,
+                note: card.querySelector(".notes-input").value || ""
+            };
+            updateResumen();
         }
 
         function toggleNotes(btn) {
             const input = btn.nextElementSibling;
             input.style.display = input.style.display === "block" ? "none" : "block";
-            updateResumen();
+            saveState(btn);
         }
 
         function updateResumen() {
@@ -815,13 +828,22 @@
             const search = document.getElementById("search-bar").value.toLowerCase().trim();
             const category = document.getElementById("class-filter").value;
 
-            const filtered = products.filter(p => {
-                const matchSearch = p.name.toLowerCase().includes(search);
-                const matchCategory = (category === "all" || p.category === category);
-                return matchSearch && matchCategory;
-            });
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(search) && 
+                (category === "all" || p.category === category)
+            );
 
             renderProducts(filtered);
+        }
+
+        function addNewProduct() {
+            const name = document.getElementById("new-name").value.trim();
+            const category = document.getElementById("new-category").value;
+            if (name) {
+                products.unshift({name: name.toUpperCase(), category: category});
+                renderProducts(products);
+                document.getElementById("new-name").value = "";
+            }
         }
 
         function downloadExcel() {
@@ -858,7 +880,6 @@
             document.getElementById("dynamic-timestamp").textContent = new Date().toLocaleDateString('es-MX', {day:'numeric', month:'long', year:'numeric'});
             renderProducts(products);
 
-            // FILTROS CORREGIDOS
             document.getElementById("search-bar").addEventListener("input", filterProducts);
             document.getElementById("class-filter").addEventListener("change", filterProducts);
         };
