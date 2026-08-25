@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Price Tracker - Fresh Prime</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #083645, #032425, #416858, #057BC1);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            color: #F8F4ED;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        .content {
+            max-width: 1200px;
+            width: 100%;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(9, 51, 44, 0.2), rgba(65, 104, 88, 0.3));
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(244, 237, 228, 0.2);
+            animation: fadeIn 1s ease-in;
+            flex: 1;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .content h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #F8F4ED;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        }
+        .content p {
+            margin-bottom: 1.5rem;
+            color: #E5EAE6;
+            text-align: center;
+        }
+        .controls {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(3, 36, 37, 0.2), rgba(65, 104, 88, 0.3));
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .controls select, .controls button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #00664D, #8CBA7F);
+            color: #F8F4ED;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        .controls select:hover, .controls button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(45deg, #A8A24A, #D4D687);
+        }
+        .product-selection {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(3, 36, 37, 0.2), rgba(65, 104, 88, 0.3));
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .product-selection h2 {
+            color: #F8F4ED;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        }
+        .product-selection label {
+            display: block;
+            margin: 0.5rem 0;
+            color: #E5EAE6;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .product-selection input[type="checkbox"] {
+            margin-right: 0.5rem;
+            accent-color: #8CBA7F;
+        }
+        .chart-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(9, 51, 44, 0.2), rgba(65, 104, 88, 0.3));
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease;
+        }
+        .chart-section:hover {
+            transform: translateY(-5px);
+        }
+        .chart-section h2 {
+            color: #F8F4ED;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        }
+        #priceChart {
+            width: 100% !important;
+            height: 500px !important;
+            min-height: 400px;
+        }
+        .platform-section {
+            margin: 2rem 0;
+            text-align: center;
+        }
+        .platform-section h2 {
+            color: #F8F4ED;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        }
+        .platform-section .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #8CBA7F, #00664D);
+            color: #F8F4ED;
+            text-decoration: none;
+            border-radius: 15px;
+            transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        .platform-section .cta-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(45deg, #A8A24A, #B3CDE0);
+        }
+        .footer {
+            padding: 1rem;
+            text-align: center;
+            background: radial-gradient(circle, rgba(3, 36, 37, 0.6), rgba(9, 51, 44, 0.4));
+            backdrop-filter: blur(15px);
+            color: #F8F4ED;
+            border-top: 1px solid rgba(244, 237, 228, 0.2);
+            width: 100%;
+            max-width: 1200px;
+            margin-top: auto;
+        }
+        .footer a {
+            color: #4DDBFF;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+        .footer a:hover {
+            color: #F1FF58;
+        }
+        @media (max-width: 768px) {
+            .content {
+                padding: 1.5rem;
+            }
+            .content h1 {
+                font-size: 2rem;
+            }
+            .controls {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .product-selection {
+                padding: 0.8rem;
+            }
+            .chart-section {
+                padding: 1rem;
+            }
+            #priceChart {
+                height: 400px !important;
+            }
+            .platform-section .cta-button {
+                padding: 0.8rem 1.5rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .content h1 {
+                font-size: 1.5rem;
+            }
+            .chart-section {
+                padding: 0.8rem;
+            }
+            #priceChart {
+                height: 300px !important;
+            }
+            .platform-section .cta-button {
+                padding: 0.6rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Price Tracker</h1>
+        <p>Nos comprometemos con el comercio justo, actualizando nuestros precios continuamente para reflejar los costos más equitativos del mercado. A continuación, un resumen de los productos que sufrieron cambio de precios durante los últimos 30 días. Selecciona los productos y el rango de tiempo para ver sus estadísticas.</p>
+
+        <!-- Controls Section -->
+        <div class="controls">
+            <select id="timeRange" onchange="updateChart()">
+                <option value="7">1 Semana</option>
+                <option value="14">2 Semanas</option>
+                <option value="21">3 Semanas</option>
+                <option value="28">4 Semanas</option>
+                <option value="30">1 Mes</option>
+            </select>
+            <button onclick="updateChart()">Actualizar</button>
+        </div>
+
+        <!-- Product Selection Section -->
+        <div class="product-selection">
+            <h2>Seleccionar Productos</h2>
+            <div id="product-checkboxes"></div>
+        </div>
+
+        <!-- Dynamic Chart Section -->
+        <div class="chart-section">
+            <h2>Precios de Productos (MXN)</h2>
+            <div id="priceChart"></div>
+        </div>
+
+        <!-- Client-Specific Section -->
+        <div class="platform-section">
+            <h2>Gracias por tu confianza Kingpin Social!</h2>
+            <p>Estamos aquí para apoyar con información clara sobre precios. Contáctanos si necesitas más detalles o deseas planificar tu próximo pedido.</p>
+            <a href="mailto:FreshPrimeGroup@outlook.com" class="cta-button">Contactar a Fresh Prime</a>
+            <a href="#schedule-call" class="cta-button">Programar una Llamada</a>
+        </div>
+    </div>
+    <footer class="footer">
+        <p>Contact Us: <a href="mailto:FreshPrimeGroup@outlook.com">FreshPrimeGroup@outlook.com</a> | (44) 24 22 57 56</p>
+        <p>Follow Us: <a href="https://www.instagram.com/fresh_prime_foods?igsh=MWFyendicGV4bnRxMQ%3D%3D&utm_source=qr" target="_blank">Instagram</a> | <a href="https://luissteffanoni.github.io/OMEGA_GO3/index.html">Website</a></p>
+        <p>© 2025 Fresh Prime – Freshness Redefined</p>
+    </footer>
+
+    <!-- Include Plotly Library -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+        // Data from the previous script
+        
+
+
+
+
+
+const plotData = [
+    {
+        x: ['2026-08-04', '2026-08-10', '2026-08-17', '2026-08-24'],
+        y: [100.0, 110.0, 110.0, 110.0],
+        name: 'jamaica',
+        color: '#d62728',
+    },
+    {
+        x: ['2026-08-04', '2026-08-17'],
+        y: [170.0, 200.0],
+        name: 'chile guajillo',
+        color: '#ff7f0e',
+    },
+    {
+        x: ['2026-08-04', '2026-08-17', '2026-08-24'],
+        y: [33.0, 35.0, 31.0],
+        name: 'papa blanca alfa med.',
+        color: '#8c564b',
+    },
+    {
+        x: ['2026-08-04', '2026-08-10', '2026-08-17', '2026-08-24'],
+        y: [26.0, 24.0, 24.0, 23.0],
+        name: 'chayote',
+        color: '#bcbd22',
+    },
+    {
+        x: ['2026-08-04', '2026-08-10', '2026-08-17'],
+        y: [26.0, 28.0, 29.0],
+        name: 'cebolla blanca',
+        color: '#7f7f7f',
+    },
+    {
+        x: ['2026-08-04', '2026-08-10', '2026-08-17', '2026-08-24'],
+        y: [17.0, 21.0, 21.0, 21.0],
+        name: 'calabaza italiana',
+        color: '#8c564b',
+    },
+    {
+        x: ['2026-08-04', '2026-08-10', '2026-08-17', '2026-08-24'],
+        y: [28.0, 23.0, 23.0, 23.0],
+        name: 'azucar estandard',
+        color: '#9467bd',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24'],
+        y: [23.0, 23.0, 24.0],
+        name: 'limon con semilla',
+        color: '#9467bd',
+    },
+    {
+        x: ['2026-08-10', '2026-08-24'],
+        y: [25.0, 27.0],
+        name: 'chile jalapeno',
+        color: '#2ca02c',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24'],
+        y: [25.0, 25.0, 26.0],
+        name: 'melon chino',
+        color: '#7f7f7f',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24'],
+        y: [17.5, 17.5, 11.18],
+        name: 'cuchara sopera 50 piezas',
+        color: '#bcbd22',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24'],
+        y: [14.0, 14.0, 15.0],
+        name: 'sandia',
+        color: '#9467bd',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24'],
+        y: [65.0, 70.0, 70.0],
+        name: 'tamarindo',
+        color: '#ff7f0e',
+    },
+    {
+        x: ['2026-08-10', '2026-08-24'],
+        y: [55.0, 65.0],
+        name: 'aguacate',
+        color: '#d62728',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24'],
+        y: [160.0, 155.0, 145.0],
+        name: 'pechuga de pollo entera',
+        color: '#d62728',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24'],
+        y: [20.0, 15.0, 30.0],
+        name: 'brocoli',
+        color: '#2ca02c',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24'],
+        y: [73.0, 73.0, 35.0],
+        name: 'vaso souffle 4a 50 pzas c tapa',
+        color: '#17becf',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24'],
+        y: [26.0, 26.0, 27.0],
+        name: 'pina miel',
+        color: '#2ca02c',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24'],
+        y: [33.0, 33.0, 32.0],
+        name: 'papaya',
+        color: '#1f77b4',
+    },
+    {
+        x: ['2026-08-17', '2026-08-24'],
+        y: [55.0, 50.0],
+        name: 'pimiento morron mix',
+        color: '#2ca02c',
+    },
+    {
+        x: ['2026-08-17', '2026-08-24'],
+        y: [125.15, 145.0],
+        name: 'queso panela',
+        color: '#9467bd',
+    },
+    {
+        x: ['2026-08-17', '2026-08-24'],
+        y: [23.0, 26.0],
+        name: 'melon valenciano',
+        color: '#e377c2',
+    },
+    {
+        x: ['2026-08-17', '2026-08-24'],
+        y: [58.513, 58.51],
+        name: 'pan integral bimbo',
+        color: '#1f77b4',
+    },
+    {
+        x: ['2026-08-17', '2026-08-24'],
+        y: [23.562, 23.56],
+        name: 'charola grande 855 mariel',
+        color: '#ff7f0e',
+    },
+    {
+        x: ['2026-08-17', '2026-08-24'],
+        y: [17.7606, 17.76],
+        name: 'charola chica 66 mariel',
+        color: '#bcbd22',
+    },
+    {
+        x: ['2026-08-17', '2026-08-24'],
+        y: [21.0, 20.0],
+        name: 'arroz blanco',
+        color: '#e377c2',
+    },
+    {
+        x: ['2026-08-17', '2026-08-24'],
+        y: [27.0, 26.0],
+        name: 'chile poblano',
+        color: '#bcbd22',
+    },
+    {
+        x: ['2026-08-17', '2026-08-24'],
+        y: [29.0, 28.0],
+        name: 'frijol flor mayo',
+        color: '#9467bd',
+    },
+];
+
+const allDates = ['2026-08-04', '2026-08-10', '2026-08-17', '2026-08-24'];
+
+const products = ['jamaica', 'chile guajillo', 'papa blanca alfa med.', 'chayote', 'cebolla blanca', 'calabaza italiana', 'azucar estandard', 'limon con semilla', 'chile jalapeno', 'melon chino', 'cuchara sopera 50 piezas', 'sandia', 'tamarindo', 'aguacate', 'pechuga de pollo entera', 'brocoli', 'vaso souffle 4a 50 pzas c tapa', 'pina miel', 'papaya', 'pimiento morron mix', 'queso panela', 'melon valenciano', 'pan integral bimbo', 'charola grande 855 mariel', 'charola chica 66 mariel', 'arroz blanco', 'chile poblano', 'frijol flor mayo'];
+
+
+
+
+
+        
+
+
+
+        
+        
+
+
+
+
+
+
+
+
+        // Function to filter data based on time range
+        function filterDataByRange(days) {
+            const endDate = new Date(); // Current date (e.g., May 27, 2025)
+            const startDate = new Date(endDate.getTime() - days * 24 * 60 * 60 * 1000);
+            const filteredDates = allDates.filter(date => {
+                const d = new Date(date);
+                return d >= startDate && d <= endDate;
+            });
+
+            const filteredData = plotData.map(trace => {
+                const filteredX = [];
+                const filteredY = [];
+                trace.x.forEach((date, idx) => {
+                    if (filteredDates.includes(date)) {
+                        filteredX.push(date);
+                        filteredY.push(trace.y[idx]);
+                    }
+                });
+                return {
+                    ...trace,
+                    x: filteredX,
+                    y: filteredY
+                };
+            });
+
+            return { dates: filteredDates, data: filteredData };
+        }
+
+        // Function to update the Plotly chart with responsive adjustments
+        function updateChart() {
+            const selectedProducts = [];
+            document.querySelectorAll('#product-checkboxes input[type="checkbox"]:checked').forEach(checkbox => {
+                selectedProducts.push(checkbox.value);
+            });
+
+            const days = parseInt(document.getElementById('timeRange').value);
+            const filtered = filterDataByRange(days);
+
+            const traces = [];
+            const annotations = [];
+            filtered.data.forEach(trace => {
+                if (selectedProducts.includes(trace.name.toLowerCase())) {
+                    const priceLabels = trace.y.map(price => `$${price.toFixed(2)}`);
+                    traces.push({
+                        x: trace.x,
+                        y: trace.y,
+                        mode: 'lines+markers+text',
+                        name: trace.name,
+                        line: {
+                            color: trace.color,
+                            width: 3,
+                            shape: 'spline',
+                        },
+                        marker: {
+                            size: 10,
+                            color: trace.color,
+                            line: {
+                                color: '#ffffff',
+                                width: 2
+                            },
+                            opacity: 1
+                        },
+                        text: priceLabels,
+                        textposition: 'top center',
+                        textfont: {
+                            size: window.innerWidth <= 480 ? 8 : 10,
+                            color: trace.color,
+                            family: 'Poppins',
+                            shadow: '0 0 5px rgba(0, 0, 0, 0.5)'
+                        },
+                        hovertemplate: 'Date: %{x|%b %d, %Y}<br>Price: $%{y:.2f}<extra></extra>'
+                    });
+
+                    if (trace.x.length > 0) {
+                        const lastIdx = trace.x.length - 1;
+                        annotations.push({
+                            x: trace.x[lastIdx],
+                            y: trace.y[lastIdx],
+                            text: trace.name,
+                            showarrow: false,
+                            font: {
+                                size: window.innerWidth <= 480 ? 8 : 10,
+                                color: trace.color,
+                                family: 'Poppins',
+                                weight: 'bold',
+                                shadow: '0 0 5px rgba(0, 0, 0, 0.5)'
+                            },
+                            xanchor: 'left',
+                            yanchor: 'bottom',
+                            xshift: 5
+                        });
+                    }
+                }
+            });
+
+            const earliestDate = filtered.dates.length > 0 ? new Date(filtered.dates[0]) : new Date('2025-03-29');
+            const latestDate = filtered.dates.length > 0 ? new Date(filtered.dates[filtered.dates.length - 1]) : new Date();
+            const subtitle = `Data from ${earliestDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} to ${latestDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+
+            const layout = {
+                title: {
+                    text: 'Product Price Changes',
+                    font: { 
+                        size: window.innerWidth <= 480 ? 12 : 14, 
+                        family: 'Poppins', 
+                        color: '#F8F4ED', 
+                        weight: 'bold' 
+                    },
+                    x: 0.5,
+                    xanchor: 'center',
+                    pad: { b: 10 }
+                },
+                xaxis: {
+                    title: 'Date',
+                    titlefont: { 
+                        size: window.innerWidth <= 480 ? 10 : 12, 
+                        color: '#E7E7E3' 
+                    },
+                    tickfont: { 
+                        size: window.innerWidth <= 480 ? 8 : 10, 
+                        color: '#E7E7E3' 
+                    },
+                    tickformat: '%b %d',
+                    tickangle: 45,
+                    gridcolor: 'rgba(255, 255, 255, 0.1)',
+                    gridwidth: 1,
+                    griddash: 'dash',
+                    ticklen: 6
+                },
+                yaxis: {
+                    title: 'Price (MXN)',
+                    titlefont: { 
+                        size: window.innerWidth <= 480 ? 10 : 12, 
+                        color: '#E7E7E3' 
+                    },
+                    tickfont: { 
+                        size: window.innerWidth <= 480 ? 8 : 10, 
+                        color: '#E7E7E3' 
+                    },
+                    tickprefix: '$',
+                    gridcolor: 'rgba(255, 255, 255, 0.1)',
+                    gridwidth: 1,
+                    griddash: 'dash',
+                    ticklen: 6
+                },
+                showlegend: false,
+                hovermode: 'x unified',
+                template: 'plotly_white',
+                plot_bgcolor: '#1a2a3a',
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                margin: { 
+                    l: window.innerWidth <= 480 ? 40 : 60,
+                    r: window.innerWidth <= 480 ? 40 : 60,
+                    t: 80,
+                    b: window.innerWidth <= 480 ? 80 : 100
+                },
+                annotations: [
+                    {
+                        text: subtitle,
+                        xref: 'paper',
+                        yref: 'paper',
+                        x: 0.5,
+                        y: 1.05,
+                        showarrow: false,
+                        font: { 
+                            size: window.innerWidth <= 480 ? 10 : 12, 
+                            color: '#E5EAE6', 
+                            family: 'Poppins' 
+                        }
+                    },
+                    ...annotations
+                ]
+            };
+
+            Plotly.newPlot('priceChart', traces, layout, { responsive: true });
+        }
+
+        // Populate checkboxes and add event listeners
+        window.addEventListener('load', () => {
+            const checkboxContainer = document.getElementById('product-checkboxes');
+            products.forEach(product => {
+                const label = document.createElement('label');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.value = product;
+                checkbox.checked = false;
+                checkbox.onchange = updateChart;
+                label.appendChild(checkbox);
+                label.appendChild(document.createTextNode(` ${product}`));
+                checkboxContainer.appendChild(label);
+            });
+            updateChart();
+        });
+
+        // Redraw chart on window resize to ensure responsiveness
+        window.addEventListener('resize', updateChart);
+    </script>
+</body>
+</html>
