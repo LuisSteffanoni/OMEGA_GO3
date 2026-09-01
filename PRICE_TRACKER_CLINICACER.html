@@ -268,159 +268,229 @@
 
 
 
+
+
 const plotData = [
     {
-        x: ['2026-08-10', '2026-08-17', '2026-08-24'],
-        y: [17.5, 17.5, 11.18],
-        name: 'cuchara sopera 50 piezas',
+        x: ['2026-08-10', '2026-08-17', '2026-08-31'],
+        y: [28.0, 29.0, 29.0],
+        name: 'cebolla blanca',
+        color: '#7f7f7f',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [15.0, 15.0, 15.0, 17.0],
+        name: 'jitomate saladette 1ra',
         color: '#2ca02c',
     },
     {
-        x: ['2026-08-10', '2026-08-17', '2026-08-24'],
-        y: [25.0, 25.0, 26.0],
-        name: 'melon chino',
-        color: '#2ca02c',
+        x: ['2026-08-10', '2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [73.0, 73.0, 35.0, 35.0],
+        name: 'vaso souffle 4a 50 pzas c tapa',
+        color: '#d62728',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [17.5, 17.5, 11.18, 11.18],
+        name: 'cuchara sopera 50 piezas',
+        color: '#e377c2',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [173.75, 170.07, 170.07, 170.07],
+        name: 'queso oaxaca rallado',
+        color: '#d62728',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [24.0, 24.0, 23.0, 20.0],
+        name: 'chayote',
+        color: '#e377c2',
     },
     {
         x: ['2026-08-10', '2026-08-17', '2026-08-24'],
         y: [160.0, 155.0, 145.0],
         name: 'pechuga de pollo entera',
+        color: '#8c564b',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [50.0, 50.0, 50.0, 45.0],
+        name: 'guayaba',
+        color: '#8c564b',
+    },
+    {
+        x: ['2026-08-10', '2026-08-24', '2026-08-31'],
+        y: [25.0, 27.0, 27.0],
+        name: 'chile jalapeno',
+        color: '#1f77b4',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [65.0, 70.0, 70.0, 70.0],
+        name: 'tamarindo',
+        color: '#ff7f0e',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [20.0, 20.0, 20.0, 15.0],
+        name: 'tomate verde limpio',
+        color: '#ff7f0e',
+    },
+    {
+        x: ['2026-08-10', '2026-08-24', '2026-08-31'],
+        y: [36.0, 36.0, 40.0],
+        name: 'ejote',
+        color: '#17becf',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [33.0, 33.0, 32.0, 32.0],
+        name: 'papaya',
+        color: '#7f7f7f',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [124.0, 124.0, 124.0, 107.75],
+        name: 'pierna de cerdo trabajada',
+        color: '#7f7f7f',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [14.0, 14.0, 15.0, 15.0],
+        name: 'sandia',
+        color: '#1f77b4',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [23.0, 23.0, 24.0, 35.0],
+        name: 'limon con semilla',
         color: '#bcbd22',
     },
     {
-        x: ['2026-08-10', '2026-08-17', '2026-08-24'],
-        y: [26.0, 26.0, 27.0],
+        x: ['2026-08-10', '2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [26.0, 26.0, 27.0, 27.0],
         name: 'pina miel',
+        color: '#8c564b',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [15.0, 15.0, 15.0, 17.0],
+        name: 'zanahoria',
+        color: '#9467bd',
+    },
+    {
+        x: ['2026-08-10', '2026-08-24', '2026-08-31'],
+        y: [55.0, 65.0, 65.0],
+        name: 'aguacate',
+        color: '#17becf',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [25.0, 25.0, 26.0, 26.0],
+        name: 'melon chino',
+        color: '#ff7f0e',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [21.0, 21.0, 21.0, 19.0],
+        name: 'calabaza italiana',
+        color: '#8c564b',
+    },
+    {
+        x: ['2026-08-10', '2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [20.0, 15.0, 22.0, 22.0],
+        name: 'brocoli',
         color: '#d62728',
     },
     {
-        x: ['2026-08-10', '2026-08-17', '2026-08-24'],
-        y: [14.0, 14.0, 15.0],
-        name: 'sandia',
-        color: '#17becf',
-    },
-    {
-        x: ['2026-08-10', '2026-08-17', '2026-08-24'],
-        y: [65.0, 70.0, 70.0],
-        name: 'tamarindo',
+        x: ['2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [58.513, 58.51, 58.51],
+        name: 'pan integral bimbo',
         color: '#e377c2',
     },
     {
-        x: ['2026-08-10', '2026-08-17', '2026-08-24'],
-        y: [73.0, 73.0, 35.0],
-        name: 'vaso souffle 4a 50 pzas c tapa',
-        color: '#9467bd',
-    },
-    {
-        x: ['2026-08-10', '2026-08-17', '2026-08-24'],
-        y: [33.0, 33.0, 32.0],
-        name: 'papaya',
-        color: '#8c564b',
-    },
-    {
-        x: ['2026-08-10', '2026-08-24'],
-        y: [25.0, 27.0],
-        name: 'chile jalapeno',
-        color: '#9467bd',
-    },
-    {
-        x: ['2026-08-10', '2026-08-17', '2026-08-24'],
-        y: [23.0, 23.0, 24.0],
-        name: 'limon con semilla',
-        color: '#17becf',
-    },
-    {
-        x: ['2026-08-10', '2026-08-17'],
-        y: [28.0, 29.0],
-        name: 'cebolla blanca',
-        color: '#8c564b',
-    },
-    {
-        x: ['2026-08-10', '2026-08-17', '2026-08-24'],
-        y: [24.0, 24.0, 23.0],
-        name: 'chayote',
-        color: '#8c564b',
-    },
-    {
-        x: ['2026-08-10', '2026-08-24'],
-        y: [55.0, 65.0],
-        name: 'aguacate',
-        color: '#1f77b4',
-    },
-    {
-        x: ['2026-08-10', '2026-08-17', '2026-08-24'],
-        y: [20.0, 15.0, 30.0],
-        name: 'brocoli',
-        color: '#1f77b4',
-    },
-    {
-        x: ['2026-08-17', '2026-08-24'],
-        y: [35.0, 31.0],
+        x: ['2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [35.0, 31.0, 31.0],
         name: 'papa blanca alfa med.',
-        color: '#1f77b4',
+        color: '#2ca02c',
     },
     {
-        x: ['2026-08-17', '2026-08-24'],
-        y: [58.513, 58.51],
-        name: 'pan integral bimbo',
-        color: '#ff7f0e',
+        x: ['2026-08-17', '2026-08-31'],
+        y: [17.71, 18.5],
+        name: 'elote en grano 410 gr',
+        color: '#8c564b',
     },
     {
-        x: ['2026-08-17', '2026-08-24'],
-        y: [23.0, 26.0],
+        x: ['2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [29.0, 28.0, 27.0],
+        name: 'frijol flor mayo',
+        color: '#9467bd',
+    },
+    {
+        x: ['2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [23.0, 26.0, 26.0],
         name: 'melon valenciano',
-        color: '#ff7f0e',
+        color: '#d62728',
+    },
+    {
+        x: ['2026-08-17', '2026-08-31'],
+        y: [186.186, 186.19],
+        name: 'harina para hot cakes mm 4.53 kg',
+        color: '#bcbd22',
+    },
+    {
+        x: ['2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [23.562, 23.56, 23.56],
+        name: 'charola grande 855 mariel',
+        color: '#9467bd',
+    },
+    {
+        x: ['2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [17.7606, 17.76, 17.76],
+        name: 'charola chica 66 mariel',
+        color: '#2ca02c',
     },
     {
         x: ['2026-08-17', '2026-08-24'],
         y: [125.15, 145.0],
         name: 'queso panela',
+        color: '#1f77b4',
+    },
+    {
+        x: ['2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [21.0, 20.0, 20.0],
+        name: 'arroz blanco',
         color: '#bcbd22',
     },
     {
-        x: ['2026-08-17', '2026-08-24'],
-        y: [27.0, 26.0],
+        x: ['2026-08-17', '2026-08-24', '2026-08-31'],
+        y: [27.0, 26.0, 27.0],
         name: 'chile poblano',
-        color: '#2ca02c',
+        color: '#9467bd',
     },
     {
         x: ['2026-08-17', '2026-08-24'],
         y: [55.0, 50.0],
         name: 'pimiento morron mix',
-        color: '#7f7f7f',
-    },
-    {
-        x: ['2026-08-17', '2026-08-24'],
-        y: [23.562, 23.56],
-        name: 'charola grande 855 mariel',
-        color: '#ff7f0e',
-    },
-    {
-        x: ['2026-08-17', '2026-08-24'],
-        y: [17.7606, 17.76],
-        name: 'charola chica 66 mariel',
         color: '#bcbd22',
     },
     {
-        x: ['2026-08-17', '2026-08-24'],
-        y: [29.0, 28.0],
-        name: 'frijol flor mayo',
-        color: '#bcbd22',
-    },
-    {
-        x: ['2026-08-17', '2026-08-24'],
-        y: [21.0, 20.0],
-        name: 'arroz blanco',
-        color: '#d62728',
+        x: ['2026-08-24', '2026-08-31'],
+        y: [252.68, 220.0],
+        name: 'pechuga de pavo 1 kg',
+        color: '#1f77b4',
     },
 ];
 
-const allDates = ['2026-08-10', '2026-08-17', '2026-08-24'];
+const allDates = ['2026-08-10', '2026-08-17', '2026-08-24', '2026-08-31'];
 
-const products = ['cuchara sopera 50 piezas', 'melon chino', 'pechuga de pollo entera', 'pina miel', 'sandia', 'tamarindo', 'vaso souffle 4a 50 pzas c tapa', 'papaya', 'chile jalapeno', 'limon con semilla', 'cebolla blanca', 'chayote', 'aguacate', 'brocoli', 'papa blanca alfa med.', 'pan integral bimbo', 'melon valenciano', 'queso panela', 'chile poblano', 'pimiento morron mix', 'charola grande 855 mariel', 'charola chica 66 mariel', 'frijol flor mayo', 'arroz blanco'];
+const products = ['cebolla blanca', 'jitomate saladette 1ra', 'vaso souffle 4a 50 pzas c tapa', 'cuchara sopera 50 piezas', 'queso oaxaca rallado', 'chayote', 'pechuga de pollo entera', 'guayaba', 'chile jalapeno', 'tamarindo', 'tomate verde limpio', 'ejote', 'papaya', 'pierna de cerdo trabajada', 'sandia', 'limon con semilla', 'pina miel', 'zanahoria', 'aguacate', 'melon chino', 'calabaza italiana', 'brocoli', 'pan integral bimbo', 'papa blanca alfa med.', 'elote en grano 410 gr', 'frijol flor mayo', 'melon valenciano', 'harina para hot cakes mm 4.53 kg', 'charola grande 855 mariel', 'charola chica 66 mariel', 'queso panela', 'arroz blanco', 'chile poblano', 'pimiento morron mix', 'pechuga de pavo 1 kg'];
+
+
+
+
         
-
-
 
         
         
