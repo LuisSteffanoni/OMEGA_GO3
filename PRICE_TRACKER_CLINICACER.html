@@ -577,7 +577,7 @@ const products = ['cebolla blanca', 'tomate verde limpio', 'melon chino', 'manza
 
         // Function to filter data based on time range
         function filterDataByRange(days) {
-            const endDate = new Date(); // Current date (e.g., May 27, 2025)
+            const endDate = new Date(allDates[allDates.length - 1]); // Current date (e.g., May 27, 2025)
             const startDate = new Date(endDate.getTime() - days * 24 * 60 * 60 * 1000);
             const filteredDates = allDates.filter(date => {
                 const d = new Date(date);
