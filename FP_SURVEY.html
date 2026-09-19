@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Evaluación de servicio · Fresh Prime</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f3f6f1;
+      --paper: #fffcf7;
+      --ink: #1c2a22;
+      --muted: #5c6b62;
+      --line: #d7e0d4;
+      --green: #2f6a45;
+      --green-dark: #1e4a30;
+      --leaf: #7dae6a;
+      --accent: #c4a35a;
+      --bad: #9b3d2e;
+      --ok: #2f6a45;
+      --shadow: 0 18px 50px rgba(28, 42, 34, .08);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      background:
+        radial-gradient(1200px 500px at 10% -10%, #e4f0dc 0%, transparent 50%),
+        radial-gradient(800px 400px at 100% 0%, #efe4c8 0%, transparent 45%),
+        var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 28px 18px 80px; }
+    header.hero {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 28px 28px 22px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+    }
+    .mark {
+      width: 42px; height: 42px; border-radius: 12px;
+      background: linear-gradient(160deg, #3d8a56, #1e4a30);
+      display: grid; place-items: center; color: #fff; font-weight: 700;
+      letter-spacing: .04em; font-size: 13px;
+    }
+    .brand small { display: block; color: var(--muted); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    .brand strong { font-size: 15px; }
+    h1 {
+      font-family: Fraunces, Georgia, serif;
+      font-size: 1.7rem; line-height: 1.2; margin: 0 0 8px; font-weight: 600;
+    }
+    .lede { color: var(--muted); margin: 0; font-size: 15px; line-height: 1.55; }
+    .meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+    .chip {
+      font-size: 12px; padding: 6px 10px; border-radius: 999px;
+      background: #eef5ea; color: var(--green-dark); border: 1px solid #d3e4cc;
+    }
+    .progress {
+      margin: 16px 0 8px; height: 8px; background: #e4ebe0; border-radius: 99px; overflow: hidden;
+    }
+    .progress > span {
+      display: block; height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--green), var(--leaf));
+      transition: width .35s ease;
+    }
+    .step-label { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+    form.card, .thanks {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+    }
+    .section { display: none; }
+    .section.active { display: block; animation: in .28s ease; }
+    @keyframes in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .section h2 {
+      font-family: Fraunces, Georgia, serif;
+      font-size: 1.25rem; margin: 0 0 6px;
+    }
+    .hint { color: var(--muted); font-size: 13.5px; line-height: 1.5; margin: 0 0 18px; }
+    .scale-legend {
+      background: #f6f8f3; border: 1px dashed #cfdac8; border-radius: 12px;
+      padding: 10px 12px; font-size: 13px; color: var(--green-dark); margin-bottom: 18px;
+    }
+    .q { margin-bottom: 18px; }
+    label.qtitle, .qtitle {
+      display: block; font-weight: 600; font-size: 14.5px; margin-bottom: 8px;
+    }
+    .req { color: var(--bad); }
+    input[type="text"], textarea, select {
+      width: 100%; border: 1px solid #cfd8ca; border-radius: 12px;
+      padding: 12px 13px; font: inherit; background: #fff; color: var(--ink);
+    }
+    textarea { min-height: 88px; resize: vertical; }
+    input:focus, textarea:focus, select:focus {
+      outline: 2px solid #b7d4b0; border-color: var(--green);
+    }
+    .choices { display: grid; gap: 8px; }
+    .choice {
+      display: flex; align-items: center; gap: 10px;
+      border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px;
+      cursor: pointer; background: #fff;
+    }
+    .choice:hover { border-color: #b7cbb0; }
+    .choice:has(input:checked) { border-color: var(--green); background: #f3f8f1; }
+    .likert {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px;
+    }
+    .likert.nps { grid-template-columns: repeat(11, 1fr); }
+    .likert label {
+      border: 1px solid var(--line); border-radius: 10px; text-align: center;
+      padding: 10px 0; cursor: pointer; font-weight: 600; font-size: 13px; background: #fff;
+    }
+    .likert label:has(input:checked) {
+      background: var(--green); color: #fff; border-color: var(--green);
+    }
+    .likert input { display: none; }
+    .anchors { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: 6px; }
+    .nav {
+      display: flex; justify-content: space-between; gap: 10px; margin-top: 22px;
+    }
+    button {
+      font: inherit; border: 0; border-radius: 12px; padding: 12px 16px; cursor: pointer;
+    }
+    .btn-ghost { background: #eef2ea; color: var(--ink); }
+    .btn-main { background: var(--green); color: #fff; font-weight: 600; min-width: 140px; }
+    .btn-main:hover { background: var(--green-dark); }
+    .btn-main:disabled { opacity: .55; cursor: not-allowed; }
+    .err { color: var(--bad); font-size: 12.5px; margin-top: 6px; display: none; }
+    .q.invalid .err { display: block; }
+    .q.invalid .likert label, .q.invalid input[type="text"], .q.invalid .choice {
+      border-color: #e2b4ad;
+    }
+    .thanks { text-align: center; padding: 48px 28px; display: none; }
+    .thanks h2 { font-family: Fraunces, Georgia, serif; margin-bottom: 8px; }
+    footer.note { margin-top: 16px; font-size: 12px; color: var(--muted); text-align: center; }
+    @media (max-width: 640px) {
+      .likert.nps { grid-template-columns: repeat(6, 1fr); }
+      header.hero, form.card, .thanks { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="brand">
+        <div class="mark">FP</div>
+        <div>
+          <small>Fresh Prime Group</small>
+          <strong>Evaluación de servicio</strong>
+        </div>
+      </div>
+      <h1>Ayúdenos a pedir mejor y entregar mejor.</h1>
+      <p class="lede">Medimos el servicio actual y una forma más simple de armar el pedido: Fresh Prime propone el surtido y usted solo confirma, quita o agrega. No sustituye el sistema que ya usan.</p>
+      <div class="meta">
+        <span class="chip">7–8 minutos</span>
+        <span class="chip">HORECA · Querétaro</span>
+        <span class="chip">Respuestas confidenciales de operación</span>
+      </div>
+    </header>
+
+    <div class="progress" aria-hidden="true"><span id="bar"></span></div>
+    <div class="step-label" id="stepLabel">Paso 1 de 10</div>
+
+    <form class="card" id="survey" novalidate>
+      <!-- 1 -->
+      <section class="section active" data-step="1">
+        <h2>1. Su establecimiento</h2>
+        <p class="hint">Solo para cruzar respuestas. No es un ranking público.</p>
+        <div class="q" data-req="1">
+          <label class="qtitle" for="est">Nombre del establecimiento <span class="req">*</span></label>
+          <input id="est" name="establecimiento" type="text" autocomplete="organization" />
+          <div class="err">Este dato es necesario.</div>
+        </div>
+        <div class="q" data-req="1">
+          <label class="qtitle" for="puesto">Su nombre y puesto <span class="req">*</span></label>
+          <input id="puesto" name="nombre_puesto" type="text" />
+          <div class="err">Este dato es necesario.</div>
+        </div>
+        <div class="q" data-req="1">
+          <div class="qtitle">Tipo de establecimiento <span class="req">*</span></div>
+          <div class="choices" data-name="tipo">
+            <label class="choice"><input type="radio" name="tipo" value="Hotel" /> Hotel</label>
+            <label class="choice"><input type="radio" name="tipo" value="Restaurante" /> Restaurante</label>
+            <label class="choice"><input type="radio" name="tipo" value="Cafeteria" /> Cafetería</label>
+            <label class="choice"><input type="radio" name="tipo" value="Catering" /> Catering</label>
+            <label class="choice"><input type="radio" name="tipo" value="Otro" /> Otro</label>
+          </div>
+          <div class="err">Elija una opción.</div>
+        </div>
+        <div class="q" data-req="1">
+          <div class="qtitle">Tiempo comprando con Fresh Prime <span class="req">*</span></div>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="antiguedad" value="Menos de 3 meses" /> Menos de 3 meses</label>
+            <label class="choice"><input type="radio" name="antiguedad" value="3 a 12 meses" /> 3 a 12 meses</label>
+            <label class="choice"><input type="radio" name="antiguedad" value="Mas de 1 ano" /> Más de 1 año</label>
+          </div>
+          <div class="err">Elija una opción.</div>
+        </div>
+        <div class="q" data-req="1">
+          <div class="qtitle">Frecuencia de pedido <span class="req">*</span></div>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="frecuencia" value="Diario" /> Diario</label>
+            <label class="choice"><input type="radio" name="frecuencia" value="2 a 4 veces por semana" /> 2 a 4 veces por semana</label>
+            <label class="choice"><input type="radio" name="frecuencia" value="Semanal" /> Semanal</label>
+            <label class="choice"><input type="radio" name="frecuencia" value="Quincenal o menos" /> Quincenal o menos</label>
+          </div>
+          <div class="err">Elija una opción.</div>
+        </div>
+        <div class="q" data-req="1">
+          <div class="qtitle">Ticket aproximado mensual con Fresh Prime <span class="req">*</span></div>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="ticket" value="Menos de 10000" /> Menos de $10,000</label>
+            <label class="choice"><input type="radio" name="ticket" value="10000 a 25000" /> $10,000 a $25,000</label>
+            <label class="choice"><input type="radio" name="ticket" value="25000 a 50000" /> $25,000 a $50,000</label>
+            <label class="choice"><input type="radio" name="ticket" value="Mas de 50000" /> Más de $50,000</label>
+          </div>
+          <div class="err">Elija una opción.</div>
+        </div>
+      </section>
+
+      <!-- 2 NPS -->
+      <section class="section" data-step="2">
+        <h2>2. Relación</h2>
+        <div class="scale-legend">Escala 0 a 10 · 0 = nada probable · 10 = extremadamente probable</div>
+        <div class="q" data-req="1">
+          <div class="qtitle">¿Qué tan probable es que recomiende Fresh Prime a otro chef o comprador de su giro? <span class="req">*</span></div>
+          <div class="likert nps" data-name="nps" data-min="0" data-max="10"></div>
+          <div class="anchors"><span>Nada probable</span><span>Extremadamente probable</span></div>
+          <div class="err">Elija un número.</div>
+        </div>
+        <div class="q">
+          <label class="qtitle" for="nps_why">¿Por qué esa calificación?</label>
+          <textarea id="nps_why" name="nps_motivo" placeholder="Opcional"></textarea>
+        </div>
+      </section>
+
+      <!-- 3 Calidad -->
+      <section class="section" data-step="3">
+        <h2>3. Calidad y producto</h2>
+        <div class="scale-legend">1 = Muy insatisfecho · 5 = Muy satisfecho</div>
+        <div class="q" data-req="1"><div class="qtitle">Frescura al recibir el pedido <span class="req">*</span></div><div class="likert" data-name="cal_frescura"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q" data-req="1"><div class="qtitle">Consistencia de calidad de una entrega a otra <span class="req">*</span></div><div class="likert" data-name="cal_consistencia"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q" data-req="1"><div class="qtitle">Cumplimiento de especificaciones (calibre, madurez, recorte) <span class="req">*</span></div><div class="likert" data-name="cal_specs"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q" data-req="1"><div class="qtitle">Empaque y presentación al acomodarlo en su área <span class="req">*</span></div><div class="likert" data-name="cal_empaque"></div><div class="err">Califique del 1 al 5.</div></div>
+      </section>
+
+      <!-- 4 Logística -->
+      <section class="section" data-step="4">
+        <h2>4. Logística y entrega</h2>
+        <div class="scale-legend">1 = Muy insatisfecho · 5 = Muy satisfecho</div>
+        <div class="q" data-req="1"><div class="qtitle">Cumplimiento del horario acordado <span class="req">*</span></div><div class="likert" data-name="log_horario"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q" data-req="1"><div class="qtitle">Comunicación si hay retraso o no hay producto <span class="req">*</span></div><div class="likert" data-name="log_comunicacion"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q" data-req="1"><div class="qtitle">Exactitud: lo pedido versus lo entregado <span class="req">*</span></div><div class="likert" data-name="log_exactitud"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q" data-req="1"><div class="qtitle">Facilidad para recibir y acomodar la mercancía <span class="req">*</span></div><div class="likert" data-name="log_recepcion"></div><div class="err">Califique del 1 al 5.</div></div>
+      </section>
+
+      <!-- 5 Atención -->
+      <section class="section" data-step="5">
+        <h2>5. Atención y comercial</h2>
+        <div class="scale-legend">1 = Muy insatisfecho · 5 = Muy satisfecho</div>
+        <div class="q" data-req="1"><div class="qtitle">Facilidad para hacer o cambiar un pedido <span class="req">*</span></div><div class="likert" data-name="att_pedir"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q" data-req="1"><div class="qtitle">Claridad de precios y de los cambios <span class="req">*</span></div><div class="likert" data-name="att_precios"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q" data-req="1"><div class="qtitle">Respuesta cuando hay faltante, merma o reclamo <span class="req">*</span></div><div class="likert" data-name="att_reclamo"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q" data-req="1"><div class="qtitle">Que quien lo atiende entienda cómo trabaja su cocina <span class="req">*</span></div><div class="likert" data-name="att_entendimiento"></div><div class="err">Califique del 1 al 5.</div></div>
+      </section>
+
+      <!-- 6 Resultado -->
+      <section class="section" data-step="6">
+        <h2>6. Resultado en su operación</h2>
+        <div class="scale-legend">1 = Muy insatisfecho · 5 = Muy satisfecho · No es el precio del kilo: es si el servicio les ayuda a no tirar producto.</div>
+        <div class="q" data-req="1"><div class="qtitle">Que el producto rinda (vida útil, menos merma por calidad) <span class="req">*</span></div><div class="likert" data-name="val_rinde"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q" data-req="1"><div class="qtitle">Que lo que llega coincida con lo que realmente necesitaban ese día <span class="req">*</span></div><div class="likert" data-name="val_coincide"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q" data-req="1"><div class="qtitle">Relación calidad–precio frente a otras opciones <span class="req">*</span></div><div class="likert" data-name="val_precio"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q" data-req="1"><div class="qtitle">En general, ¿qué tan satisfecho está con Fresh Prime? <span class="req">*</span></div><div class="likert" data-name="csat"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q">
+          <label class="qtitle" for="mejora">Lo primero que deberíamos mejorar</label>
+          <textarea id="mejora" name="mejora" placeholder="Opcional"></textarea>
+        </div>
+      </section>
+
+      <!-- 7 CES -->
+      <section class="section" data-step="7">
+        <h2>7. Qué tan fácil es trabajar con nosotros</h2>
+        <div class="scale-legend">1 = Muy difícil · 5 = Muy fácil</div>
+        <div class="q" data-req="1"><div class="qtitle">Pedir o reponer <span class="req">*</span></div><div class="likert" data-name="ces_pedir"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q" data-req="1"><div class="qtitle">Resolver un faltante o una queja <span class="req">*</span></div><div class="likert" data-name="ces_reclamo"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q" data-req="1"><div class="qtitle">Saber qué se va a entregar <span class="req">*</span></div><div class="likert" data-name="ces_disponibilidad"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q" data-req="1"><div class="qtitle">Cuadrar lo recibido con lo facturado <span class="req">*</span></div><div class="likert" data-name="ces_factura"></div><div class="err">Califique del 1 al 5.</div></div>
+      </section>
+
+      <!-- 8 hábitos -->
+      <section class="section" data-step="8">
+        <h2>8. Cómo piden hoy</h2>
+        <p class="hint">Sin calificación. Solo el proceso real: WhatsApp, libreta, último minuto.</p>
+        <div class="q" data-req="1">
+          <div class="qtitle">El pedido llega principalmente como <span class="req">*</span></div>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="canal_pedido" value="WhatsApp de texto" /> WhatsApp de texto</label>
+            <label class="choice"><input type="radio" name="canal_pedido" value="Foto de libreta o lista" /> Foto de libreta o lista</label>
+            <label class="choice"><input type="radio" name="canal_pedido" value="Llamada" /> Llamada</label>
+            <label class="choice"><input type="radio" name="canal_pedido" value="Lista mas o menos fija" /> Lista más o menos fija</label>
+            <label class="choice"><input type="radio" name="canal_pedido" value="Otro" /> Otro</label>
+          </div>
+          <div class="err">Elija una opción.</div>
+        </div>
+        <div class="q" data-req="1">
+          <div class="qtitle">¿Quién arma lo que hay que pedir? <span class="req">*</span></div>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="quien_arma" value="Compras" /> Compras</label>
+            <label class="choice"><input type="radio" name="quien_arma" value="Chef o cocina" /> Chef o cocina</label>
+            <label class="choice"><input type="radio" name="quien_arma" value="Los dos" /> Los dos</label>
+            <label class="choice"><input type="radio" name="quien_arma" value="Se pide al momento" /> Casi no hay lista; se pide al momento</label>
+          </div>
+          <div class="err">Elija una opción.</div>
+        </div>
+        <div class="q" data-req="1">
+          <div class="qtitle">¿Qué tan seguido el pedido es de último minuto? <span class="req">*</span></div>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="ultimo_minuto" value="Casi nunca" /> Casi nunca</label>
+            <label class="choice"><input type="radio" name="ultimo_minuto" value="A veces" /> A veces</label>
+            <label class="choice"><input type="radio" name="ultimo_minuto" value="Seguido" /> Seguido</label>
+            <label class="choice"><input type="radio" name="ultimo_minuto" value="Casi siempre" /> Casi siempre</label>
+          </div>
+          <div class="err">Elija una opción.</div>
+        </div>
+        <div class="q" data-req="1">
+          <div class="qtitle">¿Les ha pasado pedir algo y al acomodarlo ver que todavía había suficiente? <span class="req">*</span></div>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="sobrepedido" value="Casi nunca" /> Casi nunca</label>
+            <label class="choice"><input type="radio" name="sobrepedido" value="A veces" /> A veces</label>
+            <label class="choice"><input type="radio" name="sobrepedido" value="Seguido" /> Seguido</label>
+          </div>
+          <div class="err">Elija una opción.</div>
+        </div>
+        <div class="q" data-req="1">
+          <div class="qtitle">En un pedido normal, respecto a los anteriores <span class="req">*</span></div>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="patron" value="Cambia mucho" /> Cambia mucho</label>
+            <label class="choice"><input type="radio" name="patron" value="Lo de siempre + 1 o 2 nuevas" /> Lo de siempre + 1 o 2 cosas nuevas</label>
+            <label class="choice"><input type="radio" name="patron" value="Casi siempre lo mismo" /> Casi siempre lo mismo</label>
+          </div>
+          <div class="err">Elija una opción.</div>
+        </div>
+        <div class="q" data-req="1">
+          <div class="qtitle">Si se acaba algo clave, lo más común es <span class="req">*</span></div>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="si_se_acaba" value="Avisan el mismo dia" /> Avisan el mismo día</label>
+            <label class="choice"><input type="radio" name="si_se_acaba" value="Siguiente pedido" /> Lo dejan para el siguiente pedido</label>
+            <label class="choice"><input type="radio" name="si_se_acaba" value="Otro lado" /> Lo compran en otro lado</label>
+          </div>
+          <div class="err">Elija una opción.</div>
+        </div>
+      </section>
+
+      <!-- 9 adopción -->
+      <section class="section" data-step="9">
+        <h2>9. Propuesta de surtido</h2>
+        <p class="hint">Fresh Prime armaría una propuesta con lo que suelen pedir y el consumo reciente. Usted solo confirma, quita o agrega una o dos cosas. Menos último minuto, menos producto de más en el anaquel y menos viajes por tres kilos.</p>
+        <div class="scale-legend">1 = Muy en desacuerdo · 5 = Muy de acuerdo</div>
+        <div class="q" data-req="1"><div class="qtitle">Me serviría que Fresh Prime mandara una propuesta (qué y cuánto) en vez de armar la lista desde cero. <span class="req">*</span></div><div class="likert" data-name="adop_propuesta"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q" data-req="1"><div class="qtitle">Confirmaría esa propuesta si puedo quitar líneas o agregar 1 o 2 productos en un minuto. <span class="req">*</span></div><div class="likert" data-name="adop_confirmar"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q" data-req="1"><div class="qtitle">Preferiría que usen nuestro historial de pedidos; no quiero otro sistema. <span class="req">*</span></div><div class="likert" data-name="adop_historial"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q" data-req="1"><div class="qtitle">Si la propuesta viene bien, habría menos de último minuto y menos producto de más en anaquel. <span class="req">*</span></div><div class="likert" data-name="adop_beneficio"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q" data-req="1"><div class="qtitle">Me preocuparía que la propuesta se pase de cantidad o meta algo que no necesitamos. <span class="req">*</span></div><div class="likert" data-name="adop_miedo"></div><div class="err">Califique del 1 al 5.</div></div>
+        <div class="q" data-req="1">
+          <div class="qtitle">¿Qué tan interesado estaría en probarlo 30 días, solo confirmando por WhatsApp? <span class="req">*</span></div>
+          <div class="scale-legend" style="margin-top:0">1 = Nada · 5 = Mucho</div>
+          <div class="likert" data-name="adop_interes"></div>
+          <div class="err">Califique del 1 al 5.</div>
+        </div>
+        <div class="q" data-req="1">
+          <div class="qtitle">Cómo preferiría recibir la propuesta <span class="req">*</span></div>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="canal_propuesta" value="WhatsApp para confirmar" /> WhatsApp para confirmar</label>
+            <label class="choice"><input type="radio" name="canal_propuesta" value="Link" /> Link</label>
+            <label class="choice"><input type="radio" name="canal_propuesta" value="Llamada" /> Llamada</label>
+            <label class="choice"><input type="radio" name="canal_propuesta" value="No me interesa" /> No me interesa</label>
+          </div>
+          <div class="err">Elija una opción.</div>
+        </div>
+        <div class="q" data-req="1">
+          <div class="qtitle">¿Pagaría un cargo mensual por este armado, aparte del producto? <span class="req">*</span></div>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="paga" value="Si" /> Sí</label>
+            <label class="choice"><input type="radio" name="paga" value="No" /> No</label>
+            <label class="choice"><input type="radio" name="paga" value="Depende" /> Depende</label>
+            <label class="choice"><input type="radio" name="paga" value="Solo si bajan faltantes" /> Solo si bajan faltantes y viajes de último minuto</label>
+          </div>
+          <div class="err">Elija una opción.</div>
+        </div>
+        <div class="q">
+          <div class="qtitle">Si sí o depende, rango al mes</div>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="rango_pago" value="0 incluido" /> $0 (incluido en el producto)</label>
+            <label class="choice"><input type="radio" name="rango_pago" value="299-499" /> $299–499</label>
+            <label class="choice"><input type="radio" name="rango_pago" value="500-799" /> $500–799</label>
+            <label class="choice"><input type="radio" name="rango_pago" value="800+" /> $800 o más</label>
+          </div>
+        </div>
+        <div class="q">
+          <label class="qtitle" for="no_usar">Lo que lo haría no usarlo</label>
+          <textarea id="no_usar" name="barrera" placeholder="Opcional"></textarea>
+        </div>
+      </section>
+
+      <!-- 10 -->
+      <section class="section" data-step="10">
+        <h2>10. Cierre</h2>
+        <div class="q" data-req="1">
+          <div class="qtitle">¿Podemos contactarlo para una prueba piloto? <span class="req">*</span></div>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="piloto" value="Si" /> Sí</label>
+            <label class="choice"><input type="radio" name="piloto" value="No" /> No</label>
+          </div>
+          <div class="err">Elija una opción.</div>
+        </div>
+        <div class="q">
+          <label class="qtitle" for="wa">Si sí, WhatsApp de contacto</label>
+          <input id="wa" name="whatsapp" type="text" placeholder="442…" />
+        </div>
+      </section>
+
+      <div class="nav">
+        <button type="button" class="btn-ghost" id="prevBtn">Atrás</button>
+        <button type="button" class="btn-main" id="nextBtn">Continuar</button>
+      </div>
+    </form>
+
+    <div class="thanks" id="thanks">
+      <h2>Listo. Gracias.</h2>
+      <p class="lede">Ya quedó registrada la evaluación. Si aceptó piloto, Fresh Prime lo contacta para la prueba de 30 días.</p>
+    </div>
+    <p class="footer note">Fresh Prime Group · Corregidora, Querétaro · Las respuestas alimentan operación, no marketing masivo.</p>
+  </div>
+
+  <script>
+    /* ========= CONFIGURACIÓN DE ENVÍO =========
+       GitHub Pages es estático: esta página NO puede escribir sola en Monday ni Sheets.
+       Pegue UNA URL de webhook (Make, Zapier, Google Apps Script o Formspree).
+       Si se deja vacía, al enviar se descarga un JSON y se copia al portapapeles.
+    */
+    const CONFIG = {
+      webhookUrl: "https://script.google.com/macros/s/AKfycbzIulsrqwepqzCwS3tm1OrJs6aIM5t4N88a66ysUliSZTsXMwIvwGavyHExykjiqdpf1A/exec",
+      // Formspree ejemplo: "https://formspree.io/f/xxxxxx"
+      // Apps Script / Make / Zapier: URL HTTPS que acepte POST JSON
+    };
+
+    const TOTAL = 10;
+    let step = 1;
+    const form = document.getElementById("survey");
+    const bar = document.getElementById("bar");
+    const stepLabel = document.getElementById("stepLabel");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function buildLikert(el) {
+      const name = el.dataset.name;
+      const min = Number(el.dataset.min || 1);
+      const max = Number(el.dataset.max || 5);
+      for (let i = min; i <= max; i++) {
+        const lab = document.createElement("label");
+        lab.innerHTML = `<input type="radio" name="${name}" value="${i}" />${i}`;
+        el.appendChild(lab);
+      }
+    }
+    document.querySelectorAll(".likert").forEach(buildLikert);
+
+    function currentSection() {
+      return document.querySelector(`.section[data-step="${step}"]`);
+    }
+    function updateUI() {
+      document.querySelectorAll(".section").forEach((s) => {
+        s.classList.toggle("active", Number(s.dataset.step) === step);
+      });
+      bar.style.width = (step / TOTAL) * 100 + "%";
+      stepLabel.textContent = `Paso ${step} de ${TOTAL}`;
+      prevBtn.style.visibility = step === 1 ? "hidden" : "visible";
+      nextBtn.textContent = step === TOTAL ? "Enviar" : "Continuar";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function validateStep() {
+      const sec = currentSection();
+      let ok = true;
+      sec.querySelectorAll(".q[data-req='1']").forEach((q) => {
+        q.classList.remove("invalid");
+        const input = q.querySelector("input[type='text']");
+        const radios = q.querySelectorAll("input[type='radio']");
+        let filled = false;
+        if (input) filled = input.value.trim().length > 0;
+        if (radios.length) filled = [...radios].some((r) => r.checked);
+        if (!filled) { q.classList.add("invalid"); ok = false; }
+      });
+      return ok;
+    }
+
+    function collect() {
+      const data = {};
+      const fd = new FormData(form);
+      for (const [k, v] of fd.entries()) data[k] = v;
+      const num = (k) => (data[k] === undefined || data[k] === "" ? null : Number(data[k]));
+      const avg = (keys) => {
+        const vals = keys.map(num).filter((n) => Number.isFinite(n));
+        if (!vals.length) return null;
+        return Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 100) / 100;
+      };
+      data.idx_calidad = avg(["cal_frescura", "cal_consistencia", "cal_specs", "cal_empaque"]);
+      data.idx_logistica = avg(["log_horario", "log_comunicacion", "log_exactitud", "log_recepcion"]);
+      data.idx_atencion = avg(["att_pedir", "att_precios", "att_reclamo", "att_entendimiento"]);
+      data.idx_valor = avg(["val_rinde", "val_coincide", "val_precio"]);
+      data.idx_ces = avg(["ces_pedir", "ces_reclamo", "ces_disponibilidad", "ces_factura"]);
+      const miedoInv = data.adop_miedo ? 6 - Number(data.adop_miedo) : null;
+      const adopParts = ["adop_propuesta", "adop_confirmar", "adop_historial", "adop_beneficio", "adop_interes"]
+        .map(num).filter((n) => Number.isFinite(n));
+      if (Number.isFinite(miedoInv)) adopParts.push(miedoInv);
+      data.idx_adopcion = adopParts.length
+        ? Math.round((adopParts.reduce((a, b) => a + b, 0) / adopParts.length) * 100) / 100
+        : null;
+      data.nps_segmento = data.nps >= 9 ? "Promotor" : data.nps >= 7 ? "Pasivo" : data.nps !== undefined ? "Detractor" : null;
+      data.enviado_en = new Date().toISOString();
+      return data;
+    }
+
+    async function submitSurvey() {
+      const payload = collect();
+
+      if (CONFIG.webhookUrl) {
+        const isAppsScript = CONFIG.webhookUrl.includes("script.google.com");
+
+        // Apps Script redirige y falla CORS con mode:"cors".
+        // mode:"no-cors" hace que el POST llegue, aunque la respuesta sea "opaca".
+        await fetch(CONFIG.webhookUrl, {
+          method: "POST",
+          mode: isAppsScript ? "no-cors" : "cors",
+          headers: isAppsScript
+            ? { "Content-Type": "text/plain;charset=utf-8" }
+            : { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+      } else {
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = `encuesta-fresh-prime-${Date.now()}.json`;
+        a.click();
+        try { await navigator.clipboard.writeText(JSON.stringify(payload)); } catch (e) {}
+      }
+
+      form.style.display = "none";
+      document.getElementById("thanks").style.display = "block";
+      stepLabel.textContent = "Enviado";
+      bar.style.width = "100%";
+    }
+
+    prevBtn.addEventListener("click", () => { if (step > 1) { step--; updateUI(); } });
+    nextBtn.addEventListener("click", async () => {
+      if (!validateStep()) return;
+      if (step < TOTAL) { step++; updateUI(); return; }
+      nextBtn.disabled = true;
+      try {
+        await submitSurvey();
+      } catch (e) {
+        nextBtn.disabled = false;
+        console.error(e);
+        alert("No se pudo enviar al webhook.\n\nRevisa:\n1) URL termina en /exec\n2) Apps Script acceso = Cualquiera\n3) Volviste a Implementar después de cambios\n\nO deja webhookUrl vacío para descargar JSON.");
+      }
+    });
+    updateUI();
+  </script>
+</body>
+</html>
