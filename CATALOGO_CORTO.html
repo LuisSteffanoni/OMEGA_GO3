@@ -13,187 +13,180 @@
             background: #0f2a2e;
             color: #F8F4ED;
             min-height: 100vh;
-            padding: 16px;
+            padding: 12px;
             padding-bottom: 110px;
         }
 
         .cover-page {
             background: #163a3f;
-            border-radius: 16px;
-            padding: 28px 20px;
-            margin-bottom: 18px;
+            border-radius: 14px;
+            padding: 22px 16px;
+            margin-bottom: 14px;
             text-align: center;
             border: 1px solid #2a5a52;
         }
-        .logo { max-width: 150px; margin-bottom: 12px; }
-        .cover-page h1 { font-size: 22px; font-weight: 600; margin-bottom: 6px; }
-        .cover-page .subtitle { font-size: 14px; opacity: 0.9; margin-bottom: 4px; }
+        .logo { max-width: 130px; margin-bottom: 10px; }
+        .cover-page h1 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+        .cover-page .subtitle { font-size: 13px; opacity: 0.9; }
         .cover-page .description { 
-            font-size: 13px; 
+            font-size: 12.5px; 
             opacity: 0.7; 
-            max-width: 340px; 
+            max-width: 320px; 
             margin: 8px auto 0; 
-            line-height: 1.45;
+            line-height: 1.4;
         }
 
         .container {
             background: #163a3f;
-            border-radius: 16px;
-            padding: 20px;
+            border-radius: 14px;
+            padding: 14px;
             border: 1px solid #2a5a52;
         }
 
         .section-box {
             background: #1c454b;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 16px;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 12px;
             border: 1px solid #2d5e56;
         }
 
         .section-box h3 {
-            font-size: 15px;
-            margin-bottom: 12px;
+            font-size: 14px;
+            margin-bottom: 8px;
             font-weight: 500;
         }
 
         input[type="text"], input[type="number"], select {
             width: 100%;
-            padding: 11px 12px;
-            margin: 5px 0;
+            padding: 10px;
+            margin: 4px 0;
             background: #0f2a2e;
             color: #F8F4ED;
             border: 1px solid #3a6b62;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 13px;
         }
 
+        /* Siempre 2 columnas */
         .product-table {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
         }
 
         .product-card {
             background: #1c454b;
-            padding: 14px;
-            border-radius: 12px;
+            padding: 11px;
+            border-radius: 10px;
             border: 1px solid #2d5e56;
         }
         .product-card h3 {
-            font-size: 14px;
-            margin-bottom: 6px;
+            font-size: 13px;
+            margin-bottom: 4px;
             font-weight: 500;
+            line-height: 1.25;
         }
         .product-card p {
-            font-size: 12px;
-            opacity: 0.75;
-            margin-bottom: 8px;
+            font-size: 11px;
+            opacity: 0.7;
+            margin-bottom: 6px;
         }
 
         .notes-btn {
             width: 100%;
-            padding: 9px;
-            margin-top: 6px;
+            padding: 8px;
+            margin-top: 5px;
             background: #2d6a5a;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 7px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
         }
-        .notes-btn:hover { background: #3a7d6a; }
 
         .notes-input {
             width: 100%;
-            padding: 9px;
-            margin-top: 6px;
+            padding: 8px;
+            margin-top: 5px;
             display: none;
             background: #0f2a2e;
             color: #F8F4ED;
             border: 1px solid #3a6b62;
-            border-radius: 8px;
-            font-size: 13px;
+            border-radius: 7px;
+            font-size: 12px;
         }
 
         .buttons {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 8px;
+            margin-top: 16px;
         }
         .buttons button {
-            padding: 12px 20px;
+            padding: 11px 16px;
             background: #2d6a5a;
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 9px;
             cursor: pointer;
             font-weight: 500;
-            font-size: 14px;
+            font-size: 13px;
         }
-        .buttons button:hover { background: #3a7d6a; }
         .danger-btn { background: #8b3a3a !important; }
-        .danger-btn:hover { background: #a34545 !important; }
 
         .floating-buttons {
             position: fixed;
-            bottom: 22px;
-            right: 22px;
+            bottom: 18px;
+            right: 14px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
             z-index: 999;
         }
         .floating-buttons button {
-            padding: 12px 16px;
-            border-radius: 30px;
+            padding: 11px 14px;
+            border-radius: 28px;
             background: #2d6a5a;
             color: white;
             border: none;
             font-weight: 500;
-            font-size: 13px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.35);
+            font-size: 12.5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.35);
             cursor: pointer;
-            white-space: nowrap;
         }
-        .floating-buttons button:hover { background: #3a7d6a; }
 
         .counter {
             text-align: center;
-            margin: 12px 0;
-            font-size: 14px;
+            margin: 10px 0;
+            font-size: 13px;
             color: #8fbc8f;
         }
 
         #resumen-section {
-            margin-top: 24px;
-            padding: 16px;
+            margin-top: 18px;
+            padding: 12px;
             background: #1c454b;
-            border-radius: 12px;
+            border-radius: 10px;
             border: 1px solid #2d5e56;
         }
         #resumen-section h2 {
-            font-size: 16px;
-            margin-bottom: 10px;
+            font-size: 15px;
+            margin-bottom: 8px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 13px;
+            font-size: 12px;
         }
         th, td {
-            padding: 8px 6px;
+            padding: 6px 4px;
             text-align: left;
             border-bottom: 1px solid #2d5e56;
         }
         th { color: #8fbc8f; font-weight: 500; }
-
-        @media (max-width: 520px) {
-            .product-table { grid-template-columns: 1fr; }
-        }
     </style>
 </head>
 <body>
@@ -203,10 +196,10 @@
         <h1>ORDEN DE COMPRA</h1>
         <p class="subtitle">Operación • Solo cantidades</p>
         <p class="description">
-            Selecciona los productos que necesitas, indica la cantidad y unidad. 
+            Selecciona los productos, indica cantidad y unidad. 
             Al terminar envía la orden por WhatsApp.
         </p>
-        <p id="dynamic-timestamp" style="margin-top:10px; font-size:13px; opacity:0.8;"></p>
+        <p id="dynamic-timestamp" style="margin-top:8px; font-size:12px; opacity:0.75;"></p>
     </div>
 
     <div class="container">
@@ -214,7 +207,7 @@
         <!-- Buscador -->
         <div class="section-box" id="search-section">
             <input type="text" id="search-bar" placeholder="Buscar producto...">
-            <select id="class-filter" style="margin-top:8px;">
+            <select id="class-filter" style="margin-top:6px;">
                 <option value="all">Todos los grupos</option>
                 <option value="Abarrotes">Abarrotes</option>
                 <option value="Proteinas">Proteínas</option>
@@ -223,16 +216,16 @@
                 <option value="Chiles, semillas y especias">Chiles y Especias</option>
                 <option value="Otros">Otros</option>
             </select>
-            <label style="display:block; margin-top:10px; font-size:13px;">
+            <label style="display:block; margin-top:8px; font-size:12.5px;">
                 <input type="checkbox" id="only-selected" onchange="filterProducts()"> Solo productos con cantidad
             </label>
         </div>
 
-        <!-- Agregar Producto Nuevo -->
+        <!-- Agregar Producto -->
         <div class="section-box">
             <h3>Agregar producto nuevo</h3>
             <input type="text" id="new-name" placeholder="Nombre del producto">
-            <select id="new-category" style="margin-top:6px;">
+            <select id="new-category" style="margin-top:5px;">
                 <option value="Abarrotes">Abarrotes</option>
                 <option value="Proteinas">Proteínas</option>
                 <option value="Frutas y Verduras">Frutas y Verduras</option>
@@ -240,7 +233,7 @@
                 <option value="Chiles, semillas y especias">Chiles y Especias</option>
                 <option value="Otros">Otros</option>
             </select>
-            <button onclick="addNewProduct()" style="width:100%; margin-top:10px; padding:11px; background:#2d6a5a; color:white; border:none; border-radius:8px; font-weight:500; cursor:pointer;">
+            <button onclick="addNewProduct()" style="width:100%; margin-top:8px; padding:10px; background:#2d6a5a; color:white; border:none; border-radius:8px; font-weight:500; font-size:13px;">
                 Agregar a la lista
             </button>
         </div>
@@ -275,16 +268,12 @@
 
     <!-- Botones flotantes -->
     <div class="floating-buttons">
-        <button onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})">
-            ↑ Arriba
-        </button>
-        <button onclick="document.getElementById('resumen-section').scrollIntoView({behavior:'smooth'})">
-            Resumen
-        </button>
+        <button onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})">↑ Arriba</button>
+        <button onclick="document.getElementById('resumen-section').scrollIntoView({behavior:'smooth'})">Resumen</button>
     </div>
 
     <script>
-        // Solo productos de ejemplo — agrega el resto aquí
+        // Solo 3 productos de ejemplo — agrega el resto aquí
         let products = [
     {name: "ACAI EN POLVO", category: "Abarrotes"},
     {name: "ACEITE 1LT 123", category: "Abarrotes"},
@@ -840,9 +829,8 @@
             selected.forEach(p => {
                 const key = getKey(p.name);
                 const saved = state[key];
-                msg += `• ${p.category}`;
-                msg += `  ${p.name}`;
-                msg += `  ${saved.qty} ${saved.unit}`;
+                msg += `• ${p.name}\n`;
+                msg += `  ${saved.qty} ${saved.unit}  |  ${p.category}\n`;
                 if (saved.note) {
                     msg += `  Nota: ${saved.note}\n`;
                 }
