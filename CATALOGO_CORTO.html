@@ -14,7 +14,7 @@
             color: #F8F4ED;
             min-height: 100vh;
             padding: 16px;
-            padding-bottom: 100px;
+            padding-bottom: 110px;
         }
 
         .cover-page {
@@ -26,8 +26,15 @@
             border: 1px solid #2a5a52;
         }
         .logo { max-width: 150px; margin-bottom: 12px; }
-        .cover-page h1 { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
-        .cover-page p { font-size: 14px; opacity: 0.85; }
+        .cover-page h1 { font-size: 22px; font-weight: 600; margin-bottom: 6px; }
+        .cover-page .subtitle { font-size: 14px; opacity: 0.9; margin-bottom: 4px; }
+        .cover-page .description { 
+            font-size: 13px; 
+            opacity: 0.7; 
+            max-width: 340px; 
+            margin: 8px auto 0; 
+            line-height: 1.45;
+        }
 
         .container {
             background: #163a3f;
@@ -131,21 +138,28 @@
         .danger-btn { background: #8b3a3a !important; }
         .danger-btn:hover { background: #a34545 !important; }
 
-        #go-to-summary {
+        .floating-buttons {
             position: fixed;
             bottom: 22px;
             right: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
             z-index: 999;
-            padding: 13px 18px;
+        }
+        .floating-buttons button {
+            padding: 12px 16px;
             border-radius: 30px;
             background: #2d6a5a;
             color: white;
             border: none;
             font-weight: 500;
-            font-size: 14px;
+            font-size: 13px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.35);
             cursor: pointer;
+            white-space: nowrap;
         }
+        .floating-buttons button:hover { background: #3a7d6a; }
 
         .counter {
             text-align: center;
@@ -184,17 +198,21 @@
 </head>
 <body>
 
-    <div class="cover-page">
+    <div class="cover-page" id="top">
         <img class="logo" src="https://i.imgur.com/EZ5QUew.png" alt="Fresh Prime">
         <h1>ORDEN DE COMPRA</h1>
-        <p>Operación • Solo cantidades</p>
-        <p id="dynamic-timestamp" style="margin-top:6px; font-size:13px;"></p>
+        <p class="subtitle">Operación • Solo cantidades</p>
+        <p class="description">
+            Selecciona los productos que necesitas, indica la cantidad y unidad. 
+            Al terminar envía la orden por WhatsApp.
+        </p>
+        <p id="dynamic-timestamp" style="margin-top:10px; font-size:13px; opacity:0.8;"></p>
     </div>
 
     <div class="container">
 
-        <!-- Filtros / Buscador -->
-        <div class="section-box">
+        <!-- Buscador -->
+        <div class="section-box" id="search-section">
             <input type="text" id="search-bar" placeholder="Buscar producto...">
             <select id="class-filter" style="margin-top:8px;">
                 <option value="all">Todos los grupos</option>
@@ -227,7 +245,7 @@
             </button>
         </div>
 
-        <div class="counter" id="product-counter">0 productos en la orden</div>
+        <div class="counter" id="product-counter">Ningún producto seleccionado</div>
 
         <div class="product-table" id="product-list"></div>
 
@@ -237,10 +255,10 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Producto</th>
-                        <th>Cant.</th>
-                        <th>Unidad</th>
                         <th>Grupo</th>
+                        <th>Producto</th>
+                        <th>Unidad</th>
+                        <th>Cant.</th>
                         <th>Notas</th>
                     </tr>
                 </thead>
@@ -255,12 +273,18 @@
         </div>
     </div>
 
-    <button id="go-to-summary" onclick="document.getElementById('resumen-section').scrollIntoView({behavior:'smooth'})">
-        Resumen
-    </button>
+    <!-- Botones flotantes -->
+    <div class="floating-buttons">
+        <button onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})">
+            ↑ Arriba
+        </button>
+        <button onclick="document.getElementById('resumen-section').scrollIntoView({behavior:'smooth'})">
+            Resumen
+        </button>
+    </div>
 
     <script>
-        // Solo 3 productos de ejemplo — agrega el resto aquí
+        // Solo productos de ejemplo — agrega el resto aquí
         let products = [
     {name: "ACAI EN POLVO", category: "Abarrotes"},
     {name: "ACEITE 1LT 123", category: "Abarrotes"},
@@ -724,10 +748,10 @@
                     count++;
                     const row = tbody.insertRow();
                     row.innerHTML = `
-                        <td>${p.name}</td>
-                        <td>${saved.qty}</td>
-                        <td>${saved.unit}</td>
                         <td>${p.category}</td>
+                        <td>${p.name}</td>
+                        <td>${saved.unit}</td>
+                        <td>${saved.qty}</td>
                         <td>${saved.note || "—"}</td>
                     `;
                 }
@@ -776,12 +800,12 @@
         }
 
         function downloadExcel() {
-            let csv = "Producto,Cantidad,Unidad,Grupo,Notas\n";
+            let csv = "Grupo,Producto,Unidad,Cantidad,Notas\n";
             products.forEach(p => {
                 const key = getKey(p.name);
                 const saved = state[key];
                 if (saved && saved.qty > 0) {
-                    csv += `"${p.name}",${saved.qty},"${saved.unit}","${p.category}","${saved.note || ""}"\n`;
+                    csv += `"${p.category}","${p.name}","${saved.unit}",${saved.qty},"${saved.note || ""}"\n`;
                 }
             });
             const blob = new Blob([csv], { type: "text/csv" });
@@ -807,7 +831,6 @@
             let name = prompt("Nombre del Chef / Responsable:");
             if (!name) return;
 
-            // Mensaje limpio y ordenado
             let msg = `*ORDEN DE COMPRA - OPERACIÓN*\n`;
             msg += `Fresh Prime\n\n`;
             msg += `Responsable: ${name}\n`;
@@ -817,8 +840,9 @@
             selected.forEach(p => {
                 const key = getKey(p.name);
                 const saved = state[key];
-                msg += `• ${p.name}\n`;
-                msg += `  ${saved.qty} ${saved.unit}  |  ${p.category}\n`;
+                msg += `• ${p.category}\n`;
+                msg += `  ${p.name}\n`;
+                msg += `  ${saved.qty} ${saved.unit}\n`;
                 if (saved.note) {
                     msg += `  Nota: ${saved.note}\n`;
                 }
