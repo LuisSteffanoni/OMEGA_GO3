@@ -840,9 +840,9 @@
             selected.forEach(p => {
                 const key = getKey(p.name);
                 const saved = state[key];
-                msg += `• ${p.category}\n`;
-                msg += `  ${p.name}\n`;
-                msg += `  ${saved.qty} ${saved.unit}\n`;
+                msg += `• ${p.category}`;
+                msg += `  ${p.name}`;
+                msg += `  ${saved.qty} ${saved.unit}`;
                 if (saved.note) {
                     msg += `  Nota: ${saved.note}\n`;
                 }
