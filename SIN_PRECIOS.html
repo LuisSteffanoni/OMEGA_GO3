@@ -10,136 +10,205 @@
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
 
         body {
-            background: linear-gradient(135deg, #083645, #032425, #416858, #057BC1);
-            background-size: 400% 400%;
-            animation: gradientAnimation 20s ease infinite;
+            background: #0f2a2e;
             color: #F8F4ED;
             min-height: 100vh;
-            padding: 15px;
-        }
-        @keyframes gradientAnimation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-
-        .cover-page, .container { 
-            background: linear-gradient(135deg, rgba(9,51,44,0.45), rgba(65,104,88,0.5)); 
-            backdrop-filter: blur(16px); 
-            border-radius: 24px; 
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6); 
-            border: 1px solid rgba(140,186,127,0.4); 
-        }
-        .cover-page { padding: 30px; margin-bottom: 20px; text-align:center; }
-        .logo { max-width: 170px; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.5)); }
-
-        .product-table { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 16px; 
-        }
-        .product-card { 
-            background: rgba(3,36,37,0.7); 
-            padding: 18px; 
-            border-radius: 20px; 
-            border: 1px solid rgba(140,186,127,0.35); 
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: -100%;
-            left: -50%;
-            width: 50px;
-            height: 300%;
-            background: linear-gradient(transparent, rgba(255,255,255,0.25), transparent);
-            transform: rotate(30deg);
-            transition: all 0.8s;
-            opacity: 0;
-        }
-        .product-card:hover::before { left: 150%; opacity: 1; }
-        .product-card:hover {
-            transform: translateY(-10px) scale(1.04);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.55);
-            border-color: #A8D39A;
+            padding: 12px;
+            padding-bottom: 110px;
         }
 
-        h3 { font-size: 16px; margin-bottom: 8px; transition: color 0.3s; }
-        .product-card:hover h3 { color: #A8D39A; }
+        .cover-page {
+            background: #163a3f;
+            border-radius: 14px;
+            padding: 22px 16px;
+            margin-bottom: 14px;
+            text-align: center;
+            border: 1px solid #2a5a52;
+        }
+        .logo { max-width: 130px; margin-bottom: 10px; }
+        .cover-page h1 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+        .cover-page .subtitle { font-size: 13px; opacity: 0.9; }
+        .cover-page .description { 
+            font-size: 12.5px; 
+            opacity: 0.7; 
+            max-width: 320px; 
+            margin: 8px auto 0; 
+            line-height: 1.4;
+        }
 
-        .quantity-input, .unit-select {
-            width: 100%;
-            padding: 11px;
-            margin: 6px 0;
-            background: #021c1d;
-            color: #F8F4ED;
-            border: 1px solid #8CBA7F;
+        .container {
+            background: #163a3f;
+            border-radius: 14px;
+            padding: 14px;
+            border: 1px solid #2a5a52;
+        }
+
+        .section-box {
+            background: #1c454b;
             border-radius: 10px;
-            font-size: 15px;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #2d5e56;
+        }
+
+        .section-box h3 {
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 4px 0;
+            background: #0f2a2e;
+            color: #F8F4ED;
+            border: 1px solid #3a6b62;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        /* Siempre 2 columnas */
+        .product-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .product-card {
+            background: #1c454b;
+            padding: 11px;
+            border-radius: 10px;
+            border: 1px solid #2d5e56;
+        }
+        .product-card h3 {
+            font-size: 13px;
+            margin-bottom: 4px;
+            font-weight: 500;
+            line-height: 1.25;
+        }
+        .product-card p {
+            font-size: 11px;
+            opacity: 0.7;
+            margin-bottom: 6px;
         }
 
         .notes-btn {
             width: 100%;
-            padding: 11px;
-            margin-top: 8px;
-            background: linear-gradient(45deg, #8CBA7F, #5E9C6A);
+            padding: 8px;
+            margin-top: 5px;
+            background: #2d6a5a;
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 7px;
             cursor: pointer;
+            font-size: 12px;
             font-weight: 500;
-            transition: all 0.3s;
-        }
-        .notes-btn:hover {
-            transform: scale(1.06);
-            background: linear-gradient(45deg, #A8D39A, #7EB88A);
         }
 
         .notes-input {
             width: 100%;
-            padding: 10px;
-            margin-top: 8px;
+            padding: 8px;
+            margin-top: 5px;
             display: none;
-            background: #021c1d;
+            background: #0f2a2e;
             color: #F8F4ED;
-            border: 1px solid #8CBA7F;
-            border-radius: 10px;
+            border: 1px solid #3a6b62;
+            border-radius: 7px;
+            font-size: 12px;
         }
 
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
         .buttons button {
-            padding: 14px 26px;
-            margin: 8px;
-            background: linear-gradient(45deg, #8CBA7F, #00664D);
+            padding: 11px 16px;
+            background: #2d6a5a;
             color: white;
             border: none;
-            border-radius: 14px;
+            border-radius: 9px;
             cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 13px;
         }
-        .buttons button:hover {
-            transform: translateY(-4px);
+        .danger-btn { background: #8b3a3a !important; }
+
+        .floating-buttons {
+            position: fixed;
+            bottom: 18px;
+            right: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 999;
+        }
+        .floating-buttons button {
+            padding: 11px 14px;
+            border-radius: 28px;
+            background: #2d6a5a;
+            color: white;
+            border: none;
+            font-weight: 500;
+            font-size: 12.5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+            cursor: pointer;
         }
 
-        @media (max-width: 480px) {
-            .product-table { grid-template-columns: 1fr; }
+        .counter {
+            text-align: center;
+            margin: 10px 0;
+            font-size: 13px;
+            color: #8fbc8f;
         }
+
+        #resumen-section {
+            margin-top: 18px;
+            padding: 12px;
+            background: #1c454b;
+            border-radius: 10px;
+            border: 1px solid #2d5e56;
+        }
+        #resumen-section h2 {
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+        th, td {
+            padding: 6px 4px;
+            text-align: left;
+            border-bottom: 1px solid #2d5e56;
+        }
+        th { color: #8fbc8f; font-weight: 500; }
     </style>
 </head>
 <body>
 
-    <div class="cover-page">
+    <div class="cover-page" id="top">
         <img class="logo" src="https://i.imgur.com/EZ5QUew.png" alt="Fresh Prime">
-        <h1>ORDEN DE COMPRA - OPERACIÓN</h1>
-        <p>Para Chefs y Cocina • Solo Cantidades</p>
-        <p id="dynamic-timestamp"></p>
+        <h1>ORDEN DE COMPRA</h1>
+        <p class="subtitle">Operación • Solo cantidades</p>
+        <p class="description">
+            Selecciona los productos, indica cantidad y unidad. 
+            Al terminar envía la orden por WhatsApp.
+        </p>
+        <p id="dynamic-timestamp" style="margin-top:8px; font-size:12px; opacity:0.75;"></p>
     </div>
 
-    <div class="container" style="padding:20px;">
-        
-        <!-- Agregar Producto -->
-        <div style="margin:15px 0; padding:15px; background:rgba(255,255,255,0.1); border-radius:12px;">
-            <h3>➕ Agregar Producto Nuevo</h3>
-            <input type="text" id="new-name" placeholder="Nombre del producto" style="width:58%;">
-            <select id="new-category" style="width:38%;">
+    <div class="container">
+
+        <!-- Buscador -->
+        <div class="section-box" id="search-section">
+            <input type="text" id="search-bar" placeholder="Buscar producto...">
+            <select id="class-filter" style="margin-top:6px;">
+                <option value="all">Todos los grupos</option>
                 <option value="Abarrotes">Abarrotes</option>
                 <option value="Proteinas">Proteínas</option>
                 <option value="Frutas y Verduras">Frutas y Verduras</option>
@@ -147,14 +216,16 @@
                 <option value="Chiles, semillas y especias">Chiles y Especias</option>
                 <option value="Otros">Otros</option>
             </select>
-            <button onclick="addNewProduct()" style="width:100%; margin-top:8px;">Agregar a la Lista</button>
+            <label style="display:block; margin-top:8px; font-size:12.5px;">
+                <input type="checkbox" id="only-selected" onchange="filterProducts()"> Solo productos con cantidad
+            </label>
         </div>
 
-        <!-- Filtros -->
-        <div style="text-align:center; margin:15px 0;">
-            <input type="text" id="search-bar" placeholder="🔎 Buscar producto..." style="width:65%; padding:12px;">
-            <select id="class-filter" style="padding:12px; width:30%;">
-                <option value="all">Todos</option>
+        <!-- Agregar Producto -->
+        <div class="section-box">
+            <h3>Agregar producto nuevo</h3>
+            <input type="text" id="new-name" placeholder="Nombre del producto">
+            <select id="new-category" style="margin-top:5px;">
                 <option value="Abarrotes">Abarrotes</option>
                 <option value="Proteinas">Proteínas</option>
                 <option value="Frutas y Verduras">Frutas y Verduras</option>
@@ -162,26 +233,47 @@
                 <option value="Chiles, semillas y especias">Chiles y Especias</option>
                 <option value="Otros">Otros</option>
             </select>
+            <button onclick="addNewProduct()" style="width:100%; margin-top:8px; padding:10px; background:#2d6a5a; color:white; border:none; border-radius:8px; font-weight:500; font-size:13px;">
+                Agregar a la lista
+            </button>
         </div>
+
+        <div class="counter" id="product-counter">Ningún producto seleccionado</div>
 
         <div class="product-table" id="product-list"></div>
 
         <!-- Resumen -->
-        <div style="margin-top:30px; padding:15px; background:rgba(3,36,37,0.4); border-radius:15px;">
-            <h2>Resumen de Orden</h2>
-            <table id="resumen-table" style="width:100%; border-collapse:collapse; margin-top:10px;">
-                <thead><tr><th>Producto</th><th>Cantidad</th><th>Unidad</th><th>Notas</th></tr></thead>
+        <div id="resumen-section">
+            <h2>Resumen de la orden</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Grupo</th>
+                        <th>Producto</th>
+                        <th>Unidad</th>
+                        <th>Cant.</th>
+                        <th>Notas</th>
+                    </tr>
+                </thead>
                 <tbody id="resumen-tbody"></tbody>
             </table>
         </div>
 
-        <div style="text-align:center; margin-top:25px;">
-            <button onclick="downloadExcel()">📊 Descargar Excel</button>
-            <button onclick="sendToWhatsApp()">📱 Enviar WhatsApp</button>
+        <div class="buttons">
+            <button onclick="downloadExcel()">Descargar Excel</button>
+            <button onclick="sendToWhatsApp()">Enviar WhatsApp</button>
+            <button onclick="clearOrder()" class="danger-btn">Limpiar todo</button>
         </div>
     </div>
 
+    <!-- Botones flotantes -->
+    <div class="floating-buttons">
+        <button onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})">↑ Arriba</button>
+        <button onclick="document.getElementById('resumen-section').scrollIntoView({behavior:'smooth'})">Resumen</button>
+    </div>
+
     <script>
+        // Solo 3 productos de ejemplo — agrega el resto aquí
         let products = [
     {name: "ACAI EN POLVO", category: "Abarrotes"},
     {name: "ACEITE 1LT 123", category: "Abarrotes"},
@@ -216,6 +308,7 @@
     {name: "ALUMINIO ALUPRACTIC 400 MTS", category: "Abarrotes"},
     {name: "ARROZ PARA SUSHI", category: "Abarrotes"},
     {name: "ARROZ SALVAJE 500 GR", category: "Abarrotes"},
+    {name: "ARROZ BLANCO SCHETTINO 1 KG", category: "Abarrotes"},        
     {name: "ATÚN ALETA AMARILLA MEMBERS MARK EN AGUA DE 1.02 KG", category: "Abarrotes"},
     {name: "ATÚN EN ACEITE DOLORES 8 PZAS DE 140 G C/U", category: "Abarrotes"},
     {name: "ATUN EN AGUA 1.8 KG HERDEZ", category: "Abarrotes"},
@@ -356,210 +449,8 @@
     {name: "KNORR CONDIMIX POLLO 3.6 KG", category: "Abarrotes"},
     {name: "LECHE CARNATION NESTLE 1 LT", category: "Abarrotes"},
     {name: "LECHE CARNATION NESTLÉ 4PZA 944.3 ML C/U", category: "Abarrotes"},
-    {name: "LECHE CONDENSADA LECHERA 8 PZAS 387 GR", category: "Abarrotes"},
-    {name: "LECHE DE SOYA", category: "Abarrotes"},
-    {name: "LECHE DESLACTOSADA ALPURA 12 PZAS 1 LT", category: "Abarrotes"},
-    {name: "LECHE DESLACTOSADA MM 12PZAS", category: "Abarrotes"},
-    {name: "LECHE ENTERA ALPURA CLASICA 12 PZAS 1 LT", category: "Abarrotes"},
-    {name: "LECHE ENTERA MM 12PZAS", category: "Abarrotes"},
-    {name: "LECHE EVAPORADA NESTLÉ 2 PZAS DE 720 GR C/U", category: "Abarrotes"},
-    {name: "LEVADURA SECA 450 GR", category: "Abarrotes"},
-    {name: "MACHACA TIA LENCHA 100GR", category: "Abarrotes"},
-    {name: "MAIZ POZOLERO 3.30 KG", category: "Abarrotes"},
-    {name: "MAIZENA 750GR", category: "Abarrotes"},
-    {name: "MANGA CREMA PASTELERA", category: "Abarrotes"},
-    {name: "MANTEQUILLA EN BARRA GLORIA SIN SAL 1 KG", category: "Abarrotes"},
-    {name: "MAYONESA MM CON JUGO DE LIMON 3.35KG", category: "Abarrotes"},
-    {name: "MEDIA CREMA 1 LT", category: "Abarrotes"},
-    {name: "MEDIA CREMA AZUCARADA CHANTILLY CHANTY WIP AZUCARADA 200 G", category: "Abarrotes"},
-    {name: "MERMELADA CHABACANO 500 GR MCCORMICK", category: "Abarrotes"},
-    {name: "MERMELADA DE FRESA 450 GR MCCORMICK", category: "Abarrotes"},
-    {name: "MERMELADA DE FRESA HEINZ 120 PZAS DE 20 G C/U", category: "Abarrotes"},
-    {name: "MERMELADA DE FRESA SAN ANDRES 5KG", category: "Abarrotes"},
-    {name: "MERMELADA ZARZAMORA 450 GR MCCORMICK", category: "Abarrotes"},
-    {name: "MEZCLA CAMPESINA LA HUERTA 2 KG", category: "Abarrotes"},
-    {name: "MEZCLA DE QUESOS (MOZZARELLA & MANCHEGO)", category: "Abarrotes"},
-    {name: "MEZCLA DE QUESOS (MOZZARELLA & MANCHEGO) 5 KGS", category: "Abarrotes"},
-    {name: "MIEL DE ABEJA FCO 1.050 KG CARLOTA", category: "Abarrotes"},
-    {name: "MIEL DE ABEJA HEINZ 120 PZAS DE 20 G", category: "Abarrotes"},
-    {name: "MIEL DE ABEJA MEMBERS MARK 2 PZAS DE 1 KG C/U", category: "Abarrotes"},
-    {name: "MIEL MAPLE 1 LT", category: "Abarrotes"},
-    {name: "MIEL MAPLE MM 1.2KG", category: "Abarrotes"},
-    {name: "MOLE ALMENDRADO", category: "Abarrotes"},
-    {name: "MOLE NEGRO EL SABOR DE OAXACA 500GR", category: "Abarrotes"},
-    {name: "MOLE ROJO", category: "Abarrotes"},
-    {name: "MOLE ROJO EN PASTA DOÑA MARIA FRASCO 200 GR", category: "Abarrotes"},
-    {name: "MOSTAZA ANTIGUA MAILLE 865GR", category: "Abarrotes"},
-    {name: "MOSTAZA DIJON MAILLE 865GR", category: "Abarrotes"},
-    {name: "MOSTAZA MEMBERS MARK 3.7 L", category: "Abarrotes"},
-    {name: "MOZZARELLA BELGIOIOSO 2PZA 453GR", category: "Abarrotes"},
-    {name: "NACHOS BARCEL TOSTACHOS 3 PZAS DE 950G", category: "Abarrotes"},
-    {name: "NESCAFE 1.5KG", category: "Abarrotes"},
-    {name: "PALILLOS DE MADERA PINGÜINO REDONDOS DOS PUNTAS 250 PZAS", category: "Abarrotes"},
-    {name: "PAN BAGEL NEW YORK DELI & BAGEL NATURAL 8 PZAS", category: "Abarrotes"},
-    {name: "PAN BIMBO INTEGRAL", category: "Abarrotes"},
-    {name: "PAN BIMBOLLO PARRILLERO 12 PZAS", category: "Abarrotes"},
-    {name: "PAN BLANCO BIMBO", category: "Abarrotes"},
-    {name: "PAN DE 12 GRANOS OROWEAT 600GR", category: "Abarrotes"},
-    {name: "PAN DE CENTENO OROWEAT 600GR", category: "Abarrotes"},
-    {name: "PAN MEDIAS NOCHES BIMBO 16 PZAS", category: "Abarrotes"},
-    {name: "PAN MEDIAS NOCHES BIMBO 8 PZAS", category: "Abarrotes"},
-    {name: "PAN MOLIDO", category: "Abarrotes"},
-    {name: "PAN OROWEAT MANTEQUILLA, MULTIGRANO 680GR", category: "Abarrotes"},
-    {name: "PAN PARA HAMBURGUESA BIMBO 12 PZAS", category: "Abarrotes"},
-    {name: "PAN PARA HOT DOGS JUMBO", category: "Abarrotes"},
-    {name: "PANKO 1 KG TOYO", category: "Abarrotes"},
-    {name: "PAPAS CHIPS A GRANEL", category: "Abarrotes"},
-    {name: "PAPAS CHIPS ADOBADA", category: "Abarrotes"},
-    {name: "PAPAS CHIPS RUFLADA", category: "Abarrotes"},
-    {name: "PAPRIKA MCCORMICK 600 GR", category: "Abarrotes"},
-    {name: "PASTA BARILLA FIDEO NO.0 500 G", category: "Abarrotes"},
-    {name: "PASTA BARILLA PENNE RIGATE 500 G", category: "Abarrotes"},
-    {name: "PASTA CODITOS 500 GR", category: "Abarrotes"},
-    {name: "PASTA DE HOJALDRE 2KG", category: "Abarrotes"},
-    {name: "PASTA DE TOMATE MEMBERS MARK 3 KG", category: "Abarrotes"},
-    {name: "PASTA ESPAGUETTI 500 GR", category: "Abarrotes"},
-    {name: "PASTA FARFALLE LA MODERNA 500 G", category: "Abarrotes"},
-    {name: "PASTA FETUCCINI 500 GR", category: "Abarrotes"},
-    {name: "PASTA FIDEO 500 GR", category: "Abarrotes"},
-    {name: "PASTA FUSILLI 500 GR", category: "Abarrotes"},
-    {name: "PASTA LENGUA 500 GR", category: "Abarrotes"},
-    {name: "PASTA LETRA 500 GR", category: "Abarrotes"},
-    {name: "PASTA MUNICION 500 GR", category: "Abarrotes"},
-    {name: "PASTA PLUMA PENNE RIGATE", category: "Abarrotes"},
-    {name: "PASTEL DE CHOCOLATE CUADRADO GDE.", category: "Abarrotes"},
-    {name: "PASTEL DE CHOCOLATE REDONDO MEDIANO", category: "Abarrotes"},
-    {name: "PASTEL TRES LECHES DELICIA CHOCOLATE 1.3 KG", category: "Abarrotes"},
-    {name: "PECHUGA DE PAVO NATURAL KG", category: "Abarrotes"},
-    {name: "PEPINILLO AGRIO SAN MIGUEL ONDULADO Y REBANADO 3.94 KG", category: "Abarrotes"},
-    {name: "PEPINILLO BABY FRASCO", category: "Abarrotes"},
-    {name: "PEREJIL SECO MEMBERS MARK", category: "Abarrotes"},
-    {name: "PIMIENTA CAYENA MOLIDA 65 GR", category: "Abarrotes"},
-    {name: "PIMIENTA CON LIMON MM MCCORMICK 745 GR", category: "Abarrotes"},
-    {name: "PIMIENTA NEGRA ENTERA MEMBERS MARK BY MCCORMICK 520 G", category: "Abarrotes"},
-    {name: "PIMIENTA NEGRA MM MOLIDA 545 G", category: "Abarrotes"},
-    {name: "PINA EN ALMIBAR", category: "Abarrotes"},
-    {name: "PRETZEL GALLETA HORNEADA", category: "Abarrotes"},
-    {name: "PURE DE PAPA SOLUTIONS 2 KG", category: "Abarrotes"},
-    {name: "QUESO AZUL PORT BLEU 100 GR", category: "Abarrotes"},
-    {name: "QUESO COTIJA", category: "Abarrotes"},
-    {name: "QUESO COTTAGE LYNCOTT 960GR", category: "Abarrotes"},
-    {name: "QUESO DE CABRA MM", category: "Abarrotes"},
-    {name: "QUESO FETA ATHENOS 680 GR", category: "Abarrotes"},
-    {name: "QUESO MOZZARELLA RALLADO 2.26 KG", category: "Abarrotes"},
-    {name: "QUESO PARMESANO RALLADO", category: "Abarrotes"},
-    {name: "QUESO PROVOLONE", category: "Abarrotes"},
-    {name: "QUESO RANCHERO", category: "Abarrotes"},
-    {name: "REFRESCO AGUA MINERAL 355 ML 12 UD", category: "Abarrotes"},
-    {name: "REFRESCO COCA COLA LIGHT 355 ML 12 UD", category: "Abarrotes"},
-    {name: "REFRESCO COCA COLA REGULAR 355 ML 12 UD", category: "Abarrotes"},
-    {name: "REFRESCO COCA COLA ZERO 355 ML 12 UD", category: "Abarrotes"},
-    {name: "REFRESCO FANTA 355 ML 12 UD", category: "Abarrotes"},
-    {name: "REFRESCO FRESKA 355 ML 12 UD", category: "Abarrotes"},
-    {name: "REFRESCO SIDRAL MUNDET 355 ML 12 UD", category: "Abarrotes"},
-    {name: "REFRESCO SPRITE 355 ML 12 UD", category: "Abarrotes"},
-    {name: "ROYAL ICILING", category: "Abarrotes"},
-    {name: "SAL CON AJO MEMBERS MARK BY MCCORMICK 1.03 KG", category: "Abarrotes"},
-    {name: "SAL DE MESA LA FINA YODADA 1 KG", category: "Abarrotes"},
-    {name: "SAL DEL HIMALAYA 370G", category: "Abarrotes"},
-    {name: "SAL PORCIONADA 300 PZAS 1 G C/U", category: "Abarrotes"},
-    {name: "SALADITAS GAMESA CON 200 PZAS DE 13 G C/U", category: "Abarrotes"},
-    {name: "SALCHICA VIENA ECONOMICA", category: "Abarrotes"},
-    {name: "SALCHICHA 2 KGS", category: "Abarrotes"},
-    {name: "SALCHICHA JUMBO KIRKLAND 14 PZAS", category: "Abarrotes"},
-    {name: "SALCHICHA VIENA ECONOMICA 2.1 KG", category: "Abarrotes"},
-    {name: "SALSA BBQ HANES 4.3KG", category: "Abarrotes"},
-    {name: "SALSA CATSUP HEINZ 200 PZAS DE 9 G C/U", category: "Abarrotes"},
-    {name: "SALSA DE SOYA MM 2LTS", category: "Abarrotes"},
-    {name: "SALSA DE TOMATE CONTADINA PARA PIZZA 3 KG", category: "Abarrotes"},
-    {name: "SALSA INGLESA CROSSE & BLACKWELL 980ML", category: "Abarrotes"},
-    {name: "SALSA INGLESA FRENCHS 1.76 L", category: "Abarrotes"},
-    {name: "SALSA JUGO MAGGI 800ML", category: "Abarrotes"},
-    {name: "SALSA MAGGI 1.7 LT", category: "Abarrotes"},
-    {name: "SALSA MANGO HABANERO MM 4.15KG", category: "Abarrotes"},
-    {name: "SALSA RED HOT BUFALO 3.7KG", category: "Abarrotes"},
-    {name: "SALSA TABASCO MC ILHENNY 60 ML 4 PZAS", category: "Abarrotes"},
-    {name: "SALSA VALENTINA 4 LT", category: "Abarrotes"},
-    {name: "SALSA VALENTINA 6PZAS 350ML", category: "Abarrotes"},
-    {name: "SALSA VALENTINA PORCIONADA 200 PZAS", category: "Abarrotes"},
-    {name: "SAZONADOR DE PAELLA EL UNICO 20 G", category: "Abarrotes"},
-    {name: "SAZONADOR MAGGI 800 ML", category: "Abarrotes"},
-    {name: "SOPA DE CARACOL LA MODERNA 250 G", category: "Abarrotes"},
-    {name: "SOPA DE CODO LA MODERNA 250 G", category: "Abarrotes"},
-    {name: "SOPA DE ESTRELLA LA MODERNA 250 G", category: "Abarrotes"},
-    {name: "SOPA DE FIDEO LA MODERNA 250 G", category: "Abarrotes"},
-    {name: "SOPA DE LETRA LA MODERNA 250 G", category: "Abarrotes"},
-    {name: "SOPA DE MUNICIÓN LA MODERNA 250 G", category: "Abarrotes"},
-    {name: "SUSTITUTO DE CREMA COFFEE MATE NESTLÉ 2 BOTES DE 980 G C/U", category: "Abarrotes"},
-    {name: "SUSTITUTO DE CREMA COFFEE MATE NESTLÉ 200 PZAS DE 4 G", category: "Abarrotes"},
-    {name: "TAJIN 3 PZAS 255GR", category: "Abarrotes"},
-    {name: "TAJIN CLASICO 142 GR", category: "Abarrotes"},
-    {name: "TALLCAKE DOBLE CHOCOLATE MEMBERS MARK", category: "Abarrotes"},
-    {name: "TE DE HIERBABUENA 25 PZA MCCORMICK", category: "Abarrotes"},
-    {name: "TE DE JAMAICA 25 PZA MCCORMICK", category: "Abarrotes"},
-    {name: "TE DE LIMON 25 PZA MCCORMICK", category: "Abarrotes"},
-    {name: "TE DE MANZANA CANELA 25 PZA MCCORMICK", category: "Abarrotes"},
-    {name: "TE MCK 25 SOBRES MANZANILLA PKT", category: "Abarrotes"},
-    {name: "TE MCK 25 SOBRES NEGRO PKT", category: "Abarrotes"},
-    {name: "TE MCK 25 VERDE GREAT VALUE PKT", category: "Abarrotes"},
-    {name: "TÉ MEMBERS MARK SABORES SURTIDOS 120 PZAS", category: "Abarrotes"},
-    {name: "TENEDORES PASTELERO 50 PZA", category: "Abarrotes"},
-    {name: "TORTILLA DE MAIZ AMARILLA 800 GR", category: "Abarrotes"},
-    {name: "TORTILLA DE MAIZ NIXTAMALIZADA", category: "Abarrotes"},
-    {name: "TOSTADAS 30 PZAS", category: "Abarrotes"},
-    {name: "VAINILLA 1LT", category: "Abarrotes"},
-    {name: "VINAGRE BALSÁMICO PIANELLO ITALIANO 1 L", category: "Abarrotes"},
-    {name: "VINAGRE BLANCO MM 6LTS", category: "Abarrotes"},
-    {name: "VINAGRE BLANCO SOLUTIONS 3.5 LT", category: "Abarrotes"},
-    {name: "VINAGRE CLEMENTE JACQUES 3.700 ML BLANCO PZA", category: "Abarrotes"},
-    {name: "VINAGRE DE BLANCO GREAT VALUE 1LT", category: "Abarrotes"},
-    {name: "VINAGRE DE MANZANA GREAT VALUE 1LT", category: "Abarrotes"},
-    {name: "VINAGRETA DE FRUTOS ROJOS 355 ML", category: "Abarrotes"},
-    {name: "VINO BLANCO DON SIMÓN 1 L", category: "Abarrotes"},
-    {name: "VINO PROSECCO ROSE", category: "Abarrotes"},
-    {name: "VINO TINTO DON SIMON 1LT", category: "Abarrotes"},
-    {name: "VINO TRES CORONAS ORO DULCE TIPO JEREZ 1 L", category: "Abarrotes"},
-    {name: "WAFER STICK CHOCOLATE", category: "Abarrotes"},
-    {name: "YOGURTH GRIEGO 1LT", category: "Abarrotes"},
-    {name: "YOGURTH NATURAL 4 LT", category: "Abarrotes"},
-    {name: "ZUCARITAS 1.2KG", category: "Abarrotes"},
-    {name: "ZUCARITAS A GRANEL 5KG", category: "Abarrotes"},
-    {name: "ACHIOTE 100GR", category: "Chiles, semillas y especias"},
-    {name: "ACHIOTE 1KG", category: "Chiles, semillas y especias"},
-    {name: "AJONJOLI CARAMELIZADO", category: "Chiles, semillas y especias"},
-    {name: "AJONJOLI NEGRO", category: "Chiles, semillas y especias"},
-    {name: "ALMENDRA ENTERA", category: "Chiles, semillas y especias"},
-    {name: "ALMENDRA FILETEADA", category: "Chiles, semillas y especias"},
-    {name: "AMARANTO", category: "Chiles, semillas y especias"},
-    {name: "ARANDANO DESHIDRATADO", category: "Chiles, semillas y especias"},
+    {name: "LECHE CONDENSADA LECHERA 8 PZAS 387 G", category: "Abarrotes"},
     {name: "ARROZ BLANCO", category: "Chiles, semillas y especias"},
-    {name: "AVENA", category: "Chiles, semillas y especias"},
-    {name: "CACAHUATE ENCHILADO", category: "Chiles, semillas y especias"},
-    {name: "CACAHUATE JAPONES", category: "Chiles, semillas y especias"},
-    {name: "CACAHUATE PELADO", category: "Chiles, semillas y especias"},
-    {name: "CACAHUATE SALADO", category: "Chiles, semillas y especias"},
-    {name: "CANELA ENTERA", category: "Chiles, semillas y especias"},
-    {name: "CANELA MOLIDA", category: "Chiles, semillas y especias"},
-    {name: "CHIA", category: "Chiles, semillas y especias"},
-    {name: "CHILE ANCHO", category: "Chiles, semillas y especias"},
-    {name: "CHILE CHIPOTLE", category: "Chiles, semillas y especias"},
-    {name: "CHILE DE ARBOL", category: "Chiles, semillas y especias"},
-    {name: "CHILE GUAJILLO", category: "Chiles, semillas y especias"},
-    {name: "CHILE MORITA", category: "Chiles, semillas y especias"},
-    {name: "CHILE NEGRO / MULATO", category: "Chiles, semillas y especias"},
-    {name: "CHILE PASILLA", category: "Chiles, semillas y especias"},
-    {name: "CHILE PUYA", category: "Chiles, semillas y especias"},
-    {name: "CIRUELA PASA", category: "Chiles, semillas y especias"},
-    {name: "CIRUELA PASA S/H", category: "Chiles, semillas y especias"},
-    {name: "COCO RALLADO", category: "Chiles, semillas y especias"},
-    {name: "COMINO", category: "Chiles, semillas y especias"},
-    {name: "DATIL", category: "Chiles, semillas y especias"},
-    {name: "FRIJOL JUNIO", category: "Chiles, semillas y especias"},
-    {name: "FRIJOL MICHIGAN", category: "Chiles, semillas y especias"},
-    {name: "FRIJOL PERUANO", category: "Chiles, semillas y especias"},
-    {name: "GARBANZO", category: "Chiles, semillas y especias"},
-    {name: "GRANOLA", category: "Chiles, semillas y especias"},
-    {name: "JAMAICA", category: "Chiles, semillas y especias"},
     {name: "LAUREL", category: "Chiles, semillas y especias"},
     {name: "LENTEJA", category: "Chiles, semillas y especias"},
     {name: "LINAZA", category: "Chiles, semillas y especias"},
@@ -621,7 +512,6 @@
     {name: "FLOR DE CALABAZA", category: "Frutas y Verduras"},
     {name: "FLORES COMESTIBLES", category: "Frutas y Verduras"},
     {name: "FRAMBUESA", category: "Frutas y Verduras"},
-    {name: "FRESA", category: "Frutas y Verduras"},
     {name: "FRESA", category: "Frutas y Verduras"},
     {name: "GERMEN DE SOYA", category: "Frutas y Verduras"},
     {name: "GERMEN DE TRIGO", category: "Frutas y Verduras"},
@@ -685,7 +575,6 @@
     {name: "SANDIA", category: "Frutas y Verduras"},
     {name: "SANDIA PERSONAL", category: "Frutas y Verduras"},
     {name: "SETAS", category: "Frutas y Verduras"},
-    {name: "SETAS", category: "Frutas y Verduras"},
     {name: "TOMATE VERDE CON CASCARA", category: "Frutas y Verduras"},
     {name: "TOMATE VERDE LIMPIO", category: "Frutas y Verduras"},
     {name: "TORONJA", category: "Frutas y Verduras"},
@@ -705,7 +594,6 @@
     {name: "LENA MADERA ENCINO", category: "Otros"},
     {name: "SERVILLETA SENCILLA 500 PZAS 4 PAQ", category: "Otros"},
     {name: "TAPA ENVASE REYMA 200 PZAS", category: "Otros"},
-    {name: "TEST-14; APR 2ND HALF 2.0 2026 A**", category: "Otros"},
     {name: "AGUJA DE RES", category: "Proteinas"},
     {name: "ARRACHERA BRESCO", category: "Proteinas"},
     {name: "ARRACHERA CHOICE OUTSIDE", category: "Proteinas"},
@@ -735,7 +623,6 @@
     {name: "CHULETA NATURAL DE CERDO", category: "Proteinas"},
     {name: "CHULETON DE RES", category: "Proteinas"},
     {name: "CODILLO", category: "Proteinas"},
-    {name: "COSTILLA DE CERDO", category: "Proteinas"},
     {name: "COSTILLA DE CERDO", category: "Proteinas"},
     {name: "COSTILLA DE RES PARA CALDO", category: "Proteinas"},
     {name: "COSTILLA EN TIRA O CARRILLERA", category: "Proteinas"},
@@ -777,12 +664,16 @@
     {name: "SURIMI", category: "Proteinas"},
     {name: "T-BONE DE RES", category: "Proteinas"},
     {name: "TOCINO", category: "Proteinas"}
-];
+        ];
 
-        let state = {}; // Guarda todo permanentemente
+        let state = JSON.parse(localStorage.getItem("freshprime_order_state") || "{}");
 
         function getKey(name) {
             return name.toLowerCase().trim();
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem("freshprime_order_state", JSON.stringify(state));
         }
 
         function renderProducts(filtered) {
@@ -795,10 +686,9 @@
 
                 const card = document.createElement("div");
                 card.className = "product-card";
-                card.setAttribute("data-category", p.category);
                 card.innerHTML = `
                     <h3>${p.name}</h3>
-                    <p><strong>Categoría:</strong> ${p.category}</p>
+                    <p>${p.category}</p>
                     <input type="number" class="quantity-input" step="0.01" min="0" value="${saved.qty}" onchange="saveState(this)">
                     <select class="unit-select" onchange="saveState(this)">
                         <option value="Kilo" ${saved.unit==="Kilo"?"selected":""}>Kilo</option>
@@ -807,8 +697,8 @@
                         <option value="Litro" ${saved.unit==="Litro"?"selected":""}>Litro</option>
                         <option value="Paquete" ${saved.unit==="Paquete"?"selected":""}>Paquete</option>
                     </select>
-                    <button class="notes-btn" onclick="toggleNotes(this)">Agregar Nota</button>
-                    <input type="text" class="notes-input" placeholder="Notas..." value="${saved.note}" onkeyup="saveState(this)">
+                    <button class="notes-btn" onclick="toggleNotes(this)">Agregar nota</button>
+                    <input type="text" class="notes-input" placeholder="Escribe la nota..." value="${saved.note}" onkeyup="saveState(this)">
                 `;
                 container.appendChild(card);
             });
@@ -825,6 +715,7 @@
                 unit: card.querySelector(".unit-select").value,
                 note: card.querySelector(".notes-input").value || ""
             };
+            saveToLocalStorage();
             updateResumen();
         }
 
@@ -837,75 +728,123 @@
         function updateResumen() {
             const tbody = document.getElementById("resumen-tbody");
             tbody.innerHTML = "";
+            let count = 0;
+
             products.forEach(p => {
                 const key = getKey(p.name);
                 const saved = state[key];
                 if (saved && saved.qty > 0) {
+                    count++;
                     const row = tbody.insertRow();
                     row.innerHTML = `
+                        <td>${p.category}</td>
                         <td>${p.name}</td>
-                        <td>${saved.qty}</td>
                         <td>${saved.unit}</td>
-                        <td>${saved.note || 'Sin notas'}</td>
+                        <td>${saved.qty}</td>
+                        <td>${saved.note || "—"}</td>
                     `;
                 }
             });
+
+            document.getElementById("product-counter").textContent = 
+                count === 0 ? "Ningún producto seleccionado" : 
+                `${count} producto${count > 1 ? "s" : ""} en la orden`;
         }
 
         function filterProducts() {
             const search = document.getElementById("search-bar").value.toLowerCase().trim();
             const category = document.getElementById("class-filter").value;
+            const onlySelected = document.getElementById("only-selected").checked;
 
-            const filtered = products.filter(p => 
+            let filtered = products.filter(p => 
                 p.name.toLowerCase().includes(search) && 
                 (category === "all" || p.category === category)
             );
+
+            if (onlySelected) {
+                filtered = filtered.filter(p => {
+                    const key = getKey(p.name);
+                    return state[key] && state[key].qty > 0;
+                });
+            }
+
             renderProducts(filtered);
         }
 
         function addNewProduct() {
             const name = document.getElementById("new-name").value.trim();
             const category = document.getElementById("new-category").value;
-            if (name) {
-                products.unshift({name: name.toUpperCase(), category: category});
-                renderProducts(products);
-                document.getElementById("new-name").value = "";
-            }
+            if (!name) return;
+
+            products.unshift({ name: name.toUpperCase(), category: category });
+            document.getElementById("new-name").value = "";
+            filterProducts();
+        }
+
+        function clearOrder() {
+            if (!confirm("¿Seguro que quieres limpiar toda la orden?")) return;
+            state = {};
+            saveToLocalStorage();
+            filterProducts();
         }
 
         function downloadExcel() {
-            let csv = "Producto,Cantidad,Unidad,Notas\n";
+            let csv = "Grupo,Producto,Unidad,Cantidad,Notas\n";
             products.forEach(p => {
                 const key = getKey(p.name);
                 const saved = state[key];
                 if (saved && saved.qty > 0) {
-                    csv += `"${p.name}",${saved.qty},"${saved.unit}","${saved.note || ''}"\n`;
+                    csv += `"${p.category}","${p.name}","${saved.unit}",${saved.qty},"${saved.note || ""}"\n`;
                 }
             });
             const blob = new Blob([csv], { type: "text/csv" });
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.download = `Orden_Operacion_${new Date().toISOString().slice(0,10)}.csv`;
+            link.download = `Orden_${new Date().toISOString().slice(0,10)}.csv`;
             link.click();
         }
 
         function sendToWhatsApp() {
+            const selected = products.filter(p => {
+                const key = getKey(p.name);
+                return state[key] && state[key].qty > 0;
+            });
+
+            if (selected.length === 0) {
+                alert("No hay productos en la orden");
+                return;
+            }
+
+            if (!confirm(`¿Enviar orden con ${selected.length} productos?`)) return;
+
             let name = prompt("Nombre del Chef / Responsable:");
             if (!name) return;
-            let msg = `📋 *Orden de Compra - OPERACIÓN Fresh Prime*\n👤 *Responsable:* ${name}\n📅 ${document.getElementById("dynamic-timestamp").textContent}\n\n`;
-            products.forEach(p => {
+
+            let msg = `*ORDEN DE COMPRA - OPERACIÓN*\n`;
+            msg += `Fresh Prime\n\n`;
+            msg += `👤Responsable: ${name}\n`;
+            msg += `📆Fecha: ${document.getElementById("dynamic-timestamp").textContent}\n\n`;
+            msg += `🍓*PRODUCTOS:*\n\n`;
+
+            selected.forEach(p => {
                 const key = getKey(p.name);
                 const saved = state[key];
-                if (saved && saved.qty > 0) {
-                    msg += `• ${p.name} → ${saved.qty} ${saved.unit}\n`;
-                    if (saved.note) msg += `   Nota: ${saved.note}\n`;
+                msg += `• ${p.name}\n`;
+                msg += `  ${saved.qty} ${saved.unit}  |  ${p.category}\n`;
+                if (saved.note) {
+                    msg += `  Nota: ${saved.note}\n`;
                 }
+                msg += `\n`;
             });
-            window.open(`https://wa.me/524427765565?text=${encodeURIComponent(msg)}`, '_blank');
+
+            window.open(`https://wa.me/524427765565?text=${encodeURIComponent(msg)}`, "_blank");
         }
 
         window.onload = function() {
-            document.getElementById("dynamic-timestamp").textContent = new Date().toLocaleDateString('es-MX', {day:'numeric', month:'long', year:'numeric'});
+            document.getElementById("dynamic-timestamp").textContent = new Date().toLocaleDateString("es-MX", {
+                day: "numeric", month: "long", year: "numeric"
+            });
+
             renderProducts(products);
 
             document.getElementById("search-bar").addEventListener("input", filterProducts);
