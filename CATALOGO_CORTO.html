@@ -10,145 +10,174 @@
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
 
         body {
-            background: linear-gradient(135deg, #083645, #032425, #416858, #057BC1);
-            background-size: 400% 400%;
-            animation: gradientAnimation 20s ease infinite;
+            background: #0f2a2e;
             color: #F8F4ED;
             min-height: 100vh;
-            padding: 15px;
-            padding-bottom: 90px;
-        }
-        @keyframes gradientAnimation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-
-        .cover-page, .container { 
-            background: linear-gradient(135deg, rgba(9,51,44,0.45), rgba(65,104,88,0.5)); 
-            backdrop-filter: blur(16px); 
-            border-radius: 24px; 
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6); 
-            border: 1px solid rgba(140,186,127,0.4); 
-        }
-        .cover-page { padding: 30px; margin-bottom: 20px; text-align:center; }
-        .logo { max-width: 170px; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.5)); }
-
-        .product-table { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 16px; 
-        }
-        .product-card { 
-            background: rgba(3,36,37,0.7); 
-            padding: 18px; 
-            border-radius: 20px; 
-            border: 1px solid rgba(140,186,127,0.35); 
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: -100%;
-            left: -50%;
-            width: 50px;
-            height: 300%;
-            background: linear-gradient(transparent, rgba(255,255,255,0.25), transparent);
-            transform: rotate(30deg);
-            transition: all 0.8s;
-            opacity: 0;
-        }
-        .product-card:hover::before { left: 150%; opacity: 1; }
-        .product-card:hover {
-            transform: translateY(-10px) scale(1.04);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.55);
-            border-color: #A8D39A;
+            padding: 16px;
+            padding-bottom: 100px;
         }
 
-        h3 { font-size: 16px; margin-bottom: 8px; transition: color 0.3s; }
-        .product-card:hover h3 { color: #A8D39A; }
+        .cover-page {
+            background: #163a3f;
+            border-radius: 16px;
+            padding: 28px 20px;
+            margin-bottom: 18px;
+            text-align: center;
+            border: 1px solid #2a5a52;
+        }
+        .logo { max-width: 150px; margin-bottom: 12px; }
+        .cover-page h1 { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+        .cover-page p { font-size: 14px; opacity: 0.85; }
 
-        .quantity-input, .unit-select {
-            width: 100%;
-            padding: 11px;
-            margin: 6px 0;
-            background: #021c1d;
-            color: #F8F4ED;
-            border: 1px solid #8CBA7F;
-            border-radius: 10px;
+        .container {
+            background: #163a3f;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #2a5a52;
+        }
+
+        .section-box {
+            background: #1c454b;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid #2d5e56;
+        }
+
+        .section-box h3 {
             font-size: 15px;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 11px 12px;
+            margin: 5px 0;
+            background: #0f2a2e;
+            color: #F8F4ED;
+            border: 1px solid #3a6b62;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .product-table {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .product-card {
+            background: #1c454b;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #2d5e56;
+        }
+        .product-card h3 {
+            font-size: 14px;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        .product-card p {
+            font-size: 12px;
+            opacity: 0.75;
+            margin-bottom: 8px;
         }
 
         .notes-btn {
             width: 100%;
-            padding: 11px;
-            margin-top: 8px;
-            background: linear-gradient(45deg, #8CBA7F, #5E9C6A);
+            padding: 9px;
+            margin-top: 6px;
+            background: #2d6a5a;
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 13px;
             font-weight: 500;
-            transition: all 0.3s;
         }
-        .notes-btn:hover {
-            transform: scale(1.06);
-            background: linear-gradient(45deg, #A8D39A, #7EB88A);
-        }
+        .notes-btn:hover { background: #3a7d6a; }
 
         .notes-input {
             width: 100%;
-            padding: 10px;
-            margin-top: 8px;
+            padding: 9px;
+            margin-top: 6px;
             display: none;
-            background: #021c1d;
+            background: #0f2a2e;
             color: #F8F4ED;
-            border: 1px solid #8CBA7F;
-            border-radius: 10px;
+            border: 1px solid #3a6b62;
+            border-radius: 8px;
+            font-size: 13px;
         }
 
-        .buttons button, .action-btn {
-            padding: 14px 22px;
-            margin: 6px;
-            background: linear-gradient(45deg, #8CBA7F, #00664D);
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .buttons button {
+            padding: 12px 20px;
+            background: #2d6a5a;
             color: white;
             border: none;
-            border-radius: 14px;
+            border-radius: 10px;
             cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 14px;
         }
-        .buttons button:hover, .action-btn:hover {
-            transform: translateY(-3px);
-        }
-
-        .danger-btn {
-            background: linear-gradient(45deg, #e74c3c, #c0392b) !important;
-        }
+        .buttons button:hover { background: #3a7d6a; }
+        .danger-btn { background: #8b3a3a !important; }
+        .danger-btn:hover { background: #a34545 !important; }
 
         #go-to-summary {
             position: fixed;
-            bottom: 25px;
-            right: 25px;
+            bottom: 22px;
+            right: 22px;
             z-index: 999;
-            padding: 16px 22px;
-            border-radius: 50px;
-            background: linear-gradient(45deg, #8CBA7F, #00664D);
+            padding: 13px 18px;
+            border-radius: 30px;
+            background: #2d6a5a;
             color: white;
             border: none;
-            font-weight: 600;
-            font-size: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.45);
+            font-weight: 500;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.35);
             cursor: pointer;
         }
 
         .counter {
             text-align: center;
-            margin: 15px 0;
-            font-size: 16px;
-            font-weight: 500;
-            color: #A8D39A;
+            margin: 12px 0;
+            font-size: 14px;
+            color: #8fbc8f;
         }
 
-        @media (max-width: 480px) {
+        #resumen-section {
+            margin-top: 24px;
+            padding: 16px;
+            background: #1c454b;
+            border-radius: 12px;
+            border: 1px solid #2d5e56;
+        }
+        #resumen-section h2 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        th, td {
+            padding: 8px 6px;
+            text-align: left;
+            border-bottom: 1px solid #2d5e56;
+        }
+        th { color: #8fbc8f; font-weight: 500; }
+
+        @media (max-width: 520px) {
             .product-table { grid-template-columns: 1fr; }
         }
     </style>
@@ -157,33 +186,18 @@
 
     <div class="cover-page">
         <img class="logo" src="https://i.imgur.com/EZ5QUew.png" alt="Fresh Prime">
-        <h1>ORDEN DE COMPRA - OPERACIÓN</h1>
-        <p>Para Chefs y Cocina • Solo Cantidades</p>
-        <p id="dynamic-timestamp"></p>
+        <h1>ORDEN DE COMPRA</h1>
+        <p>Operación • Solo cantidades</p>
+        <p id="dynamic-timestamp" style="margin-top:6px; font-size:13px;"></p>
     </div>
 
-    <div class="container" style="padding:20px;">
-        
-        <!-- Agregar Producto -->
-        <div style="margin:15px 0; padding:15px; background:rgba(255,255,255,0.1); border-radius:12px;">
-            <h3>➕ Agregar Producto Nuevo</h3>
-            <input type="text" id="new-name" placeholder="Nombre del producto" style="width:58%; padding:10px; border-radius:8px; border:none;">
-            <select id="new-category" style="width:38%; padding:10px; border-radius:8px;">
-                <option value="Abarrotes">Abarrotes</option>
-                <option value="Proteinas">Proteínas</option>
-                <option value="Frutas y Verduras">Frutas y Verduras</option>
-                <option value="Lacteos">Lácteos</option>
-                <option value="Chiles, semillas y especias">Chiles y Especias</option>
-                <option value="Otros">Otros</option>
-            </select>
-            <button onclick="addNewProduct()" style="width:100%; margin-top:8px;" class="action-btn">Agregar a la Lista</button>
-        </div>
+    <div class="container">
 
-        <!-- Filtros -->
-        <div style="text-align:center; margin:15px 0;">
-            <input type="text" id="search-bar" placeholder="🔎 Buscar producto..." style="width:55%; padding:12px; border-radius:10px; border:none;">
-            <select id="class-filter" style="padding:12px; width:28%; border-radius:10px;">
-                <option value="all">Todos</option>
+        <!-- Filtros / Buscador -->
+        <div class="section-box">
+            <input type="text" id="search-bar" placeholder="Buscar producto...">
+            <select id="class-filter" style="margin-top:8px;">
+                <option value="all">Todos los grupos</option>
                 <option value="Abarrotes">Abarrotes</option>
                 <option value="Proteinas">Proteínas</option>
                 <option value="Frutas y Verduras">Frutas y Verduras</option>
@@ -191,10 +205,26 @@
                 <option value="Chiles, semillas y especias">Chiles y Especias</option>
                 <option value="Otros">Otros</option>
             </select>
-            <br>
-            <label style="margin-top:12px; display:inline-block;">
+            <label style="display:block; margin-top:10px; font-size:13px;">
                 <input type="checkbox" id="only-selected" onchange="filterProducts()"> Solo productos con cantidad
             </label>
+        </div>
+
+        <!-- Agregar Producto Nuevo -->
+        <div class="section-box">
+            <h3>Agregar producto nuevo</h3>
+            <input type="text" id="new-name" placeholder="Nombre del producto">
+            <select id="new-category" style="margin-top:6px;">
+                <option value="Abarrotes">Abarrotes</option>
+                <option value="Proteinas">Proteínas</option>
+                <option value="Frutas y Verduras">Frutas y Verduras</option>
+                <option value="Lacteos">Lácteos</option>
+                <option value="Chiles, semillas y especias">Chiles y Especias</option>
+                <option value="Otros">Otros</option>
+            </select>
+            <button onclick="addNewProduct()" style="width:100%; margin-top:10px; padding:11px; background:#2d6a5a; color:white; border:none; border-radius:8px; font-weight:500; cursor:pointer;">
+                Agregar a la lista
+            </button>
         </div>
 
         <div class="counter" id="product-counter">0 productos en la orden</div>
@@ -202,13 +232,13 @@
         <div class="product-table" id="product-list"></div>
 
         <!-- Resumen -->
-        <div id="resumen-section" style="margin-top:30px; padding:15px; background:rgba(3,36,37,0.4); border-radius:15px;">
-            <h2>Resumen de Orden</h2>
-            <table id="resumen-table" style="width:100%; border-collapse:collapse; margin-top:10px;">
+        <div id="resumen-section">
+            <h2>Resumen de la orden</h2>
+            <table>
                 <thead>
                     <tr>
-                        <th style="text-align:left; padding:8px;">Producto</th>
-                        <th>Cantidad</th>
+                        <th>Producto</th>
+                        <th>Cant.</th>
                         <th>Unidad</th>
                         <th>Grupo</th>
                         <th>Notas</th>
@@ -218,20 +248,19 @@
             </table>
         </div>
 
-        <div class="buttons" style="text-align:center; margin-top:25px;">
-            <button onclick="downloadExcel()">📊 Descargar Excel</button>
-            <button onclick="copyResumen()">📋 Copiar Resumen</button>
-            <button onclick="sendToWhatsApp()">📱 Enviar WhatsApp</button>
-            <button onclick="clearOrder()" class="danger-btn">🗑️ Limpiar Todo</button>
+        <div class="buttons">
+            <button onclick="downloadExcel()">Descargar Excel</button>
+            <button onclick="sendToWhatsApp()">Enviar WhatsApp</button>
+            <button onclick="clearOrder()" class="danger-btn">Limpiar todo</button>
         </div>
     </div>
 
-    <!-- Botón flotante -->
-    <button id="go-to-summary" onclick="document.getElementById('resumen-section').scrollIntoView({behavior: 'smooth'})">
-        📋 Resumen
+    <button id="go-to-summary" onclick="document.getElementById('resumen-section').scrollIntoView({behavior:'smooth'})">
+        Resumen
     </button>
 
     <script>
+        // Solo 3 productos de ejemplo — agrega el resto aquí
         let products = [
     {name: "ACAI EN POLVO", category: "Abarrotes"},
     {name: "ACEITE 1LT 123", category: "Abarrotes"},
@@ -622,9 +651,8 @@
     {name: "SURIMI", category: "Proteinas"},
     {name: "T-BONE DE RES", category: "Proteinas"},
     {name: "TOCINO", category: "Proteinas"}
-];
+        ];
 
-        // ================== ESTADO + LOCALSTORAGE ==================
         let state = JSON.parse(localStorage.getItem("freshprime_order_state") || "{}");
 
         function getKey(name) {
@@ -645,10 +673,9 @@
 
                 const card = document.createElement("div");
                 card.className = "product-card";
-                card.setAttribute("data-category", p.category);
                 card.innerHTML = `
                     <h3>${p.name}</h3>
-                    <p style="font-size:13px; opacity:0.85;"><strong>Categoría:</strong> ${p.category}</p>
+                    <p>${p.category}</p>
                     <input type="number" class="quantity-input" step="0.01" min="0" value="${saved.qty}" onchange="saveState(this)">
                     <select class="unit-select" onchange="saveState(this)">
                         <option value="Kilo" ${saved.unit==="Kilo"?"selected":""}>Kilo</option>
@@ -657,8 +684,8 @@
                         <option value="Litro" ${saved.unit==="Litro"?"selected":""}>Litro</option>
                         <option value="Paquete" ${saved.unit==="Paquete"?"selected":""}>Paquete</option>
                     </select>
-                    <button class="notes-btn" onclick="toggleNotes(this)">Agregar Nota</button>
-                    <input type="text" class="notes-input" placeholder="Notas..." value="${saved.note}" onkeyup="saveState(this)">
+                    <button class="notes-btn" onclick="toggleNotes(this)">Agregar nota</button>
+                    <input type="text" class="notes-input" placeholder="Escribe la nota..." value="${saved.note}" onkeyup="saveState(this)">
                 `;
                 container.appendChild(card);
             });
@@ -697,16 +724,18 @@
                     count++;
                     const row = tbody.insertRow();
                     row.innerHTML = `
-                        <td style="text-align:left; padding:8px;">${p.name}</td>
+                        <td>${p.name}</td>
                         <td>${saved.qty}</td>
                         <td>${saved.unit}</td>
                         <td>${p.category}</td>
-                        <td>${saved.note || '—'}</td>
+                        <td>${saved.note || "—"}</td>
                     `;
                 }
             });
 
-            document.getElementById("product-counter").textContent = `${count} producto${count !== 1 ? 's' : ''} en la orden`;
+            document.getElementById("product-counter").textContent = 
+                count === 0 ? "Ningún producto seleccionado" : 
+                `${count} producto${count > 1 ? "s" : ""} en la orden`;
         }
 
         function filterProducts() {
@@ -732,11 +761,11 @@
         function addNewProduct() {
             const name = document.getElementById("new-name").value.trim();
             const category = document.getElementById("new-category").value;
-            if (name) {
-                products.unshift({name: name.toUpperCase(), category: category});
-                renderProducts(products);
-                document.getElementById("new-name").value = "";
-            }
+            if (!name) return;
+
+            products.unshift({ name: name.toUpperCase(), category: category });
+            document.getElementById("new-name").value = "";
+            filterProducts();
         }
 
         function clearOrder() {
@@ -744,7 +773,6 @@
             state = {};
             saveToLocalStorage();
             filterProducts();
-            alert("Orden limpiada");
         }
 
         function downloadExcel() {
@@ -753,28 +781,14 @@
                 const key = getKey(p.name);
                 const saved = state[key];
                 if (saved && saved.qty > 0) {
-                    csv += `"${p.name}",${saved.qty},"${saved.unit}","${p.category}","${saved.note || ''}"\n`;
+                    csv += `"${p.name}",${saved.qty},"${saved.unit}","${p.category}","${saved.note || ""}"\n`;
                 }
             });
             const blob = new Blob([csv], { type: "text/csv" });
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.download = `Orden_Operacion_${new Date().toISOString().slice(0,10)}.csv`;
+            link.download = `Orden_${new Date().toISOString().slice(0,10)}.csv`;
             link.click();
-        }
-
-        function copyResumen() {
-            let text = "PRODUCTO\tCANTIDAD\tUNIDAD\tGRUPO\tNOTAS\n";
-            products.forEach(p => {
-                const key = getKey(p.name);
-                const saved = state[key];
-                if (saved && saved.qty > 0) {
-                    text += `${p.name}\t${saved.qty}\t${saved.unit}\t${p.category}\t${saved.note || ''}\n`;
-                }
-            });
-            navigator.clipboard.writeText(text).then(() => {
-                alert("Resumen copiado al portapapeles");
-            });
         }
 
         function sendToWhatsApp() {
@@ -793,21 +807,30 @@
             let name = prompt("Nombre del Chef / Responsable:");
             if (!name) return;
 
-            let msg = `📋 *Orden de Compra - OPERACIÓN Fresh Prime*\n👤 *Responsable:* ${name}\n📅 ${document.getElementById("dynamic-timestamp").textContent}\n\n`;
+            // Mensaje limpio y ordenado
+            let msg = `*ORDEN DE COMPRA - OPERACIÓN*\n`;
+            msg += `Fresh Prime\n\n`;
+            msg += `Responsable: ${name}\n`;
+            msg += `Fecha: ${document.getElementById("dynamic-timestamp").textContent}\n\n`;
+            msg += `*PRODUCTOS:*\n\n`;
 
             selected.forEach(p => {
                 const key = getKey(p.name);
                 const saved = state[key];
-                msg += `• ${p.name} (${p.category}) → ${saved.qty} ${saved.unit}\n`;
-                if (saved.note) msg += `   Nota: ${saved.note}\n`;
+                msg += `• ${p.name}\n`;
+                msg += `  ${saved.qty} ${saved.unit}  |  ${p.category}\n`;
+                if (saved.note) {
+                    msg += `  Nota: ${saved.note}\n`;
+                }
+                msg += `\n`;
             });
 
-            window.open(`https://wa.me/524427765565?text=${encodeURIComponent(msg)}`, '_blank');
+            window.open(`https://wa.me/524427765565?text=${encodeURIComponent(msg)}`, "_blank");
         }
 
         window.onload = function() {
-            document.getElementById("dynamic-timestamp").textContent = new Date().toLocaleDateString('es-MX', {
-                day: 'numeric', month: 'long', year: 'numeric'
+            document.getElementById("dynamic-timestamp").textContent = new Date().toLocaleDateString("es-MX", {
+                day: "numeric", month: "long", year: "numeric"
             });
 
             renderProducts(products);
